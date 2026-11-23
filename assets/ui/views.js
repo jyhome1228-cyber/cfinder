@@ -83,7 +83,7 @@ function intro({ assessment, attempt, storageAvailable }) {
       </div>
       <div class="experience-note"><div><strong>3문항 화면 체험</strong><span>정식 문항과 채점은 연결되지 않았습니다.</span></div></div>
       <div class="actions"><a class="btn btn-outline" href="#start">학교급 다시 선택</a><button type="button" class="btn btn-primary" data-action="begin">${count ? '이어서 응답하기' : '응답 시작하기'}</button></div>
-      ${storageNotice(storageAvailable)}
+      ${!storageAvailable ? storageNotice(false) : ''}
     </section>
   </div>`;
 }
@@ -105,7 +105,7 @@ function question(route, { assessment, attempt, storageAvailable }) {
       </fieldset>
       <div class="actions"><button class="btn btn-outline" type="button" data-action="previous" data-index="${route.index}">${route.fromReview ? '검토로 돌아가기' : route.index === 0 ? '검사 안내' : '이전 문항'}</button><button class="btn btn-primary" type="button" data-action="next" data-index="${route.index}" ${answer === undefined ? 'disabled' : ''}>${nextLabel}</button></div>
       <div class="question-utility"><a class="text-link" href="#start">나가기</a></div>
-      ${storageNotice(storageAvailable)}<span class="sr-only" id="response-status" role="status" aria-live="polite"></span>
+      ${!storageAvailable ? storageNotice(false) : ''}<span class="sr-only" id="response-status" role="status" aria-live="polite"></span>
     </section>
   </div>`;
 }
@@ -123,7 +123,7 @@ function review({ assessment, attempt, storageAvailable }) {
         return `<li class="review-item ${!answer ? 'is-unanswered' : ''}"><div class="review-meta"><span>${i + 1}번</span><span>${e(DOMAINS[q.domain].label)}</span></div><div class="review-copy"><h2>${e(q.text)}</h2><p>${answer ? e(answer.label) : '<span class="unanswered">아직 응답하지 않았어요</span>'}</p></div><button class="text-button" type="button" data-action="edit" data-index="${i}" aria-label="${i + 1}번 문항 ${answer ? '수정하기' : '응답하기'}">${answer ? '수정하기' : '응답하기'}</button></li>`;
       }).join('')}</ol>
       <div class="actions"><button class="btn btn-outline" type="button" data-action="last-question">마지막 문항으로</button><button class="btn btn-primary" type="button" data-action="complete" ${!complete ? 'disabled' : ''}>체험 완료하기</button></div>
-      ${storageNotice(storageAvailable)}
+      ${!storageAvailable ? storageNotice(false) : ''}
     </section>
   </div>`;
 }
