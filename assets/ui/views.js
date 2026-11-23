@@ -23,7 +23,7 @@ function header(route, tenant) {
     </a>
     <nav class="main-nav" aria-label="주 메뉴">
       <a href="#start" ${['start', 'intro', 'test', 'review', 'result'].includes(route.page) ? 'aria-current="page"' : ''}>진단 시작하기</a>
-      <a href="#report" ${route.page === 'report' ? 'aria-current="page"' : ''}>결과지 미리보기</a>
+      <a href="./about/">검사 소개</a>
       <a href="#institutions" ${route.page === 'institutions' ? 'aria-current="page"' : ''}>기관 도입</a>
     </nav><span class="version-badge">${tenant.isPreview ? '기관 체험' : '체험판'}</span>
   </div></header>`;
@@ -32,7 +32,7 @@ function header(route, tenant) {
 function footer(tenant) {
   return `<footer class="site-footer"><div class="footer-inner">
     <div class="footer-top"><div class="footer-brand"><strong>C-Finder</strong><span>나를 이해하고, 나의 다음을 찾다.</span></div>
-      <nav class="footer-nav" aria-label="하단 메뉴"><a href="#start">진단 시작하기</a><a href="#report">결과지 미리보기</a><a href="#institutions">기관 도입</a></nav>
+      <nav class="footer-nav" aria-label="하단 메뉴"><a href="#start">진단 시작하기</a><a href="./about/">검사 소개</a><a href="#report">결과지 미리보기</a><a href="#institutions">기관 도입</a></nav>
     </div>
     <div class="footer-bottom"><p>© 사자가온다(주)${tenant.isPreview ? ` · ${e(tenant.organizationName)} 화면 예시` : ''}</p><p>흥미 · 적성 · 가치관</p></div>
   </div></footer>`;
@@ -170,7 +170,7 @@ function institutions({ tenant }) {
       </div>
     </div>
     <div class="institution-grid"><section class="institution-card"><span class="section-kicker">공통으로 제공하는 경험</span><h2>하나의 C-Finder 검사</h2><p>어떤 기관에서 시작하더라도<br> 학생은 같은 검사 흐름을 경험해요.</p><ul class="feature-list"><li>학교급에 맞는 검사 선택</li><li>흥미 · 적성 · 가치관 문항 응답</li><li>응답 검토와 결과 확인</li><li>모바일과 PC에서 같은 흐름</li></ul></section><section class="institution-card"><span class="section-kicker">기관에 맞게 설정하는 영역</span><h2>기관만의 시작 화면</h2><p>학생에게 익숙한 기관의 이름으로<br> 자연스럽게 검사를 안내해요.</p><ul class="feature-list"><li>기관 이름과 브랜드 색상</li><li>학생에게 전하는 안내 문구</li><li>기관별 검사 시작 주소</li></ul><p class="save-note">위 체험 버튼에서 실제로 설정을 바꾼 화면을 확인할 수 있어요.</p></section></div>
-    <section class="institution-next"><div><span class="section-kicker">기관 도입 준비</span><h2>운영에 필요한 내용은<br> 함께 정해요.</h2></div><dl><div><dt>학생 참여 방식</dt><dd>기관에서 학생에게 검사를 안내하고 참여시키는 방법</dd></div><div><dt>결과 열람 범위</dt><dd>학생과 담당자가 각각 확인할 수 있는 정보</dd></div><div><dt>기관 운영 화면</dt><dd>검사 진행 현황과 기관 보고서의 구성</dd></div></dl></section>`;
+    <section class="institution-next"><div><span class="section-kicker">기관 도입 준비</span><h2>운영에 필요한 내용은<br> 함께 정해요.</h2><a class="text-link" href="./about/#contact">기관 도입 문의하기</a></div><dl><div><dt>학생 참여 방식</dt><dd>기관에서 학생에게 검사를 안내하고 참여시키는 방법</dd></div><div><dt>결과 열람 범위</dt><dd>학생과 담당자가 각각 확인할 수 있는 정보</dd></div><div><dt>기관 운영 화면</dt><dd>검사 진행 현황과 기관 보고서의 구성</dd></div></dl></section>`;
 }
 
 export function renderView(route, context) {
