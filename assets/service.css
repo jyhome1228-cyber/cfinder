@@ -236,3 +236,11 @@
  .lab-faq-intro>a{display:inline-flex;min-height:44px;align-items:center;margin-bottom:12px}
  .lab-faq-list summary{padding-block:18px}
 }
+
+/* Expanded FAQ: two concise paragraphs, stable shared width. */
+.lab-faq-list .lab-faq-answer{padding:0 28px 20px 0;max-width:760px}
+.lab-faq-list .lab-faq-answer p{font-size:.9375rem;line-height:1.82;color:#52627e;padding:0;margin:0}
+.lab-faq-list .lab-faq-answer p+p{margin-top:12px}
+.lab-faq-list .lab-faq-answer a{font-size:inherit;color:#1957ef;font-weight:650;text-decoration:underline;text-underline-offset:4px;margin:0}
+.lab-faq-list summary{font-weight:680}
+@media(max-width:760px){.lab-faq-list .lab-faq-answer{padding-right:8px}.lab-faq-list .lab-faq-answer p{font-size:.9375rem;line-height:1.8}}

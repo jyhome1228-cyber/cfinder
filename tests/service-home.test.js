@@ -24,7 +24,9 @@ test('expanded homepage sections preserve a common CTA and FAQ structure',()=>{
  assert.match(html,/class="lab-cta-heading"/);
  assert.match(html,/class="lab-audience-grid"/);
  assert.match(html,/class="lab-faq-list"/);
- assert.equal((html.match(/<details>/g)||[]).length,5);
- assert.ok(html.includes('대학생용 정식 검사는 준비 전'));
+ assert.equal((html.match(/<details>/g)||[]).length,8);
+ assert.ok(html.includes('정식 대학생 검사는 아직 제공하지 않습니다'));
  assert.ok(html.includes('학교 도입 문의하기'));
 });
+
+test('FAQ covers assessment, results, privacy and school onboarding without inventing service status',()=>{const html=renderHome(context);for(const item of ['27개','13개','9개','학교 도입 문의하기','개인 점수나 진로 유형을 자동으로 산출하지 않습니다','자동 접수가 아닌 메일 작성 방식'])assert.ok(html.includes(item));});

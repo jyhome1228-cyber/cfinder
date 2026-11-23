@@ -68,13 +68,16 @@ export function renderHome({tenant,storageAvailable}){
    </div>
  </section>
  <section class="lab-faq" aria-labelledby="lab-faq-title">
-   <div class="lab-faq-intro"><h2 id="lab-faq-title" class="lab-section-heading">자주 묻는 질문</h2><p>검사 이용과 결과에 대한 안내</p><a href="./about/#contact">학교 도입 문의하기</a></div>
+   <div class="lab-faq-intro"><h2 id="lab-faq-title" class="lab-section-heading">자주 묻는 질문</h2><p>검사 이용부터 결과 확인, 학교 도입까지 안내합니다.</p><a href="./about/#contact">학교 도입 문의하기</a></div>
    <div class="lab-faq-list">
-     <details><summary>누가 검사할 수 있나요?</summary><p>중학생용·고등학생용·대학생용을 선택할 수 있습니다. 현재 세 가지 모두 3문항 화면 체험이며 대학생용 정식 검사는 준비 전입니다.</p></details>
-     <details><summary>검사는 얼마나 걸리나요?</summary><p>정식 C-Finder는 약 10분을 기준으로 설계됐습니다. 현재 공개된 화면 체험은 학교급별 예시 문항 3개입니다.</p></details>
-     <details><summary>검사 결과는 어떻게 확인하나요?</summary><p>현재 체험에서는 점수와 진로 유형을 계산하지 않습니다. <a href="#report">결과 예시</a>에서 흥미·적성·가치관 분석과 추천 직업이 포함된 고등학생용 샘플 보고서를 확인할 수 있습니다.</p></details>
-     <details><summary>응답을 중간에 저장할 수 있나요?</summary><p>같은 브라우저 탭에서 응답을 임시 저장하고 이어서 할 수 있습니다. 탭을 닫거나 기기를 변경하면 응답이 유지되지 않을 수 있습니다.</p></details>
-     <details><summary>학교·기관에서 도입하려면?</summary><p>대상 학년, 예상 참여 인원, 희망 일정 등을 <a href="./about/#contact">도입 문의</a>에 남겨 주세요. 비용과 운영 방식은 별도 확인이 필요합니다.</p></details>
+     <details><summary>누가 검사할 수 있나요?</summary><div class="lab-faq-answer"><p>C-Finder는 중학생과 고등학생의 진로 탐색을 위해 개발된 검사입니다. 학교급에 맞게 문항을 별도로 구성했습니다.</p><p>현재 사이트에서는 중학생용·고등학생용·대학생용 화면을 체험할 수 있습니다. 대학생용은 별도 예시 문항으로 준비한 체험 화면이며 정식 대학생 검사는 아직 제공하지 않습니다.</p></div></details>
+     <details><summary>검사에는 얼마나 시간이 걸리나요?</summary><div class="lab-faq-answer"><p>정식 C-Finder는 흥미·적성·가치관을 한 번에 살펴보는 약 10분 단축형 검사로 기획됐습니다. 중학생용과 고등학생용이 별도로 구성됩니다.</p><p>현재 웹사이트에서 실행하는 검사는 학교급별 3개의 예시 문항으로, 실제 전체 검사 분량과는 다릅니다.</p></div></details>
+     <details><summary>어떤 내용을 검사하나요?</summary><div class="lab-faq-answer"><p>흥미는 좋아하고 관심을 느끼는 분야, 적성은 강점을 보이는 능력, 가치관은 일과 진로를 선택할 때 중요하게 생각하는 기준을 살펴봅니다.</p><p>제공된 고등학생용 샘플 보고서에는 흥미 27개, 적성 13개, 가치관 9개 하위 요인의 점수와 해석이 포함돼 있습니다. 이 수치는 문항 수가 아니라 분석 항목 수입니다.</p></div></details>
+     <details><summary>검사를 마치면 어떤 결과를 볼 수 있나요?</summary><div class="lab-faq-answer"><p>정식 결과지 예시에는 학생의 통합 진로 프로파일, 흥미·적성·가치관 분석, Holland RIASEC 기반 최종 진로 유형, 유형의 특징 및 추천 직업이 담겨 있습니다.</p><p>현재 3문항 화면 체험은 응답 과정만 확인하는 기능이며 개인 점수나 진로 유형을 자동으로 산출하지 않습니다. <a href="#report">샘플 결과지</a>에서 보고서 구성과 그래프를 확인할 수 있습니다.</p></div></details>
+     <details><summary>응답을 중간에 멈췄다가 다시 할 수 있나요?</summary><div class="lab-faq-answer"><p>현재 체험은 응답이 같은 브라우저 탭에 임시 저장됩니다. 화면을 이동하거나 같은 탭에서 새로고침한 후에도 이어서 진행할 수 있습니다.</p><p>탭을 닫거나 다른 기기로 이동하면 기록이 복원되지 않을 수 있습니다. 체험을 완료한 뒤 다시 응답하려면 새로 시작해야 합니다.</p></div></details>
+     <details><summary>학교에서 한 학급이 함께 이용할 수 있나요?</summary><div class="lab-faq-answer"><p>학교 도입을 검토할 때 대상 학년과 학급 수, 예상 학생 수, PC·태블릿·모바일 이용 환경, 희망 일정을 함께 확인합니다.</p><p>학급별 검사 링크 발급, 담당교사 관리 화면, 결과 열람 방식 등 실제 운영 기능은 도입 조건에 따라 협의가 필요합니다. 현재 공개된 화면 체험에 해당 기능이 모두 구현된 것은 아닙니다.</p></div></details>
+     <details><summary>학생 결과는 누가 확인할 수 있나요?</summary><div class="lab-faq-answer"><p>학생·교사·학부모가 각각 어떤 결과를 열람하고 공유할 수 있는지는 학교의 운영 방식과 개인정보 처리 기준에 따라 정해야 합니다.</p><p>현재 사이트의 화면 체험은 학생 이름이나 학교 정보를 입력받지 않으며, 정식 결과의 저장·공유 기능은 아직 연결되지 않았습니다.</p></div></details>
+     <details><summary>학교 도입 비용과 신청 방법은 어떻게 되나요?</summary><div class="lab-faq-answer"><p>학교급, 참여 인원, 이용 목적, 희망 일정 등을 알려주시면 도입 방식과 비용을 확인할 수 있습니다. 현재 공개된 확정 가격표는 없습니다.</p><p><a href="./about/#contact">학교 도입 문의하기</a>에서 문의 내용을 작성하고 메일로 전송할 수 있습니다. 문의 폼은 아직 자동 접수가 아닌 메일 작성 방식입니다.</p></div></details>
    </div>
  </section>
  </div>`;
