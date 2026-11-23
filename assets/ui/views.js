@@ -1,5 +1,6 @@
 import { ASSESSMENTS, DOMAINS } from '../data/assessments.js';
-import { renderHome, homeMotif } from './home.js';
+import { renderHome } from './home.js';
+import { renderSampleReport } from './sample-report.js';
 import { countAnswered, isComplete } from '../core/assessment.js';
 import { getResultSummary } from '../services/results.js';
 import { escapeHtml as e, domainIcon } from './html.js';
@@ -135,7 +136,7 @@ function result({ assessment, attempt }) {
       <h1 id="page-heading" tabindex="-1">나를 알아보는 첫걸음을 마쳤어요.</h1><p class="page-description">${result.answeredCount}개의 예시 문항에 모두 응답했어요.<br> 흥미, 적성, 가치관을 살펴보는 과정은 어땠나요?</p>
       <div class="completed-summary">${Object.entries(DOMAINS).map(([id, d]) => `<div><span class="domain-icon">${domainIcon(id)}</span><strong>${d.label}</strong></div>`).join('')}</div>
       <p class="notice">체험용 응답은 진단 점수나 진로 유형으로 산출되지 않습니다.</p>
-      <div class="actions"><a class="btn btn-outline" href="#home">처음 화면으로</a><a class="btn btn-primary" href="#report">결과지 구성 살펴보기</a></div>
+      <div class="actions"><a class="btn btn-outline" href="#home">처음 화면으로</a><a class="btn btn-primary" href="#report">샘플 결과지 보기</a></div>
       <details class="answer-receipt"><summary>내가 응답한 내용 보기</summary><ul>${assessment.questions.map(q => `<li><strong>${e(q.text)}</strong><span>${e(assessment.options.find(o => o.value === attempt.answers[q.id]).label)}</span></li>`).join('')}</ul></details>
       <button type="button" class="text-button restart-button" data-action="request-restart">새로 체험하기</button>
     </section>
@@ -143,19 +144,7 @@ function result({ assessment, attempt }) {
 }
 
 function report() {
-  return `<section class="page-intro report-intro"><h1 id="page-heading" tabindex="-1">나의 여러 모습을,<br> 하나의 진로 리포트로.</h1><p class="page-description">나의 특성을 이해하고 다음 탐색을 생각할 수 있도록.<br> 결과지에 담길 내용을 먼저 살펴보세요.</p><p class="report-preview-note">결과지 구성 예시 · 실제 개인 결과 아님</p></section>
-    <div class="report-layout">
-      <aside class="report-guide"><div class="report-guide-heading"><span class="report-wordmark">C-Finder</span></div>
-        <div class="report-cover-art" aria-hidden="true">${homeMotif('interest')}${homeMotif('aptitude')}${homeMotif('values')}</div>
-        <p>나를 이해하는 단서가<br> 다음 탐색으로 이어지도록.</p><ul><li>나의 진로 프로필</li><li>흥미 · 적성 · 가치관</li><li>진로 탐색의 다음 단계</li></ul><a class="btn btn-outline" href="#start">진단 시작하기</a></aside>
-      <div class="report-sections">
-        <section class="report-card"><div class="panel-heading"><span class="section-kicker">나의 진로 프로필</span></div><h2>나를 설명하는 핵심 특성</h2><p>진로 유형과 핵심 키워드, 일상에서 드러나는 특징을 함께 살펴봐요.</p>
-          <dl class="report-outline"><div><dt>핵심 키워드</dt><dd>나의 특성을 간결하게 이해하는 단서</dd></div><div><dt>나의 특징</dt><dd>일상과 학습에서 나타나는 나의 모습</dd></div><div><dt>탐색 방향</dt><dd>앞으로 더 알아보고 경험할 주제</dd></div></dl>
-        </section>
-        <section class="report-card"><span class="section-kicker">영역별 이해</span><h2>좋아하는 것부터 중요한 것까지</h2><div class="report-domains">${Object.entries(DOMAINS).map(([id, d]) => `<article><span class="domain-icon">${domainIcon(id)}</span><div><h3>${d.label}</h3><p>${d.description}</p></div></article>`).join('')}</div></section>
-        <section class="report-card"><span class="section-kicker">다음 탐색</span><h2>알아본 나를, 새로운 경험으로</h2><p>나의 특성을 출발점으로 관심 분야와 직업을 탐색하고, 직접 해볼 활동을 찾아봐요.</p><div class="exploration-grid"><div><span>직업 탐색</span><strong>관심 분야 더 알아보기</strong><p>하는 일과 필요한 역량을 살펴봐요.</p></div><div><span>활동 탐색</span><strong>작은 경험 시작하기</strong><p>수업, 프로젝트, 체험으로 연결해요.</p></div></div></section>
-      </div>
-    </div>`;
+  return renderSampleReport();
 }
 
 function institutions({ tenant }) {

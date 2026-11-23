@@ -105,6 +105,12 @@ app.addEventListener('change', event => {
 });
 
 app.addEventListener('click', event => {
+  const reportJump = event.target.closest('button[data-sr-scroll]');
+  if (reportJump && parseRoute(location.hash).page === 'report') {
+    const target = app.querySelector('#' + reportJump.dataset.srScroll);
+    target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return;
+  }
   const button = event.target.closest('button[data-action]');
   if (!button || button.disabled) return;
   const action = button.dataset.action;
