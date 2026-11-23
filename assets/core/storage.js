@@ -43,7 +43,7 @@ export function createSessionStore(storageProvider = () => globalThis.sessionSto
     },
     loadGrade(tenantId) {
       const grade = read(`cfinder:active-grade:v2:${tenantId}`);
-      return grade === 'middle' || grade === 'high' ? grade : null;
+      return grade === 'middle' || grade === 'high' || grade === 'university' ? grade : null;
     },
     saveGrade(tenantId, grade) {
       return write(`cfinder:active-grade:v2:${tenantId}`, grade);

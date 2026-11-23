@@ -36,5 +36,10 @@ export const ASSESSMENTS = Object.freeze({
     { id: 'H-DEMO-01', domain: 'interest', text: '관심 있는 분야에 대해 스스로 자료를 찾아 탐색하는 편이다.' },
     { id: 'H-DEMO-02', domain: 'aptitude', text: '새로운 과제를 해결할 때 자신의 강점을 활용하려고 한다.' },
     { id: 'H-DEMO-03', domain: 'values', text: '진로를 선택할 때 내가 중요하게 생각하는 기준이 무엇인지 고민한다.' }
+  ]),
+  university: demoAssessment('university', '대학생용', '전공 경험과 관심 직무, 일에서 중요하게 생각하는 기준을 돌아봐요.', [
+    { id: 'U-DEMO-01', domain: 'interest', text: '전공이나 수업 밖에서도 관심 있는 직무에 대해 찾아보는 편이다.' },
+    { id: 'U-DEMO-02', domain: 'aptitude', text: '프로젝트를 수행하면서 내가 강점을 발휘하는 역할을 알아가고 있다.' },
+    { id: 'U-DEMO-03', domain: 'values', text: '취업이나 진로를 고민할 때 나에게 중요한 일의 조건을 생각해 본다.' }
   ])
 });

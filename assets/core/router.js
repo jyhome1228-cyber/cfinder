@@ -3,7 +3,7 @@ const FLOW_PAGES = new Set(['intro', 'test', 'review', 'result']);
 
 function gradeFrom(query) {
   const grade = new URLSearchParams(query).get('grade');
-  return grade === 'middle' || grade === 'high' ? { grade } : {};
+  return grade === 'middle' || grade === 'high' || grade === 'university' ? { grade } : {};
 }
 
 export function parseRoute(hash = '') {
@@ -22,7 +22,7 @@ export function parseRoute(hash = '') {
 export function withGrade(hash, grade) {
   const route = parseRoute(hash);
   if (!FLOW_PAGES.has(route.page)) return hash;
-  if (grade !== 'middle' && grade !== 'high') throw new Error('A school grade is required for assessment routes.');
+  if (grade !== 'middle' && grade !== 'high' && grade !== 'university') throw new Error('A school grade is required for assessment routes.');
   const [path, query = ''] = hash.split('?');
   const params = new URLSearchParams(query);
   params.set('grade', grade);

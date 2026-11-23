@@ -3,7 +3,7 @@
  * All updates return new objects; completed attempts are read-only.
  */
 const SCHEMA_VERSION = 2;
-const GRADES = new Set(['middle', 'high']);
+const GRADES = new Set(['middle', 'high', 'university']);
 const STATES = new Set(['in_progress', 'completed']);
 
 function isRecord(value) {

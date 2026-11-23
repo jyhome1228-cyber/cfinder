@@ -23,3 +23,6 @@
 .hero-report figcaption,.sample-caption,.report-panel figcaption,.report-tabs>span,.facts p,.domain-diagram p,.domain-diagram .diagram-caption,.grade-comparison>p,.consent-area>p{font-size:14px}
 #inquiry-draft{scroll-margin-top:105px}
 @media(max-width:650px){.report-tabs>span{font-size:12px}.hero-report figcaption{font-size:12px}.facts p{font-size:12px}.sample-caption{font-size:13px}.domain-diagram p{font-size:13px}.contact-explain{font-size:16px}}
+
+/* Remove ornamental micro-labels; preserve actual facts, form labels and consent. */
+.eyebrow, .visual-label, .section-label, .research-label, .page-label, .sample-tag, .sample-caption { display: none !important; }
