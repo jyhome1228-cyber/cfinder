@@ -1,4 +1,4 @@
-const PAGES = new Set(['home', 'intro', 'review', 'result', 'report', 'institutions']);
+const PAGES = new Set(['home', 'start', 'intro', 'review', 'result', 'report', 'institutions']);
 const FLOW_PAGES = new Set(['intro', 'test', 'review', 'result']);
 
 function gradeFrom(query) {

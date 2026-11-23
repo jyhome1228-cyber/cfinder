@@ -44,7 +44,7 @@ function render() {
     activeGrade = route.grade;
     storage.saveGrade(tenant.id, activeGrade);
   }
-  if (isFlow && (!assessment() || !currentAttempt())) return go('#home', { replace: true });
+  if (isFlow && (!assessment() || !currentAttempt())) return go('#start', { replace: true });
   if (isFlow && !route.grade) return go(location.hash, { replace: true });
   if (isFlow && currentAttempt().status === 'completed' && route.page !== 'result') {
     return go('#result', { replace: true });

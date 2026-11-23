@@ -1,5 +1,4 @@
 import { ASSESSMENTS } from '../data/assessments.js';
-import { countAnswered } from '../core/assessment.js';
 import { escapeHtml as e } from './html.js';
 
 const PERSPECTIVES = [
@@ -27,14 +26,6 @@ export function homeMotif(id, className = '') {
   return `<svg class="home-motif ${className}" viewBox="0 0 200 200" aria-hidden="true" focusable="false">${shapes[id] || shapes.interest}</svg>`;
 }
 
-function gradeChoice(assessment, attempt) {
-  const count = attempt ? countAnswered(attempt, assessment) : 0;
-  const completed = attempt?.status === 'completed';
-  const action = completed ? '완료한 체험 보기' : count ? '이어서 하기' : '시작하기';
-  const status = completed ? '응답 완료' : count ? `${count}문항 응답 중` : '';
-  return `<button class="home-grade-choice ${status ? 'has-progress' : ''}" type="button" data-action="select-grade" data-grade="${assessment.grade}" aria-label="${e(assessment.label)} ${completed || count ? action : '체험 시작하기'}"><span class="home-grade-name">${e(assessment.label)}</span><span class="home-grade-action">${action}</span>${status ? `<span class="home-grade-status">${status}</span>` : ''}</button>`;
-}
-
 function discoveryVisual() {
   return `<div class="home-discovery" role="img" aria-label="흥미는 펼쳐지는 꽃, 적성은 쌓아가는 블록, 가치관은 중심을 가진 마름모로 표현한 C-Finder의 세 가지 관점">
     <div class="home-discovery-stage" aria-hidden="true">
@@ -54,16 +45,15 @@ function reportVisual() {
     </div><p class="home-report-caption">개인 결과가 아닌 결과지 구성 예시입니다.</p></div>`;
 }
 
-export function renderHome({ tenant, attempts, storageAvailable, pathname = globalThis.location?.pathname || '/' }) {
+export function renderHome({ tenant, storageAvailable, pathname = globalThis.location?.pathname || '/' }) {
   const organizationUrl = `${pathname}?org=sample#home`;
   const publicUrl = `${pathname}#home`;
   return `<section class="home-hero" aria-labelledby="page-heading"><div class="home-hero-copy">
     <p class="home-eyebrow">${e(tenant.isPreview ? tenant.welcome : '중·고등학생을 위한 통합 진로검사')}</p>
     <h1 id="page-heading" tabindex="-1">나를 발견하는 시간,<br><span>나다운 미래의 시작.</span></h1>
     <p class="home-lead">좋아하는 일, 잘할 수 있는 일, 중요하게 여기는 것.<br> 세 가지 단서로 나의 진로를 살펴보세요.</p>
-    <div class="home-start" role="group" aria-labelledby="home-start-heading"><div class="home-start-heading"><h2 id="home-start-heading">나에게 맞는 검사로 시작해요.</h2><span>${ASSESSMENTS.middle.questions.length}문항 체험</span></div>
-    <div class="home-grade-options">${Object.values(ASSESSMENTS).map(assessment => gradeChoice(assessment, attempts[assessment.grade])).join('')}</div>
-    <p class="home-demo-note">검사 흐름을 경험하는 체험판으로, 개인 진단 결과는 제공하지 않아요.</p></div>
+    <div class="home-start"><a class="btn btn-primary home-start-button" href="#start">진단 시작하기</a>
+    <p class="home-demo-note">현재는 ${ASSESSMENTS.middle.questions.length}문항 체험판으로, 개인 진단 결과는 제공하지 않아요.</p></div>
     ${storageAvailable === false ? '<p class="home-storage-note" role="status">현재 브라우저에서는 임시 저장이 제한돼요. 새로고침하면 응답이 사라질 수 있어요.</p>' : ''}
     <a class="home-text-link" href="#report">어떤 결과를 만나게 되나요?</a></div>${discoveryVisual()}</section>
 

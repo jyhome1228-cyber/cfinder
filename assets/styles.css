@@ -87,6 +87,19 @@ svg { width: 26px; height: 26px; display: block; flex-shrink: 0; }
 .pill { padding: 4px 10px; border: 1px solid var(--line); border-radius: 4px; color: var(--primary); font-size: var(--font-label); font-weight: 550; white-space: nowrap; }
 .notice { margin-top: 26px; padding: 16px 0 16px 18px; border-left: 2px solid var(--accent); color: var(--primary); font-size: var(--font-label); line-height: 1.8; text-align: left; }
 
+/* Start with one action, then choose the appropriate school assessment. */
+.assessment-start { max-width: 720px; margin: 12px auto 0; }
+.assessment-start h1 { margin-top: 12px; color: var(--primary); font-size: var(--font-page); font-weight: 650; line-height: 1.5; letter-spacing: -.04em; }
+.start-grade-options { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; margin: 30px 0 24px; }
+.start-grade-choice { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; padding: 26px; border: 1px solid #b8c3cf; border-radius: 5px; color: var(--primary); background: white; text-align: left; }
+.start-grade-choice:hover { border-color: var(--accent); background: var(--soft); }
+.start-grade-choice strong { font-size: var(--font-subtitle); font-weight: 650; }
+.start-grade-status { margin: 5px 0 22px; color: var(--muted); font-size: var(--font-label); }
+.start-grade-action { align-self: stretch; padding-top: 15px; margin-top: auto; border-top: 1px solid var(--line); color: var(--accent); font-size: var(--font-ui); font-weight: 600; }
+.start-demo-note { color: var(--muted); font-size: var(--font-label); line-height: 1.8; }
+.assessment-start .save-note { margin-top: 9px; }
+.start-back { display: inline-flex; align-items: center; min-height: 44px; margin-top: 18px; }
+
 /* Assessment: one quiet sheet and a compact progress rail */
 .shell-flow { padding-top: 34px; }
 .flow-container { max-width: 840px; margin: auto; }
@@ -266,6 +279,11 @@ svg { width: 26px; height: 26px; display: block; flex-shrink: 0; }
   .organization-banner { padding: 10px 20px; text-align: left; }
   .shell { padding: 30px 20px 48px; }
   .shell-flow { padding-top: 17px; }
+  .assessment-start { margin-top: 0; }
+  .start-grade-options { grid-template-columns: 1fr; gap: 12px; margin: 24px 0 20px; }
+  .start-grade-choice { padding: 20px; }
+  .start-grade-status { margin-bottom: 14px; }
+  .start-grade-action { padding-top: 11px; }
   .flow-steps { margin-bottom: 22px; }
   .flow-steps li { flex-direction: column; gap: 5px; padding: 9px 3px 12px; font-size: var(--font-label); }
   .step-number { width: 22px; height: 22px; }

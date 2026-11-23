@@ -1,11 +1,11 @@
-import { DOMAINS } from '../data/assessments.js';
+import { ASSESSMENTS, DOMAINS } from '../data/assessments.js';
 import { renderHome, homeMotif } from './home.js';
 import { countAnswered, isComplete } from '../core/assessment.js';
 import { getResultSummary } from '../services/results.js';
 import { escapeHtml as e, domainIcon } from './html.js';
 
 const PAGE_TITLES = {
-  home: '진로검사', intro: '검사 안내', test: '문항 응답', review: '응답 검토',
+  home: '진로검사', start: '진단 시작하기', intro: '검사 안내', test: '문항 응답', review: '응답 검토',
   result: '체험 완료', report: '결과지 미리보기', institutions: '기관 도입'
 };
 
@@ -22,7 +22,7 @@ function header(route, tenant) {
       ${tenant.isPreview ? '<span class="co-brand">with C-Finder</span>' : ''}
     </a>
     <nav class="main-nav" aria-label="주 메뉴">
-      <a href="#home" ${['home', 'intro', 'test', 'review', 'result'].includes(route.page) ? 'aria-current="page"' : ''}>진로검사</a>
+      <a href="#start" ${['start', 'intro', 'test', 'review', 'result'].includes(route.page) ? 'aria-current="page"' : ''}>진단 시작하기</a>
       <a href="#report" ${route.page === 'report' ? 'aria-current="page"' : ''}>결과지 미리보기</a>
       <a href="#institutions" ${route.page === 'institutions' ? 'aria-current="page"' : ''}>기관 도입</a>
     </nav><span class="version-badge">${tenant.isPreview ? '기관 체험' : '체험판'}</span>
@@ -32,7 +32,7 @@ function header(route, tenant) {
 function footer(tenant) {
   return `<footer class="site-footer"><div class="footer-inner">
     <div class="footer-top"><div class="footer-brand"><strong>C-Finder</strong><span>나를 이해하고, 나의 다음을 찾다.</span></div>
-      <nav class="footer-nav" aria-label="하단 메뉴"><a href="#home">진로검사</a><a href="#report">결과지 미리보기</a><a href="#institutions">기관 도입</a></nav>
+      <nav class="footer-nav" aria-label="하단 메뉴"><a href="#start">진단 시작하기</a><a href="#report">결과지 미리보기</a><a href="#institutions">기관 도입</a></nav>
     </div>
     <div class="footer-bottom"><p>© 사자가온다(주)${tenant.isPreview ? ` · ${e(tenant.organizationName)} 화면 예시` : ''}</p><p>흥미 · 적성 · 가치관</p></div>
   </div></footer>`;
@@ -42,6 +42,25 @@ function storageNotice(available) {
   return `<p class="save-note" data-storage-notice>${available
     ? '답변은 이 브라우저 탭에 임시 저장돼요. 같은 탭에서 새로고침해도 이어서 할 수 있어요.'
     : '이 브라우저에서는 임시 저장을 사용할 수 없어요. 새로고침하면 답변이 사라질 수 있어요.'}</p>`;
+}
+
+function start({ attempts, storageAvailable }) {
+  return `<section class="assessment-start" aria-labelledby="page-heading">
+    <span class="section-kicker">진단 시작하기</span>
+    <h1 id="page-heading" tabindex="-1">어떤 검사로 시작할까요?</h1>
+    <p class="page-description">현재 학교급을 선택해 주세요.<br> 나에게 맞는 검사 안내로 이어집니다.</p>
+    <div class="start-grade-options" role="group" aria-label="학교급 선택">${Object.values(ASSESSMENTS).map(assessment => {
+      const attempt = attempts[assessment.grade];
+      const count = attempt ? countAnswered(attempt, assessment) : 0;
+      const completed = attempt?.status === 'completed';
+      const action = completed ? '완료한 체험 보기' : count ? '이어서 하기' : '선택하기';
+      const status = completed ? '응답 완료' : count ? `${assessment.questions.length}문항 중 ${count}문항 응답` : '흥미 · 적성 · 가치관';
+      return `<button class="start-grade-choice" type="button" data-action="select-grade" data-grade="${assessment.grade}" aria-label="${e(assessment.label)} ${action}"><strong>${e(assessment.label)}</strong><span class="start-grade-status">${status}</span><span class="start-grade-action">${action}</span></button>`;
+    }).join('')}</div>
+    <p class="start-demo-note">현재는 학교급별 ${ASSESSMENTS.middle.questions.length}문항 체험판이에요. 개인 점수나 진로 유형은 산출하지 않아요.</p>
+    ${storageNotice(storageAvailable)}
+    <a class="text-link start-back" href="#home">처음 화면으로</a>
+  </section>`;
 }
 
 function stepper(current) {
@@ -64,7 +83,7 @@ function intro({ assessment, attempt, storageAvailable }) {
         <article><span class="point-icon">${domainIcon('aptitude')}</span><div><h2>나의 관심과 강점은 변화할 수 있어요.</h2><p>검사 결과는 현재의 나를 이해하는 자료예요. 새로운 경험과 함께 달라질 수 있어요.</p></div></article>
       </div>
       <div class="experience-note"><span class="experience-label">체험 안내</span><div><strong>${assessment.questions.length}개의 예시 문항으로 검사 과정을 만나보세요.</strong><span>문항과 응답 척도는 화면 확인용 예시이며, 개인 점수나 진로 유형은 산출하지 않아요.</span></div></div>
-      <div class="actions"><a class="btn btn-outline" href="#home">검사 선택으로</a><button type="button" class="btn btn-primary" data-action="begin">${count ? '이어서 응답하기' : '체험 시작하기'}</button></div>
+      <div class="actions"><a class="btn btn-outline" href="#start">학교급 다시 선택</a><button type="button" class="btn btn-primary" data-action="begin">${count ? '이어서 응답하기' : '응답 시작하기'}</button></div>
       ${storageNotice(storageAvailable)}
     </section>
   </div>`;
@@ -86,7 +105,7 @@ function question(route, { assessment, attempt, storageAvailable }) {
         ${assessment.options.map(option => `<label class="choice ${answer === option.value ? 'is-selected' : ''}"><input type="radio" name="response" data-question="${e(q.id)}" value="${option.value}" ${answer === option.value ? 'checked' : ''}><span>${e(option.label)}</span></label>`).join('')}
       </fieldset>
       <div class="actions"><button class="btn btn-outline" type="button" data-action="previous" data-index="${route.index}">${route.fromReview ? '검토로 돌아가기' : route.index === 0 ? '검사 안내' : '이전 문항'}</button><button class="btn btn-primary" type="button" data-action="next" data-index="${route.index}" ${answer === undefined ? 'disabled' : ''}>${nextLabel}</button></div>
-      <div class="question-utility"><a class="text-link" href="#home">나중에 이어서 하기</a><span class="quiet">예시 문항</span></div>
+      <div class="question-utility"><a class="text-link" href="#start">나중에 이어서 하기</a><span class="quiet">예시 문항</span></div>
       ${storageNotice(storageAvailable)}<span class="sr-only" id="response-status" role="status" aria-live="polite"></span>
     </section>
   </div>`;
@@ -129,7 +148,7 @@ function report() {
     <div class="report-layout">
       <aside class="report-guide"><div class="report-guide-heading"><span class="report-wordmark">C-Finder</span><span class="report-guide-label">진로 리포트</span></div>
         <div class="report-cover-art" aria-hidden="true">${homeMotif('interest')}${homeMotif('aptitude')}${homeMotif('values')}</div>
-        <p>나를 이해하는 단서가<br> 다음 탐색으로 이어지도록.</p><ul><li>나의 진로 프로필</li><li>흥미 · 적성 · 가치관</li><li>진로 탐색의 다음 단계</li></ul><a class="btn btn-outline" href="#home">검사 체험하기</a></aside>
+        <p>나를 이해하는 단서가<br> 다음 탐색으로 이어지도록.</p><ul><li>나의 진로 프로필</li><li>흥미 · 적성 · 가치관</li><li>진로 탐색의 다음 단계</li></ul><a class="btn btn-outline" href="#start">진단 시작하기</a></aside>
       <div class="report-sections">
         <section class="report-card"><div class="panel-heading"><span class="section-kicker">나의 진로 프로필</span><span class="pill">구성 예시</span></div><h2>나를 설명하는 핵심 특성</h2><p>진로 유형과 핵심 키워드, 일상에서 드러나는 특징을 함께 살펴봐요.</p>
           <dl class="report-outline"><div><dt>핵심 키워드</dt><dd>나의 특성을 간결하게 이해하는 단서</dd></div><div><dt>나의 특징</dt><dd>일상과 학습에서 나타나는 나의 모습</dd></div><div><dt>탐색 방향</dt><dd>앞으로 더 알아보고 경험할 주제</dd></div></dl>
@@ -155,7 +174,7 @@ function institutions({ tenant }) {
 }
 
 export function renderView(route, context) {
-  const views = { home: renderHome, intro, review, result, report, institutions };
+  const views = { home: renderHome, start, intro, review, result, report, institutions };
   const content = route.page === 'test' ? question(route, context) : (views[route.page] || renderHome)(context);
   return header(route, context.tenant)
     + (context.tenant.isPreview ? '<div class="organization-banner">기관 설정 예시를 보고 있어요. 동일한 C-Finder 검사 흐름을 체험할 수 있어요.</div>' : '')
