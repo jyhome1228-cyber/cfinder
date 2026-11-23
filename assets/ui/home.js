@@ -59,11 +59,23 @@ export function renderHome({tenant,storageAvailable}){
  <div class="lab-result-bars"><h4>상위 요인 점수</h4>${previewBar('흥미',5,5)}${previewBar('적성',5,5)}${previewBar('가치관',12,12)}<small>각 영역 최상위 샘플 점수 · 척도는 영역별로 다름</small></div>
  <div class="lab-radar"><h4>RIASEC 유형</h4>${tinyRadar()}</div></div>
  <p class="lab-demo-note">고등학생용 샘플 결과지 기반입니다. 현재 화면 체험 3문항에서는 개인 결과가 산출되지 않습니다.</p></section>
- <section class="lab-bottom-cta"><h2>진로검사 시작하기</h2><p>중학생 · 고등학생 · 대학생 체험</p><a class="btn btn-primary" href="#start">진단 시작하기 →</a></section>
- <section class="lab-faq" aria-labelledby="lab-faq-title"><h2 id="lab-faq-title" class="lab-section-heading">자주 묻는 질문</h2>
- <details><summary>누가 검사할 수 있나요?</summary><p>중학생용·고등학생용·대학생용 화면 체험을 제공합니다. 대학생용 정식 검사는 개발 전입니다.</p></details>
- <details><summary>정식 결과가 나오나요?</summary><p>현재는 학교급별 3문항 체험입니다. 실제 점수·유형은 산출하지 않으며, 제공된 PDF 기반 결과 예시를 확인할 수 있습니다.</p></details>
- <details><summary>학교에서 도입하려면?</summary><p>검사 소개 페이지에서 학교·기관 도입을 문의할 수 있습니다.</p><a href="./about/#contact">학교 도입 문의하기</a></details>
+ <section class="lab-bottom-cta" aria-labelledby="lab-cta-title">
+   <div class="lab-cta-heading"><div><h2 id="lab-cta-title">진로검사 시작하기</h2><p>대상을 선택하고 검사 화면을 체험해 보세요.</p></div><a class="btn btn-primary" href="#start">진단 시작하기 <span aria-hidden="true">→</span></a></div>
+   <div class="lab-audience-grid" aria-label="검사 대상">
+     <div><strong>중학생용</strong><span>관심 분야와 적성 탐색</span></div>
+     <div><strong>고등학생용</strong><span>진로 유형과 직업 탐색</span></div>
+     <div><strong>대학생용</strong><span>전공·직무 관심 탐색 <em>체험</em></span></div>
+   </div>
+ </section>
+ <section class="lab-faq" aria-labelledby="lab-faq-title">
+   <div class="lab-faq-intro"><h2 id="lab-faq-title" class="lab-section-heading">자주 묻는 질문</h2><p>검사 이용과 결과에 대한 안내</p><a href="./about/#contact">학교 도입 문의하기</a></div>
+   <div class="lab-faq-list">
+     <details><summary>누가 검사할 수 있나요?</summary><p>중학생용·고등학생용·대학생용을 선택할 수 있습니다. 현재 세 가지 모두 3문항 화면 체험이며 대학생용 정식 검사는 준비 전입니다.</p></details>
+     <details><summary>검사는 얼마나 걸리나요?</summary><p>정식 C-Finder는 약 10분을 기준으로 설계됐습니다. 현재 공개된 화면 체험은 학교급별 예시 문항 3개입니다.</p></details>
+     <details><summary>검사 결과는 어떻게 확인하나요?</summary><p>현재 체험에서는 점수와 진로 유형을 계산하지 않습니다. <a href="#report">결과 예시</a>에서 흥미·적성·가치관 분석과 추천 직업이 포함된 고등학생용 샘플 보고서를 확인할 수 있습니다.</p></details>
+     <details><summary>응답을 중간에 저장할 수 있나요?</summary><p>같은 브라우저 탭에서 응답을 임시 저장하고 이어서 할 수 있습니다. 탭을 닫거나 기기를 변경하면 응답이 유지되지 않을 수 있습니다.</p></details>
+     <details><summary>학교·기관에서 도입하려면?</summary><p>대상 학년, 예상 참여 인원, 희망 일정 등을 <a href="./about/#contact">도입 문의</a>에 남겨 주세요. 비용과 운영 방식은 별도 확인이 필요합니다.</p></details>
+   </div>
  </section>
  </div>`;
 }

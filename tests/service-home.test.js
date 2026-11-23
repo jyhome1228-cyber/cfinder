@@ -18,3 +18,13 @@ test('home never implies invented personal scores',()=>{
  assert.ok(!html.includes('76%'));
  assert.ok(!html.includes('83%'));
 });
+
+test('expanded homepage sections preserve a common CTA and FAQ structure',()=>{
+ const html=renderHome(context);
+ assert.match(html,/class="lab-cta-heading"/);
+ assert.match(html,/class="lab-audience-grid"/);
+ assert.match(html,/class="lab-faq-list"/);
+ assert.equal((html.match(/<details>/g)||[]).length,5);
+ assert.ok(html.includes('대학생용 정식 검사는 개발 전'));
+ assert.ok(html.includes('학교 도입 문의하기'));
+});
