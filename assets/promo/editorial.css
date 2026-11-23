@@ -1,0 +1,62 @@
+
+/* C-Finder school information page: consistent editorial layout with assessment service */
+:root{--blue:#1957ef;--blue-dark:#1044cd;--sky:#f8faff;--line:#e0e6ee;--lime:#dff2b5}
+.container{width:min(1344px,calc(100% - 96px))}
+.section{padding-block:75px}
+h1,h2,h3,h4{letter-spacing:-.035em}
+h2{font-size:26px;line-height:1.47}
+h3{font-size:20px}
+.promo-header{box-shadow:none;border-bottom:1px solid var(--line)}
+.header-inner{min-height:76px}
+.promo-nav .nav-contact{color:#fff;background:#1957ef;border:1px solid #1957ef;border-radius:7px}
+.promo-nav .nav-contact:hover{color:#fff;background:#1044cd}
+.promo-nav a{font-size:15px}
+mark{box-shadow:none;color:#1957ef}
+.hero{gap:65px;padding-block:75px 65px}
+.hero h1{font-size:34px;line-height:1.54}
+.hero-description{font-size:17px;line-height:1.8}
+.hero-sub{font-size:16px;color:#5d697b;margin-top:10px}
+.hero-report{background:#fff;padding:18px;border-radius:9px;border:1px solid #dde4ee}
+.report-window{border:1px solid #e0e5ed;border-radius:7px;box-shadow:none}
+.window-dots{display:none}
+.hero-report figcaption{color:#6a7789}
+.facts{border-color:#dfe6ee}
+.facts strong span{color:#1957ef}
+.problem{background:#fff;margin-top:0;border-bottom:1px solid var(--line)}
+.question-columns{gap:24px}
+.question-columns article{border-top:1px solid #cbd6e6;padding:20px 0 0}
+.question-columns svg{display:none}
+.question-columns h3{font-size:19px;margin-bottom:10px}
+.question-columns p{font-size:16px;line-height:1.85;color:#546277}
+.feature-row{gap:65px;padding-block:48px}
+.feature-copy h3{font-size:22px}
+.feature-copy p{font-size:16px;color:#4e5e73}
+.domain-diagram,.grade-comparison,.result-outline{background:#fff!important;border:1px solid #e0e6ee;border-radius:8px}
+.domain-diagram{padding:27px 15px 20px}
+.domain-symbol{filter:saturate(.75)}
+.grade-comparison article{border-color:#e2e7ee}
+.sample-section{background:#f8faff}
+.sample-layout,.research-grid,.contact-layout{gap:32px}
+.research-grid article{border-top:1px solid #cbd6e6}
+.research-process{border-top:1px solid #e0e6ee;border-bottom:1px solid #e0e6ee}
+.guide{background:#fff}
+.guide-steps li{border-color:#e0e6ee}
+.faq{border-top:1px solid #e3e8ef}
+.faq-list details{border-color:#e1e7ee}
+.contact{background:#f8faff}
+.button{border-radius:7px;box-shadow:none}
+.primary{background:#1957ef;border-color:#1957ef}
+.primary:hover{background:#1044cd;border-color:#1044cd}
+.secondary{border-color:#cbd6e5}
+.promo-footer{border-top:1px solid #dfe6ee}
+.mobile-contact{box-shadow:none}
+@media(max-width:760px){
+ .container{width:calc(100% - 40px)}
+ .section{padding-block:52px}
+ .hero{gap:30px;padding-block:43px 45px}
+ .hero h1{font-size:30px}
+ .hero-report{padding:12px}
+ .feature-row{gap:27px;padding-block:32px}
+ .sample-layout,.research-grid,.contact-layout{gap:22px}
+}
+@media(max-width:390px){.container{width:calc(100% - 32px)}.hero h1{font-size:27px}}
