@@ -47,8 +47,8 @@ function storageNotice(available) {
 
 function start({ attempts, storageAvailable }) {
   return `<section class="assessment-start" aria-labelledby="page-heading">
-    <h1 id="page-heading" tabindex="-1">어떤 검사로 시작할까요?</h1>
-    <p class="page-description">중학생, 고등학생, 대학생 중 선택해 주세요.</p>
+    <h1 id="page-heading" tabindex="-1">검사 선택</h1>
+    
     <div class="start-grade-options" role="group" aria-label="학교급 선택">${Object.values(ASSESSMENTS).map(assessment => {
       const attempt = attempts[assessment.grade];
       const count = attempt ? countAnswered(attempt, assessment) : 0;
@@ -76,11 +76,11 @@ function intro({ assessment, attempt, storageAvailable }) {
   const count = countAnswered(attempt, assessment);
   return `<div class="flow-container">${stepper('intro')}
     <section class="panel intro-panel"><div class="panel-heading"><span class="pill">${e(assessment.label)}</span></div>
-      <h1 id="page-heading" tabindex="-1">지금의 나를 떠올려 주세요.</h1><p class="page-description">잘하려고 애쓰지 않아도 괜찮아요.<br> 평소의 내 모습에 가까운 답을 골라주세요.</p>
+      <h1 id="page-heading" tabindex="-1">검사 안내</h1><p class="page-description">자신에게 가장 가까운 답을 선택하세요.</p>
       <div class="intro-points">
-        <article><span class="point-icon">${domainIcon('interest')}</span><div><h2>나를 알아보는 시간이에요.</h2><p>나의 흥미, 적성, 가치관을 돌아보며 진로 탐색의 단서를 찾아요.</p></div></article>
-        <article><span class="point-icon">${domainIcon('values')}</span><div><h2>정답이 있는 시험이 아니에요.</h2><p>다른 사람의 기대보다 지금 내 생각과 느낌에 맞게 응답해 주세요.</p></div></article>
-        <article><span class="point-icon">${domainIcon('aptitude')}</span><div><h2>나의 관심과 강점은 변화할 수 있어요.</h2><p>검사 결과는 현재의 나를 이해하는 자료예요. 새로운 경험과 함께 달라질 수 있어요.</p></div></article>
+        <article><span class="point-icon">${domainIcon('interest')}</span><div><h2>검사 영역</h2><p>흥미 · 적성 · 가치관</p></div></article>
+        <article><span class="point-icon">${domainIcon('values')}</span><div><h2>응답 방법</h2><p>정답은 없습니다. 자신의 생각대로 답하세요.</p></div></article>
+        <article><span class="point-icon">${domainIcon('aptitude')}</span><div><h2>진행 방법</h2><p>문항별로 하나씩 선택하고 마지막에 응답을 검토합니다.</p></div></article>
       </div>
       <div class="experience-note"><div><strong>3문항 화면 체험</strong><span>정식 문항과 채점은 연결되지 않았습니다.</span></div></div>
       <div class="actions"><a class="btn btn-outline" href="#start">학교급 다시 선택</a><button type="button" class="btn btn-primary" data-action="begin">${count ? '이어서 응답하기' : '응답 시작하기'}</button></div>
@@ -117,7 +117,7 @@ function review({ assessment, attempt, storageAvailable }) {
   const complete = isComplete(attempt, assessment);
   return `<div class="flow-container">${stepper('review')}
     <section class="panel review-panel"><div class="panel-heading"><span class="pill">${e(assessment.label)}</span></div>
-      <h1 id="page-heading" tabindex="-1">나의 응답을 확인해 주세요.</h1><p class="page-description">${total}문항 중 ${count}문항에 응답했어요.<br> 바꾸고 싶은 답이 있다면 지금 수정할 수 있어요.</p>
+      <h1 id="page-heading" tabindex="-1">응답 검토</h1><p class="page-description">${total}문항 중 ${count}문항에 응답했어요.<br> 수정할 답을 선택하세요.</p>
       ${!complete ? `<p class="notice" role="status">아직 답하지 않은 ${total - count}문항이 있어요. 모든 응답을 마치면 완료할 수 있어요.</p>` : ''}
       <ol class="review-list">${assessment.questions.map((q, i) => {
         const answer = assessment.options.find(option => option.value === attempt.answers[q.id]);
@@ -133,7 +133,7 @@ function result({ assessment, attempt }) {
   const result = getResultSummary(attempt, assessment);
   return `<div class="flow-container">${stepper('result')}
     <section class="panel completion-panel"><div class="completion-check" aria-hidden="true">✓</div><span class="pill">${e(assessment.label)}</span>
-      <h1 id="page-heading" tabindex="-1">나를 알아보는 첫걸음을 마쳤어요.</h1><p class="page-description">${result.answeredCount}개의 예시 문항에 모두 응답했어요.<br> 흥미, 적성, 가치관을 살펴보는 과정은 어땠나요?</p>
+      <h1 id="page-heading" tabindex="-1">체험 완료</h1><p class="page-description">${result.answeredCount}문항 응답을 완료했습니다.</p>
       <div class="completed-summary">${Object.entries(DOMAINS).map(([id, d]) => `<div><span class="domain-icon">${domainIcon(id)}</span><strong>${d.label}</strong></div>`).join('')}</div>
       <p class="notice">체험용 응답은 진단 점수나 진로 유형으로 산출되지 않습니다.</p>
       <div class="actions"><a class="btn btn-outline" href="#home">처음 화면으로</a><a class="btn btn-primary" href="#report">샘플 결과지 보기</a></div>
@@ -150,15 +150,15 @@ function report() {
 function institutions({ tenant }) {
   const previewUrl = `${location.pathname}?org=sample#home`;
   const publicUrl = `${location.pathname}#home`;
-  return `<div class="institution-hero"><section class="page-intro institution-intro"><h1 id="page-heading" tabindex="-1">좋은 검사 경험을,<br> 우리 기관의 이름으로.</h1><p class="page-description">학생이 만나는 C-Finder의 경험은 그대로.<br> 기관의 이름과 색상, 안내 문구를 담은 전용 화면으로<br class="desktop-break"> 진로 탐색의 시작을 함께할 수 있어요.</p><a class="btn btn-primary" href="${e(tenant.isPreview ? publicUrl : previewUrl)}">${tenant.isPreview ? 'C-Finder 기본 화면 보기' : '기관용 화면 체험하기'}</a></section>
+  return `<div class="institution-hero"><section class="page-intro institution-intro"><h1 id="page-heading" tabindex="-1">기관용 검사 화면</h1><p class="page-description">기관명·색상·안내 문구를 적용하는 화면 예시입니다.</p><a class="btn btn-primary" href="${e(tenant.isPreview ? publicUrl : previewUrl)}">${tenant.isPreview ? 'C-Finder 기본 화면 보기' : '기관용 화면 체험하기'}</a></section>
       <div class="institution-brand-sheet" aria-label="기관별 브랜드 설정 예시"><div class="brand-sheet-label"><span>기관 화면 설정</span><span>적용 예시</span></div>
-        <div class="brand-sheet-row"><span class="brand-sheet-swatch" aria-hidden="true"></span><div><strong>C-Finder</strong><span>지금의 나를 이해하는 진로검사</span></div></div>
-        <div class="brand-sheet-row is-organization"><span class="brand-sheet-swatch" aria-hidden="true"></span><div><strong>샘플 진로교육센터</strong><span>우리의 다음 걸음을 함께 찾아요</span></div></div>
-        <div class="brand-sheet-settings"><span>기관 이름</span><span>브랜드 색상</span><span>안내 문구</span></div>
+        <div class="brand-sheet-row"><span class="brand-sheet-swatch" aria-hidden="true"></span><div><strong>C-Finder</strong></div></div>
+        <div class="brand-sheet-row is-organization"><span class="brand-sheet-swatch" aria-hidden="true"></span><div><strong>샘플 진로교육센터</strong></div></div>
+        
       </div>
     </div>
-    <div class="institution-grid"><section class="institution-card"><h2>하나의 C-Finder 검사</h2><p>어떤 기관에서 시작하더라도<br> 학생은 같은 검사 흐름을 경험해요.</p><ul class="feature-list"><li>학교급에 맞는 검사 선택</li><li>흥미 · 적성 · 가치관 문항 응답</li><li>응답 검토와 결과 확인</li><li>모바일과 PC에서 같은 흐름</li></ul></section><section class="institution-card"><h2>기관만의 시작 화면</h2><p>학생에게 익숙한 기관의 이름으로<br> 자연스럽게 검사를 안내해요.</p><ul class="feature-list"><li>기관 이름과 브랜드 색상</li><li>학생에게 전하는 안내 문구</li><li>기관별 검사 시작 주소</li></ul></section></div>
-    <section class="institution-next"><div><h2>운영에 필요한 내용은<br> 함께 정해요.</h2><a class="text-link" href="./about/#contact">기관 도입 문의하기</a></div><dl><div><dt>학생 참여 방식</dt><dd>기관에서 학생에게 검사를 안내하고 참여시키는 방법</dd></div><div><dt>결과 열람 범위</dt><dd>학생과 담당자가 각각 확인할 수 있는 정보</dd></div><div><dt>기관 운영 화면</dt><dd>검사 진행 현황과 기관 보고서의 구성</dd></div></dl></section>`;
+    <div class="institution-grid"><section class="institution-card"><h2>공통 검사 흐름</h2><p>기관별 설정에도 검사 진행 방식은 같습니다.</p><ul class="feature-list"><li>학교급에 맞는 검사 선택</li><li>흥미 · 적성 · 가치관 문항 응답</li><li>응답 검토와 결과 확인</li><li>모바일과 PC에서 같은 흐름</li></ul></section><section class="institution-card"><h2>기관별 설정</h2><p>기관명·색상·안내 문구를 변경할 수 있습니다.</p><ul class="feature-list"><li>기관 이름과 브랜드 색상</li><li>학생에게 전하는 안내 문구</li><li>기관별 검사 시작 주소</li></ul></section></div>
+    <section class="institution-next"><div><h2>기관 운영 항목</h2><a class="text-link" href="./about/#contact">기관 도입 문의하기</a></div><dl><div><dt>학생 참여 방식</dt><dd>기관에서 학생에게 검사를 안내하고 참여시키는 방법</dd></div><div><dt>결과 열람 범위</dt><dd>학생과 담당자가 각각 확인할 수 있는 정보</dd></div><div><dt>기관 운영 화면</dt><dd>검사 진행 현황과 기관 보고서의 구성</dd></div></dl></section>`;
 }
 
 export function renderView(route, context) {

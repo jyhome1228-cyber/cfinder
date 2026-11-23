@@ -41,7 +41,7 @@ function reportVisual() {
     <div class="home-report-paper-header"><strong>C-Finder</strong></div>
     <div class="home-report-title"><div><h3>나의 진로 리포트</h3></div>${homeMotif('interest')}</div>
     <div class="home-report-rows">${PERSPECTIVES.map(item => `<div><span class="home-report-symbol symbol-${item.id}">${homeMotif(item.id)}</span><div><span>${item.label}</span><strong>${item.keyword}</strong></div><span class="home-report-row-dot" aria-hidden="true"></span></div>`).join('')}</div>
-    <div class="home-report-next"><strong>발견한 나를, 다음 경험으로.</strong></div>
+    <div class="home-report-next"><strong>진로 유형 · 추천 직업</strong></div>
     </div></div>`;
 }
 
@@ -50,30 +50,30 @@ export function renderHome({ tenant, storageAvailable, pathname = globalThis.loc
   const publicUrl = `${pathname}#home`;
   return `<section class="home-hero" aria-labelledby="page-heading"><div class="home-hero-copy">
     
-    <h1 id="page-heading" tabindex="-1">나를 발견하는 시간,<br><span>나다운 미래의 시작.</span></h1>
-    <p class="home-lead">좋아하는 일, 잘할 수 있는 일, 중요하게 여기는 것.<br> 세 가지 단서로 나의 진로를 살펴보세요.</p>
+    <h1 id="page-heading" tabindex="-1">나의 진로,<br><span>C-Finder로 알아보기</span></h1>
+    <p class="home-lead">흥미·적성·가치관을 함께 살펴보는 진로검사.</p>
     <div class="home-start"><a class="btn btn-primary home-start-button" href="#start">진단 시작하기</a>
     </div>
     ${storageAvailable === false ? '<p class="home-storage-note" role="status">현재 브라우저에서는 임시 저장이 제한돼요. 새로고침하면 응답이 사라질 수 있어요.</p>' : ''}
     </div>${discoveryVisual()}</section>
 
-    <div class="home-service-strip" aria-label="C-Finder 이용 안내"><p><strong>나의 발견에서 진로 탐색까지.</strong></p><ul><li>중학생</li><li>고등학생</li><li>대학생</li></ul></div>
+    <div class="home-service-strip" aria-label="C-Finder 이용 안내"><p><strong>검사 대상</strong></p><ul><li>중학생</li><li>고등학생</li><li>대학생</li></ul></div>
 
-    <section class="home-perspectives" aria-labelledby="home-perspectives-heading"><div class="home-section-heading"><div><h2 id="home-perspectives-heading">한 가지로 설명할 수 없는 나.<br>세 가지 관점으로 함께 살펴봐요.</h2></div><p>어떤 일을 좋아하는지, 어디에 강점이 있는지,<br> 무엇을 중요하게 여기는지부터 알아가요.</p></div>
+    <section class="home-perspectives" aria-labelledby="home-perspectives-heading"><div class="home-section-heading"><div><h2 id="home-perspectives-heading">흥미 · 적성 · 가치관</h2></div></div>
     <div class="home-domain-tabs" role="tablist" aria-label="검사 영역">${PERSPECTIVES.map((item, i) => `<button id="home-tab-${item.id}" type="button" role="tab" aria-label="${item.label}" aria-selected="${i === 0}" aria-controls="home-panel-${item.id}" tabindex="${i === 0 ? '0' : '-1'}" data-action="home-domain" data-domain="${item.id}"><span>${item.label}</span></button>`).join('')}</div>
-    <div class="home-domain-content">${PERSPECTIVES.map((item, i) => `<div class="home-domain-panel" id="home-panel-${item.id}" role="tabpanel" aria-labelledby="home-tab-${item.id}" tabindex="0" ${i ? 'hidden' : ''}><div class="home-domain-art domain-${item.id}">${homeMotif(item.id)}</div><div class="home-domain-copy"><h3>${item.heading}</h3><p>${item.description}</p></div><div class="home-reflection"><strong>이런 나를 떠올려 보세요.</strong><ul>${item.prompts.map(prompt => `<li>${prompt}</li>`).join('')}</ul></div></div>`).join('')}</div></section>
+    <div class="home-domain-content">${PERSPECTIVES.map((item, i) => `<div class="home-domain-panel" id="home-panel-${item.id}" role="tabpanel" aria-labelledby="home-tab-${item.id}" tabindex="0" ${i ? 'hidden' : ''}><div class="home-domain-art domain-${item.id}">${homeMotif(item.id)}</div><div class="home-domain-copy"><h3>${item.heading}</h3><p>${item.description}</p></div></div>`).join('')}</div></section>
 
-    <section class="home-report" aria-labelledby="home-report-heading"><div class="home-report-copy"><h2 id="home-report-heading">나에 대한 이해가<br> 다음 경험으로 이어지도록.</h2><p class="home-report-description">나의 특성을 읽고, 관심 분야를 넓히고,<br> 직접 해보고 싶은 일을 찾는 진로 리포트.</p>
-    <dl class="home-report-features"><div><dt>나의 진로 프로필</dt><dd>나를 설명하는 특성과 핵심 키워드</dd></div><div><dt>영역별 이해</dt><dd>흥미, 적성, 가치관을 함께 읽는 해석</dd></div><div><dt>다음 탐색</dt><dd>관심 분야와 직업, 활동으로 이어지는 단서</dd></div></dl><a class="btn btn-primary home-button" href="#report">결과지 미리보기</a></div>${reportVisual()}</section>
+    <section class="home-report" aria-labelledby="home-report-heading"><div class="home-report-copy"><h2 id="home-report-heading">진로검사 결과지</h2><p class="home-report-description">흥미·적성·가치관 분석과 추천 직업을 확인합니다.</p>
+    <dl class="home-report-features"><div><dt>통합 진로 유형</dt></div><div><dt>영역별 이해</dt></div><div><dt>추천 직업</dt></div></dl><a class="btn btn-primary home-button" href="#report">결과지 미리보기</a></div>${reportVisual()}</section>
 
-    <section class="home-faq" aria-labelledby="home-faq-heading"><div class="home-faq-intro"><h2 id="home-faq-heading">궁금한 점을<br> 먼저 확인해 보세요.</h2></div><div class="home-faq-list">
-    <details name="home-faq"><summary>누가 이용할 수 있나요?<span class="home-disclosure" aria-hidden="true"></span></summary><p>중·고등학생을 위한 진로검사예요. 현재 학교급에 맞는 검사를 선택해 주세요.</p></details>
-    <details name="home-faq"><summary>검사에는 정답이 있나요?<span class="home-disclosure" aria-hidden="true"></span></summary><p>정답이 있는 시험이 아니에요. 평소의 내 모습과 가장 가까운 답을 선택해 주세요. 지금의 생각과 느낌에 솔직하게 응답하면 돼요.</p></details>
-    <details name="home-faq"><summary>체험을 마치면 어떤 내용을 볼 수 있나요?<span class="home-disclosure" aria-hidden="true"></span></summary><p>3개의 예시 문항에 응답하고, 선택한 내용을 검토하는 과정을 체험할 수 있어요. 개인 점수나 진로 유형은 산출하지 않으며, 결과지 구성은 별도로 살펴볼 수 있어요.</p></details>
-    <details name="home-faq"><summary>중간에 멈췄다가 이어서 할 수 있나요?<span class="home-disclosure" aria-hidden="true"></span></summary><p>브라우저가 임시 저장을 허용하면 같은 탭에서 새로고침하거나 처음 화면으로 돌아와도 이어서 할 수 있어요. 탭을 닫으면 기록이 사라질 수 있고, 다른 기기로 응답이 공유되지는 않아요.</p></details></div></section>
+    <section class="home-faq" aria-labelledby="home-faq-heading"><div class="home-faq-intro"><h2 id="home-faq-heading">자주 묻는 질문</h2></div><div class="home-faq-list">
+    <details name="home-faq"><summary>누가 이용할 수 있나요?<span class="home-disclosure" aria-hidden="true"></span></summary><p>중학생용·고등학생용·대학생용 화면 체험이 가능합니다. 정식 검사는 중·고등학생용으로 기획됐습니다.</p></details>
+    <details name="home-faq"><summary>검사에는 정답이 있나요?<span class="home-disclosure" aria-hidden="true"></span></summary><p>정답은 없습니다. 현재 자신에게 가까운 답을 선택하세요.</p></details>
+    <details name="home-faq"><summary>체험을 마치면 어떤 내용을 볼 수 있나요?<span class="home-disclosure" aria-hidden="true"></span></summary><p>3문항 체험으로 응답·수정·완료 과정을 확인할 수 있습니다. 개인 점수는 산출되지 않습니다.</p></details>
+    <details name="home-faq"><summary>중간에 멈췄다가 이어서 할 수 있나요?<span class="home-disclosure" aria-hidden="true"></span></summary><p>같은 탭에서는 이어서 할 수 있습니다. 탭을 닫거나 다른 기기에서는 복원되지 않을 수 있습니다.</p></details></div></section>
 
-    <section class="home-institutions" aria-labelledby="home-institutions-heading"><div class="home-institution-copy"><h2 id="home-institutions-heading">우리 기관의 이름으로,<br>학생의 가능성을 함께 발견해요.</h2><p>같은 검사 경험에 기관의 이름과 색상,<br>학생에게 전하는 안내를 담을 수 있어요.</p><div class="home-institution-actions"><a class="btn home-button-white" href="#institutions">기관 도입 살펴보기</a><a class="home-institution-link" href="${e(tenant.isPreview ? publicUrl : organizationUrl)}">${tenant.isPreview ? 'C-Finder 기본 화면 보기' : '기관용 화면 체험하기'}</a></div></div>
-    <div class="home-organization-preview" aria-label="기관 이름과 색상을 적용한 시작 화면 구성 예시"><div class="home-org-header"><span>우리학교 진로센터</span></div><div class="home-org-content"><div><strong>나의 가능성을<br>함께 찾아가요.</strong></div>${homeMotif('interest')}</div></div></section>`;
+    <section class="home-institutions" aria-labelledby="home-institutions-heading"><div class="home-institution-copy"><h2 id="home-institutions-heading">기관용 C-Finder</h2><p>기관 이름·색상·안내 문구를 적용할 수 있습니다.</p><div class="home-institution-actions"><a class="btn home-button-white" href="#institutions">기관 도입 살펴보기</a><a class="home-institution-link" href="${e(tenant.isPreview ? publicUrl : organizationUrl)}">${tenant.isPreview ? 'C-Finder 기본 화면 보기' : '기관용 화면 체험하기'}</a></div></div>
+    <div class="home-organization-preview" aria-label="기관 이름과 색상을 적용한 시작 화면 구성 예시"><div class="home-org-header"><span>우리학교 진로센터</span></div><div class="home-org-content"><div><strong>기관별 검사 화면</strong></div>${homeMotif('interest')}</div></div></section>`;
 }
 
 export function selectHomeDomain(root, domain, { focus = false } = {}) {

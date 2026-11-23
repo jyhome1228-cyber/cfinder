@@ -256,3 +256,10 @@
  .home-org-label { display: none; }
 }
 @media (prefers-reduced-motion:reduce) { .home-disclosure::after { transition: none; } }
+
+/* Match layout to the reduced copy. */
+.home-section-heading{align-items:center}
+.home-domain-panel{grid-template-columns:110px minmax(0,1fr);min-height:170px;gap:30px}
+.home-report-features>div{margin-top:12px}
+.home-report-features dd:empty{display:none}
+@media(max-width:680px){.home-domain-panel{grid-template-columns:58px minmax(0,1fr);gap:18px;min-height:0}}

@@ -18,10 +18,24 @@ test('RIASEC numbers and recommendation list match sample PDF',()=>{
 });
 test('sample report remains distinct from a scored personal result',()=>{
   const page=renderSampleReport();
-  assert.match(page,/샘플 결과 · 실제 검사 결과 아님/);
-  assert.match(page,/정식 결과 산출에는 별도의 승인된 문항/);
+  assert.match(page,/샘플 · 실제 검사 결과 아님/);
+  assert.match(page,/실제 진단 결과가 아닙니다/);
   assert.ok(page.includes('data-sr-scroll="sample-interest"'));
   assert.ok(page.includes('data-sr-scroll="sample-type"'));
   assert.ok(!page.includes('만쏘'));
   assert.ok(!page.includes('서울특별시'));
+});
+
+test('report jump controls are real buttons with existing targets', () => {
+  const html = renderSampleReport();
+  for (const id of ['interest','aptitude','values','type']) {
+    assert.ok(html.includes(`<button type="button" data-sr-scroll="sample-${id}"`));
+    assert.ok(html.includes(`id="sample-${id}"`));
+  }
+  assert.ok(!html.includes('<a type="button"'));
+});
+test('the expanded factor lists show only remaining items', () => {
+  const html = renderSampleReport();
+  assert.ok(html.includes('나머지 22개 보기'));
+  assert.ok(html.includes('나머지 7개 보기'));
 });

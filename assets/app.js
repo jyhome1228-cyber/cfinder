@@ -87,7 +87,14 @@ function refreshAnswerUI(value) {
   progress.firstElementChild.style.width = `${count / total * 100}%`;
   app.querySelector('#response-status').textContent = `${assessment().options.find(o => o.value === value).label}, 응답했어요.`;
   if (!storage.available) {
-    app.querySelector('[data-storage-notice]').textContent = '이 브라우저에서는 임시 저장을 사용할 수 없어요. 새로고침하면 답변이 사라질 수 있어요.';
+    let notice = app.querySelector('[data-storage-notice]');
+    if (!notice) {
+      notice = document.createElement('p');
+      notice.className = 'save-note';
+      notice.dataset.storageNotice = '';
+      app.querySelector('.question-panel')?.append(notice);
+    }
+    notice.textContent = '임시 저장이 제한되어 새로고침 시 답변이 사라질 수 있습니다.';
   }
 }
 
@@ -97,6 +104,7 @@ app.addEventListener('change', event => {
   const route = parseRoute(location.hash);
   if (route.page !== 'test' || currentAttempt()?.status !== 'in_progress') return;
   const question = assessment().questions[route.index];
+  if (!question) return;
   const value = Number(input.value);
   if (input.dataset.question !== question.id || !assessment().options.some(o => o.value === value)) return;
   save(answerQuestion(currentAttempt(), assessment(), question.id, value));
