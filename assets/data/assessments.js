@@ -16,7 +16,7 @@ export const RESPONSE_OPTIONS = Object.freeze([
 function demoAssessment(grade, label, description, questions) {
   return Object.freeze({
     id: `cfinder-${grade}-demo`,
-    version: 'demo-1',
+    version: 'demo-2026-11-24-v2',
     mode: 'demo',
     grade,
     label,
@@ -27,19 +27,19 @@ function demoAssessment(grade, label, description, questions) {
 }
 
 export const ASSESSMENTS = Object.freeze({
-  middle: demoAssessment('middle', '중학생용', '새로운 관심사와 나의 가능성을 발견해요.', [
-    { id: 'M-DEMO-01', domain: 'interest', text: '내가 좋아하는 활동에 대해서 더 알아보고 싶다.' },
-    { id: 'M-DEMO-02', domain: 'aptitude', text: '새로운 활동에 도전할 때 내가 잘할 수 있는 방법을 찾아본다.' },
-    { id: 'M-DEMO-03', domain: 'values', text: '내가 앞으로 하는 일이 나에게 왜 중요한지 생각해 본다.' }
+  middle: demoAssessment('middle', '중학생용', '좋아하는 활동과 진로에 대한 생각을 살펴봅니다.', [
+    { id: 'M-DEMO-01', domain: 'interest', text: '관심이 생긴 활동을 더 알아보는 편이다.' },
+    { id: 'M-DEMO-02', domain: 'aptitude', text: '새로운 활동을 배울 때 방법을 빠르게 익히는 편이다.' },
+    { id: 'M-DEMO-03', domain: 'values', text: '앞으로 할 일을 고를 때 즐겁게 할 수 있는지를 중요하게 생각한다.' }
   ]),
-  high: demoAssessment('high', '고등학생용', '나의 강점과 진로 선택의 기준을 알아봐요.', [
-    { id: 'H-DEMO-01', domain: 'interest', text: '관심 있는 분야에 대해 스스로 자료를 찾아 탐색하는 편이다.' },
-    { id: 'H-DEMO-02', domain: 'aptitude', text: '새로운 과제를 해결할 때 자신의 강점을 활용하려고 한다.' },
-    { id: 'H-DEMO-03', domain: 'values', text: '진로를 선택할 때 내가 중요하게 생각하는 기준이 무엇인지 고민한다.' }
+  high: demoAssessment('high', '고등학생용', '관심 분야와 강점, 진로 선택 기준을 살펴봅니다.', [
+    { id: 'H-DEMO-01', domain: 'interest', text: '관심 있는 직업이나 전공에 관한 정보를 스스로 찾아본다.' },
+    { id: 'H-DEMO-02', domain: 'aptitude', text: '복잡한 과제를 해결할 때 필요한 정보를 체계적으로 정리할 수 있다.' },
+    { id: 'H-DEMO-03', domain: 'values', text: '진로를 선택할 때 일의 안정성을 중요하게 생각한다.' }
   ]),
-  university: demoAssessment('university', '대학생용', '전공 경험과 관심 직무, 일에서 중요하게 생각하는 기준을 돌아봐요.', [
-    { id: 'U-DEMO-01', domain: 'interest', text: '전공이나 수업 밖에서도 관심 있는 직무에 대해 찾아보는 편이다.' },
-    { id: 'U-DEMO-02', domain: 'aptitude', text: '프로젝트를 수행하면서 내가 강점을 발휘하는 역할을 알아가고 있다.' },
-    { id: 'U-DEMO-03', domain: 'values', text: '취업이나 진로를 고민할 때 나에게 중요한 일의 조건을 생각해 본다.' }
+  university: demoAssessment('university', '대학생용', '관심 직무와 강점, 직업 선택 기준을 살펴봅니다.', [
+    { id: 'U-DEMO-01', domain: 'interest', text: '관심 있는 직무에 관한 정보를 찾아보는 편이다.' },
+    { id: 'U-DEMO-02', domain: 'aptitude', text: '팀 프로젝트에서 복잡한 정보를 이해하기 쉽게 정리할 수 있다.' },
+    { id: 'U-DEMO-03', domain: 'values', text: '직업을 선택할 때 일과 생활의 균형을 중요하게 생각한다.' }
   ])
 });

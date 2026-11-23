@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" fill="none" role="img" aria-label="흥미, 적성, 가치관 세 축을 탐색하는 C-Finder 비주얼">
+<circle cx="300" cy="180" r="136" stroke="#E5EEFC" stroke-width="1.5"/>
+<circle cx="300" cy="180" r="92" stroke="#CFDFFF" stroke-width="1.5"/>
+<circle cx="300" cy="180" r="44" fill="#EEF4FF"/>
+<path d="M300 180 206 103M300 180 403 106M300 180 302 306" stroke="#1957EF" stroke-width="2.5" stroke-dasharray="5 8"/>
+<circle cx="206" cy="103" r="29" fill="#DDEAFF" stroke="#1957EF" stroke-width="2"/><circle cx="403" cy="106" r="29" fill="#BDD5FF" stroke="#1957EF" stroke-width="2"/><circle cx="302" cy="306" r="29" fill="#1957EF"/>
+<circle cx="300" cy="180" r="10" fill="#B6E75A"/><circle cx="206" cy="103" r="6" fill="#1957EF"/><circle cx="403" cy="106" r="6" fill="#1957EF"/><circle cx="302" cy="306" r="6" fill="#FFFFFF"/>
+<g fill="#172642" font-family="Arial, sans-serif" font-size="18" font-weight="700"><text x="206" y="55" text-anchor="middle">Interest</text><text x="403" y="59" text-anchor="middle">Aptitude</text><text x="360" y="315">Values</text></g>
+</svg>

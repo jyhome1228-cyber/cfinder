@@ -26,3 +26,6 @@
 
 /* Remove ornamental micro-labels; preserve actual facts, form labels and consent. */
 .eyebrow, .visual-label, .section-label, .research-label, .page-label, .sample-tag, .sample-caption { display: none !important; }
+
+/* Brand logo alignment with main assessment service */
+.promo-header .brand .brand-symbol{width:30px;height:30px;display:block;object-fit:contain;flex:0 0 auto}

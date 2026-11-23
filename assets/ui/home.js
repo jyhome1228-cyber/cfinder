@@ -38,6 +38,7 @@ export function renderHome({tenant,storageAvailable}){
    <div class="lab-side-figure lab-side-left" aria-hidden="true">${person(TYPES[0],0)}</div>
    <div class="lab-side-figure lab-side-right" aria-hidden="true">${person(TYPES[2],2)}</div>
    <div class="lab-hero-main">
+     <img class="lab-brand-motif" src="./assets/brand/cfinder-motif.svg" width="180" height="108" alt="" aria-hidden="true" loading="eager">
      <h1 id="page-heading" tabindex="-1">흥미·적성·가치관으로<br><span>나의 진로를 찾다</span></h1>
      <p>흥미·적성·가치관을 함께 알아보는 진로검사</p>
      <div class="lab-hero-actions"><a class="btn btn-primary lab-main-cta" href="#start">진단 시작하기 <span aria-hidden="true">→</span></a><a class="btn lab-sub-cta" href="#report">결과 예시 보기</a></div>
@@ -46,7 +47,7 @@ export function renderHome({tenant,storageAvailable}){
  </section>
  <section class="lab-types" aria-labelledby="lab-types-title"><h2 id="lab-types-title" class="lab-section-heading">다양한 진로 유형</h2>
  <div class="lab-type-grid">${TYPES.map((t,i)=>`<div class="lab-type"><div class="lab-avatar">${person(t,i)}</div><strong>${t.code}</strong><span>${t.name}</span></div>`).join('')}</div>
- <p>Holland RIASEC 6유형 · 유형별 일러스트는 화면 예시</p>
+ <p>Holland RIASEC 6유형 · 캐릭터는 시각화 예시</p>
  </section>
  <section class="lab-process" aria-labelledby="lab-process-title"><h2 id="lab-process-title" class="lab-section-heading">검사 진행 방식</h2>
  <div class="lab-step-grid">

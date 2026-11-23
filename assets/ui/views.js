@@ -13,7 +13,7 @@ const PAGE_TITLES = {
 export function pageTitle(page) { return PAGE_TITLES[page] || PAGE_TITLES.home; }
 
 function finderMark(className = 'brand-mark') {
-  return `<svg class="${className}" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M12 4H5v7M20 4h7v7M27 21v7h-7M12 28H5v-7" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="16" r="5" fill="currentColor"/></svg>`;
+  return `<img class="${className}" src="./assets/brand/cfinder-mark.svg" alt="" width="30" height="30" aria-hidden="true">`;
 }
 
 function header(route, tenant) {

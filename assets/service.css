@@ -244,3 +244,15 @@
 .lab-faq-list .lab-faq-answer a{font-size:inherit;color:#1957ef;font-weight:650;text-decoration:underline;text-underline-offset:4px;margin:0}
 .lab-faq-list summary{font-weight:680}
 @media(max-width:760px){.lab-faq-list .lab-faq-answer{padding-right:8px}.lab-faq-list .lab-faq-answer p{font-size:.9375rem;line-height:1.8}}
+
+/* C-Finder coherent primary visual system */
+.brand-mark{width:30px;height:30px;object-fit:contain;display:block}
+.lab-brand-motif{width:166px;height:99px;display:block;object-fit:contain;margin:-45px auto 8px;opacity:.92;pointer-events:none}
+.lab-hero h1{position:relative}
+.lab-type{transition:transform .2s}
+.lab-type:hover{transform:translateY(-3px)}
+.lab-avatar{border-radius:50%;box-shadow:0 10px 28px rgba(25,87,239,.07);overflow:hidden}
+.lab-avatar svg{display:block}
+.lab-hero-actions .btn:focus-visible,.lab-step-grid a:focus-visible{outline-offset:4px}
+@media(max-width:760px){.lab-brand-motif{width:120px;height:72px;margin:-25px auto 6px}}
+@media(prefers-reduced-motion:reduce){.lab-type{transition:none}}
