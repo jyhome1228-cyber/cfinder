@@ -1,4 +1,5 @@
-import { ASSESSMENTS, DOMAINS } from '../data/assessments.js';
+import { DOMAINS } from '../data/assessments.js';
+import { renderHome } from './home.js';
 import { countAnswered, isComplete } from '../core/assessment.js';
 import { getResultSummary } from '../services/results.js';
 import { escapeHtml as e, domainIcon } from './html.js';
@@ -13,7 +14,7 @@ export function pageTitle(page) { return PAGE_TITLES[page] || PAGE_TITLES.home; 
 function header(route, tenant) {
   return `<header class="site-header"><div class="header-inner">
     <a class="brand" href="#home" aria-label="${e(tenant.logoText)} 처음으로">
-      <span class="brand-mark" aria-hidden="true">C</span><span>${e(tenant.logoText)}</span>
+      <span>${e(tenant.logoText)}</span>
       ${tenant.isPreview ? '<span class="co-brand">with C-Finder</span>' : ''}
     </a>
     <nav class="main-nav" aria-label="주 메뉴">
@@ -44,39 +45,6 @@ function stepper(current) {
   return `<ol class="flow-steps" aria-label="검사 진행 단계">${keys.map((key, i) =>
     `<li class="${i < index ? 'is-done' : i === index ? 'is-current' : ''}" ${i === index ? 'aria-current="step"' : ''}><span class="step-number" aria-hidden="true">${i < index ? '✓' : i + 1}</span><span>${labels[i]}</span></li>`
   ).join('')}</ol>`;
-}
-
-function gradeCard(assessment, attempt) {
-  const count = attempt ? countAnswered(attempt, assessment) : 0;
-  const completed = attempt?.status === 'completed';
-  const label = completed ? '완료한 체험 보기' : count ? '이어서 하기' : '검사 체험하기';
-  return `<article class="grade-card">
-    <div class="grade-top"><span class="grade-tag">${assessment.grade === 'middle' ? 'MIDDLE SCHOOL' : 'HIGH SCHOOL'}</span>
-      ${completed ? '<span class="status-tag">응답 완료</span>' : count ? `<span class="status-tag">${count}문항 응답</span>` : ''}</div>
-    <h3>${e(assessment.label)} 검사</h3><p>${e(assessment.description)}</p>
-    <div class="grade-bottom"><span>체험 ${assessment.questions.length}문항</span>
-      <button type="button" class="btn btn-primary" data-action="select-grade" data-grade="${assessment.grade}" aria-label="${e(assessment.label)} ${label}">${label}</button></div>
-  </article>`;
-}
-
-function home({ tenant, attempts }) {
-  return `<section class="hero" aria-labelledby="page-heading">
-    <div class="hero-copy"><p class="eyebrow">${e(tenant.welcome)}</p>
-      <h1 id="page-heading" tabindex="-1">나를 이해하면,<br><span class="marker">다음이 보이니까.</span></h1>
-      <p class="hero-description">좋아하는 일, 잘할 수 있는 일,<br class="desktop-break"> 그리고 나에게 중요한 것.<br>나의 진로를 찾는 첫걸음을 C-Finder와 함께해요.</p>
-      <ul class="hero-domains" aria-label="검사 영역"><li>흥미</li><li>적성</li><li>가치관</li></ul>
-      <a class="text-link" href="#report">어떤 결과를 알 수 있나요?</a>
-    </div>
-    <section class="selection-panel" aria-labelledby="select-heading"><div class="selection-heading"><span class="section-kicker">시작하기</span><h2 id="select-heading">지금의 나에게 맞는 검사</h2><p>현재 학교급을 선택해 주세요.</p></div>
-      ${Object.values(ASSESSMENTS).map(a => gradeCard(a, attempts[a.grade])).join('')}
-      <p class="demo-note">검사 흐름을 살펴보는 체험판이에요.<br>예시 문항으로 진행하며 개인 진단 결과는 제공하지 않아요.</p>
-    </section>
-  </section>
-  <section class="domain-section" aria-labelledby="domain-heading">
-    <div class="section-heading"><div><span class="section-kicker">나를 알아보는 세 가지 관점</span><h2 id="domain-heading">진로의 단서는 내 안에 있어요.</h2></div><p>하나의 검사에서 나의 여러 모습을 함께 살펴봐요.</p></div>
-    <div class="domain-grid">${Object.entries(DOMAINS).map(([id, d]) => `<article class="domain-card"><span class="domain-icon">${domainIcon(id)}</span><div class="domain-name">${d.label}</div><h3>${d.question}</h3><p>${d.description}</p></article>`).join('')}</div>
-  </section>
-  <section class="institution-strip"><div><span class="section-kicker">학교 · 교육기관</span><h2>우리 기관의 진로검사로 만나보세요.</h2><p>학생에게 익숙한 검사 경험에 기관의 이름과 운영 방식을 담아요.</p></div><a class="btn btn-outline" href="#institutions">기관 도입 살펴보기</a></section>`;
 }
 
 function intro({ assessment, attempt, storageAvailable }) {
@@ -171,11 +139,11 @@ function institutions({ tenant }) {
 }
 
 export function renderView(route, context) {
-  const views = { home, intro, review, result, report, institutions };
-  const content = route.page === 'test' ? question(route, context) : (views[route.page] || home)(context);
+  const views = { home: renderHome, intro, review, result, report, institutions };
+  const content = route.page === 'test' ? question(route, context) : (views[route.page] || renderHome)(context);
   return header(route, context.tenant)
     + (context.tenant.isPreview ? '<div class="organization-banner">기관 설정 예시를 보고 있어요. 동일한 C-Finder 검사 흐름을 체험할 수 있어요.</div>' : '')
-    + `<main id="main" class="shell ${route.page === 'test' ? 'shell-test' : ''}" tabindex="-1">${content}</main>`
+    + `<main id="main" class="shell ${route.page === 'home' ? 'shell-home' : route.page === 'test' ? 'shell-test' : ''}" tabindex="-1">${content}</main>`
     + footer(context.tenant)
     + `<dialog class="reset-dialog" id="reset-dialog" aria-labelledby="reset-heading" aria-describedby="reset-description"><form method="dialog"><span class="section-kicker">다시 시작하기</span><h2 id="reset-heading">새로 체험할까요?</h2><p id="reset-description">현재 선택한 검사의 응답 기록이 지워져요.<br>다른 학교급의 응답은 그대로 보관돼요.</p><div class="actions"><button class="btn btn-outline" value="cancel" autofocus>취소</button><button class="btn btn-primary" value="restart">새로 시작하기</button></div></form></dialog>`;
 }

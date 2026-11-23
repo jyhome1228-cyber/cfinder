@@ -4,6 +4,7 @@ import { createAttempt, answerQuestion, visitQuestion, completeAttempt, countAns
 import { createSessionStore } from './core/storage.js';
 import { parseRoute, navigate, withGrade } from './core/router.js';
 import { renderView, pageTitle } from './ui/views.js';
+import { selectHomeDomain, handleHomeTabKey } from './ui/home.js';
 
 const app = document.querySelector('#app');
 const tenant = resolveTenant(location.search);
@@ -107,6 +108,7 @@ app.addEventListener('click', event => {
   const button = event.target.closest('button[data-action]');
   if (!button || button.disabled) return;
   const action = button.dataset.action;
+  if (action === 'home-domain') return selectHomeDomain(app, button.dataset.domain);
   if (action === 'select-grade') return selectGrade(button.dataset.grade);
   if (!assessment() || !currentAttempt()) return;
   const route = parseRoute(location.hash);
@@ -129,6 +131,8 @@ app.addEventListener('click', event => {
     dialog.showModal();
   }
 });
+
+app.addEventListener('keydown', event => handleHomeTabKey(event, app));
 
 document.querySelector('.skip-link').addEventListener('click', event => {
   event.preventDefault();
