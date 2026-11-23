@@ -7,9 +7,9 @@ const TENANTS = Object.freeze({
     productName: 'C-Finder',
     logoText: 'C-Finder',
     welcome: '지금의 나를 이해하는 진로검사',
-    primaryColor: '#142f52',
-    accentColor: '#275cb3',
-    softColor: '#edf3fc',
+    primaryColor: '#172642',
+    accentColor: '#1957ef',
+    softColor: '#eff5ff',
     isPreview: false
   }),
   sample: Object.freeze({
