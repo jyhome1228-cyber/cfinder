@@ -1,0 +1,14 @@
+{
+  "name": "cfinder-assessment",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "C-Finder assessment-first B2C and institution preview scaffold",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "start": "node scripts/serve.mjs",
+    "check": "node scripts/check.mjs",
+    "test": "node --test"
+  },
+  "engines": { "node": ">=22" }
+}
