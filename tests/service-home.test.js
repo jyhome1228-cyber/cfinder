@@ -25,6 +25,6 @@ test('expanded homepage sections preserve a common CTA and FAQ structure',()=>{
  assert.match(html,/class="lab-audience-grid"/);
  assert.match(html,/class="lab-faq-list"/);
  assert.equal((html.match(/<details>/g)||[]).length,5);
- assert.ok(html.includes('대학생용 정식 검사는 개발 전'));
+ assert.ok(html.includes('대학생용 정식 검사는 준비 전'));
  assert.ok(html.includes('학교 도입 문의하기'));
 });
