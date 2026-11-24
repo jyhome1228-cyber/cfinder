@@ -55,6 +55,7 @@ try {
  assert.match(page.url(),/#review/);
  await page.locator('[data-action="complete"]').click();
  assert.match(page.url(),/#result/);
+ await page.locator('.cf-completion-celebration').waitFor({state:'visible'});
  assert.equal(await page.locator('.cf-completion-celebration').count(),1);
  await page.screenshot({path:'qa-artifacts/complete-desktop.png',fullPage:true});
  await context.close();
