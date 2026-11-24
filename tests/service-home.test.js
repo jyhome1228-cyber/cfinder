@@ -29,4 +29,4 @@ test('expanded homepage sections preserve a common CTA and FAQ structure',()=>{
  assert.ok(html.includes('학교 도입 문의하기'));
 });
 
-test('FAQ covers assessment, results, privacy and school onboarding without inventing service status',()=>{const html=renderHome(context);for(const item of ['27개','13개','9개','학교 도입 문의하기','개인 점수나 진로 유형을 자동으로 산출하지 않습니다','자동 접수가 아닌 메일 작성 방식'])assert.ok(html.includes(item));});
+test('FAQ covers assessment, results, privacy and school onboarding without inventing service status',()=>{const html=renderHome(context);for(const item of ['27개','13개','9개','학교 도입 문의하기','공식 점수나 진로 유형을 자동으로 산출하지 않습니다','자동 접수가 아닌 메일 작성 방식'])assert.ok(html.includes(item));});

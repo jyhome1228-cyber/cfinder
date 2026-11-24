@@ -29,7 +29,8 @@ test('intro is a focused single CTA with compact information instead of empty co
   assert.ok(intro.includes('cf-intro-simple'));
   assert.ok(intro.includes('cf-intro-facts'));
   assert.ok(intro.includes('검사를 시작할게요.'));
-  assert.ok(intro.includes('5단계 중 하나 선택'));
+  assert.ok(intro.includes('49항목 · 5단계 선택'));
+  assert.ok(intro.includes('비공식 자기탐색'));
   assert.ok(intro.includes('응답 검토 및 수정'));
   assert.ok(intro.includes('49개 하위 요인'));
   assert.equal((intro.match(/data-action="begin"/g) || []).length, 1);
