@@ -92,17 +92,27 @@ function stepper(current) {
 
 function intro({ assessment, attempt, storageAvailable }) {
   const count = countAnswered(attempt, assessment);
-  return `<div class="flow-container">${stepper('intro')}
-    <section class="panel intro-panel"><div class="panel-heading"><span class="pill">${e(assessment.label)}</span></div>
-      <h1 id="page-heading" tabindex="-1">검사 안내</h1><p class="page-description">자신에게 가장 가까운 답을 선택하세요.</p>
-      <div class="intro-points">
-        <article><span class="point-icon">${domainIcon('interest')}</span><div><h2>검사 영역</h2><p>흥미 · 적성 · 가치관</p></div></article>
-        <article><span class="point-icon">${domainIcon('values')}</span><div><h2>응답 방법</h2><p>정답은 없습니다. 자신의 생각대로 답하세요.</p></div></article>
-        <article><span class="point-icon">${domainIcon('aptitude')}</span><div><h2>진행 방법</h2><p>문항별로 하나씩 선택하고 마지막에 응답을 검토합니다.</p></div></article>
+  return `<div class="flow-container cf-intro-layout">${stepper('intro')}
+    <section class="cf-intro" aria-labelledby="page-heading">
+      <div class="cf-intro-lead">
+        <span class="cf-intro-grade">${e(assessment.label)}</span>
+        <h1 id="page-heading" tabindex="-1">검사를 시작하기 전에</h1>
+        <p class="cf-intro-description">현재 자신에게 가장 가까운 답을 선택해 주세요.</p>
+        <div class="cf-intro-cta">
+          <button type="button" class="btn btn-primary" data-action="begin">${count ? '이어서 응답하기' : '응답 시작하기'} <span aria-hidden="true">→</span></button>
+          <a class="cf-intro-back" href="#start">학교급 다시 선택</a>
+        </div>
       </div>
-      <div class="experience-note"><div><strong>3문항 화면 체험</strong><span>정식 문항과 채점은 연결되지 않았습니다.</span></div></div>
-      <div class="actions"><a class="btn btn-outline" href="#start">학교급 다시 선택</a><button type="button" class="btn btn-primary" data-action="begin">${count ? '이어서 응답하기' : '응답 시작하기'}</button></div>
-      ${!storageAvailable ? storageNotice(false) : ''}
+      <div class="cf-intro-details">
+        <h2>검사 진행 안내</h2>
+        <dl>
+          <div><dt>검사 영역</dt><dd>흥미 · 적성 · 가치관</dd></div>
+          <div><dt>응답 방법</dt><dd>정답은 없습니다. 자신의 생각대로 답해 주세요.</dd></div>
+          <div><dt>응답 확인</dt><dd>마지막에 선택한 답을 검토하고 수정할 수 있습니다.</dd></div>
+        </dl>
+        <p class="cf-intro-notice">현재는 3문항 화면 체험입니다. 개인 점수나 진로 유형은 산출되지 않습니다.</p>
+        ${!storageAvailable ? storageNotice(false) : ''}
+      </div>
     </section>
   </div>`;
 }
