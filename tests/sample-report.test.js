@@ -36,6 +36,17 @@ test('report jump controls are real buttons with existing targets', () => {
 });
 test('the expanded factor lists show only remaining items', () => {
   const html = renderSampleReport();
-  assert.ok(html.includes('나머지 22개 보기'));
-  assert.ok(html.includes('나머지 7개 보기'));
+  assert.ok(html.includes('나머지 22개 항목 보기'));
+  assert.ok(html.includes('나머지 7개 항목 보기'));
+});
+
+test('sample report uses compact aligned analysis and explicit section state',()=>{
+ const page=renderSampleReport();
+ assert.ok(page.includes('class="sr-profile-type"'));
+ assert.ok(page.includes('class="sr-top-factors"'));
+ assert.ok(page.includes('class="sr-tendency-heading"'));
+ assert.ok(page.includes('data-sr-scroll="sample-interest" aria-current="true"'));
+ assert.ok(page.includes('하위 요인 27개'));
+ assert.ok(page.includes('하위 요인 13개'));
+ assert.ok(page.includes('하위 요인 9개'));
 });

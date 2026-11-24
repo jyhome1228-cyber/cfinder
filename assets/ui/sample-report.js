@@ -71,11 +71,14 @@ function topDescriptions(list) {
 function section(id,title,entries,max,tendency,descriptionList,options={}) {
   const topCount=options.topCount||5, full=entries.length;
   return `<section id="sample-${id}" class="sr-section" aria-labelledby="sr-${id}-heading">
-    <div class="sr-section-head"><div><h2 id="sr-${id}-heading">${e(title)}</h2><p>${full}개 요인</p></div></div>
+    <div class="sr-section-head"><div><h2 id="sr-${id}-heading">${e(title)}</h2><p>하위 요인 ${full}개 · ${id === 'values' ? '합산 점수' : '5점 척도'}</p></div><span class="sr-factor-count">${topCount}개 주요 항목 표시</span></div>
     <div class="sr-analysis-grid"><div class="sr-analysis-bars">
       ${scoreBars(entries.slice(0,topCount),max)}
-      ${full>topCount ? `<details class="sr-expand"><summary>나머지 ${full-topCount}개 보기</summary>${scoreBars(entries.slice(topCount),max,'sr-full-bars')}</details>` : ''}
-    </div><aside class="sr-analysis-aside"><h3>주요 분석</h3><p>${e(tendency)}</p>
+      ${full>topCount ? `<details class="sr-expand"><summary>나머지 ${full-topCount}개 항목 보기</summary>${scoreBars(entries.slice(topCount),max,'sr-full-bars')}</details>` : ''}
+    </div><aside class="sr-analysis-aside">
+      <h3>상위 요인</h3>
+      <div class="sr-top-factors">${entries.slice(0,Math.min(3,topCount)).map(([name,value]) => `<div><span>${e(name)}</span><strong>${value}</strong></div>`).join('')}</div>
+      <h3 class="sr-tendency-heading">경향성 해석</h3><p>${e(tendency)}</p>
       ${options.subjects ? `<div class="sr-subjects"><strong>자신 있는 과목</strong><span>${options.subjects.map((x,i)=>`${i+1}순위 ${e(x)}`).join(' · ')}</span></div>` : ''}
     </aside></div>
     <details class="sr-expand sr-description-expand"><summary>상위 ${e(title)} 요인 설명</summary>${topDescriptions(descriptionList)}</details>
@@ -86,10 +89,10 @@ export function renderSampleReport() {
  return `<div class="sr-page">
    <div class="sr-top"><h1 id="page-heading" tabindex="-1">진로 분석 결과</h1><span class="sr-demo-marker">샘플 · 실제 검사 결과 아님</span></div>
    <div class="sr-hero">
-     <div><h2><em>${d.type}</em> ${e(d.typeName)}</h2><p>${e(d.typeDescription)}</p></div>
-     <div class="sr-hero-meta"><strong>${e(d.level)}</strong><strong>흥미 · 적성 · 가치관</strong></div>
+     <div class="sr-profile-type"><span class="sr-hero-code">${d.type}</span><div><h2>${e(d.typeName)}</h2><p>${e(d.typeDescription)}</p></div></div>
+     <div class="sr-hero-meta"><strong>${e(d.level)}</strong><span>흥미 · 적성 · 가치관</span></div>
    </div>
-   <nav class="sr-anchor-nav" aria-label="결과 상세 보기"><button type="button" data-sr-scroll="sample-interest">흥미</button><button type="button" data-sr-scroll="sample-aptitude">적성</button><button type="button" data-sr-scroll="sample-values">가치관</button><button type="button" data-sr-scroll="sample-type">최종 유형</button></nav>
+   <nav class="sr-anchor-nav" aria-label="결과 상세 보기"><button type="button" data-sr-scroll="sample-interest" aria-current="true">흥미</button><button type="button" data-sr-scroll="sample-aptitude">적성</button><button type="button" data-sr-scroll="sample-values">가치관</button><button type="button" data-sr-scroll="sample-type">최종 유형</button></nav>
    ${section('interest','흥미 분석',d.interest,5,d.tendencies.interest,d.descriptions.interest,{topCount:5})}
    ${section('aptitude','적성 분석',d.aptitude,5,d.tendencies.aptitude,d.descriptions.aptitude,{topCount:6,subjects:d.aptitudeSubjects})}
    ${section('values','가치관 분석',d.values,12,d.tendencies.values,d.descriptions.values,{topCount:9})}

@@ -116,7 +116,12 @@ app.addEventListener('click', event => {
   const reportJump = event.target.closest('button[data-sr-scroll]');
   if (reportJump && parseRoute(location.hash).page === 'report') {
     const target = app.querySelector('#' + reportJump.dataset.srScroll);
-    target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (!target) return;
+    app.querySelectorAll('button[data-sr-scroll]').forEach(button => {
+      if (button === reportJump) button.setAttribute('aria-current', 'true');
+      else button.removeAttribute('aria-current');
+    });
+    target.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' });
     return;
   }
   const button = event.target.closest('button[data-action]');
