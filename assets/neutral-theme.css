@@ -1,0 +1,82 @@
+/* C-Finder neutral visual language — white/black/blue, no navy surfaces. */
+:root {
+  --primary: #1B1B1B;
+  --ink: #202020;
+  --accent: #1957EF;
+  --muted: #606773;
+  --soft: #F2F6FF;
+  --canvas: #FAFBFD;
+  --line: #E5E8EF;
+  --paper: #FFFFFF;
+}
+body, .site-header, .site-footer { background: #FFFFFF; color: #202020; }
+.brand, .footer-brand strong,
+.panel h1, .assessment-start h1, .page-intro h1,
+.review-copy h2, .report-card h2,
+.institution-card h2, .institution-next h2 { color: #202020; }
+.main-nav a, .footer-nav a { color: #292929; }
+.main-nav a:hover, .main-nav a[aria-current] { color: #1957EF; }
+.main-nav a[aria-current]::after { background: #1957EF; }
+.btn-primary { color: #FFFFFF; background: #1957EF; border-color: #1957EF; }
+.btn-primary:hover:not(:disabled) { background: #1044CD; border-color: #1044CD; }
+.btn-outline { color: #202020; background: #FFFFFF; border-color: #D7DCE5; }
+.btn-outline:hover { background: #F6F8FC; border-color: #1957EF; }
+.flow-steps .is-current, .start-grade-action, .section-kicker,
+.text-link:hover, .text-button:hover { color: #1957EF; }
+.flow-steps .is-current .step-number { background: #1957EF; color: #FFFFFF; }
+.flow-steps .is-current::after { background: #1957EF; }
+.pill { color: #292929; }
+.brand-sheet-swatch { background: #1957EF; }
+.brand-sheet-row.is-organization .brand-sheet-swatch { background: #4E7EBE; }
+.question-panel .question-heading h1 { color: #202020; }
+.question-panel .choice.is-selected { color: #1B1B1B; }
+.question-panel .actions .btn-outline { color: #252525; }
+/* Home: headings and catalog content use neutral ink rather than blue-black. */
+.cf-editorial, .cf-editorial .lab-hero h1,
+.cf-editorial .lab-section-heading, .cf-editorial .lab-type-info h3,
+.cf-editorial .lab-hero-aside strong, .cf-editorial .lab-hero-aside dd,
+.cf-editorial .lab-type-info, .cf-editorial .lab-result-profile h3,
+.cf-editorial .lab-step-grid h3, .cf-editorial .lab-faq-list summary,
+.cf-editorial .lab-cta-heading h2 { color: #202020; }
+.cf-editorial .lab-hero h1 span { color: #1957EF; }
+.cf-editorial .lab-result-card, .cf-editorial .lab-type,
+.cf-editorial .lab-hero-aside { background: #FFFFFF; border-color: #E5E8EF; }
+.cf-editorial .lab-result-description strong { color: #252525; }
+/* Result report: replace dark banner with an editorial white profile panel. */
+.sr-page { --sr-navy: #202020; --sr-blue: #1957EF; color: #202020; }
+.sr-top h1, .sr-section-head h2,
+.sr-analysis-aside h3, .sr-type-copy h3, .sr-type-copy h4 { color: #202020; }
+.sr-hero {
+  background: #FFFFFF !important;
+  color: #202020 !important;
+  border: 1px solid #E1E5ED;
+  box-shadow: none;
+}
+.sr-hero h2, .sr-hero .sr-profile-type h2 { color: #202020; }
+.sr-hero p { color: #555F70; }
+.sr-hero-code {
+  color: #1957EF;
+  background: #EFF4FF;
+  border-color: #D6E3FF;
+}
+.sr-hero-meta { border-left-color: #DFE5EF; }
+.sr-hero-meta strong { color: #202020; }
+.sr-hero-meta span { color: #636B78; }
+.sr-demo-marker { color: #465267; background: #F7F8FA; border-color: #E2E5EB; }
+.sr-anchor-nav button { color: #515B68; }
+.sr-anchor-nav button[aria-current="true"] { color: #1957EF; }
+.sr-factor-count, .sr-section-head p { color: #646C79; }
+.sr-bar-label, .sr-top-factors span, .sr-analysis-aside > p,
+.sr-description-expand p { color: #414853; }
+.sr-radar-card { background: #F8FAFD; }
+.sr-radar-labels { fill: #333333; }
+.sr-jobs span { color: #353535; background: #FAFAFA; border-color: #E1E5EB; }
+/* Institution preview and remaining dark utility panels. */
+.report-guide { background: #FFFFFF; border: 1px solid #E1E5ED; color: #202020; }
+.report-guide .report-wordmark, .report-guide p,
+.report-guide li, .report-guide-heading, .report-guide-label { color: #333333; }
+.institution-brand-sheet { background: #FFFFFF; border-color: #E2E6ED; }
+.institution-hero, .institution-next, .institution-card { color: #202020; }
+@media (max-width:700px) {
+  .sr-hero-meta { border-left: 0; border-top-color: #DFE5EF; }
+}

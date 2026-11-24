@@ -64,3 +64,16 @@ test('report shares header and footer gutters at desktop and mobile widths', asy
   assert.match(views, /shell-\$\{route\.page\}/);
   assert.match(styles, /@media \(max-width:620px\)/);
 });
+
+test('neutral report theme overrides dark navy hero and keeps sample warning visible', async()=>{
+ const {readFileSync}=await import('node:fs');
+ const css=readFileSync(new URL('../assets/neutral-theme.css',import.meta.url),'utf8');
+ const html=readFileSync(new URL('../index.html',import.meta.url),'utf8');
+ const promo=readFileSync(new URL('../about/index.html',import.meta.url),'utf8');
+ assert.match(css,/\.sr-hero\s*\{[\s\S]*?background:\s*#FFFFFF\s*!important/);
+ assert.match(css,/\.sr-hero h2/);
+ assert.match(css,/#1957EF/);
+ assert.ok(html.includes('assets/neutral-theme.css'));
+ assert.ok(promo.includes('promo/neutral-theme.css'));
+ assert.ok(renderSampleReport().includes('샘플 · 실제 검사 결과 아님'));
+});

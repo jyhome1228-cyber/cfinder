@@ -1,0 +1,21 @@
+/* C-Finder promotion page: neutral white/black text with blue actions only. */
+:root { --ink:#202020; --blue:#1957EF; --blue-dark:#1044CD; --sky:#FAFBFD; --line:#E5E8EF; --lime:#E8F0FF; }
+body { background:#FFFFFF; color:#202020; }
+.promo-header,.promo-footer,.hero-report,.report-window,.grade-comparison,
+.result-outline,.domain-diagram,.sample-viewer,.riasec li { background:#FFFFFF; }
+.promo-header,.hero-report,.report-window,.sample-viewer,.grade-comparison,
+.result-outline,.domain-diagram { border-color:#E2E6ED;box-shadow:none; }
+mark { color:#1957EF; }
+h1,h2,h3,h4,.brand,.section-heading h2,.feature-copy h3 { color:#202020; }
+.hero-sub,.feature-copy p,.section-heading p,.research-grid p,
+.guide-steps p,.question-columns p,.report-points p { color:#4F5662; }
+.problem,.sample-section,.guide,.contact { background:#FAFBFD; }
+.primary,.promo-nav .nav-contact { background:#1957EF; color:#FFFFFF; border-color:#1957EF; }
+.primary:hover,.promo-nav .nav-contact:hover { background:#1044CD; border-color:#1044CD; }
+.secondary { background:#FFFFFF; color:#202020; border-color:#D6DDE8; }
+.secondary:hover { background:#F4F7FE; border-color:#1957EF; }
+.facts strong, .research-process span, .facts-note b { color:#202020; }
+.sample-guide,.riasec li,.contact-form-area { color:#252525; }
+.aptitude-dot,.values-dot,.interest-dot,.type-dot { background:#1957EF; }
+.domain-symbol,.aptitude-symbol,.values-symbol,.interest-symbol { background:#6F9FFF; }
+@media(max-width:760px) { .promo-header,.promo-footer { background:#FFFFFF; } }
