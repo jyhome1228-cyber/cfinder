@@ -32,8 +32,8 @@ test('grade selector keeps resume status and separate university disclaimer',()=
  const html=page({...empty,high:partial});
  assert.match(html,/1\/49항목 응답/);
  assert.match(html,/이어서 하기/);
- assert.match(html,/대학생용 화면 체험/);
- assert.match(html,/개인 점수와 진로 유형이 산출되지 않습니다/);
+ assert.match(html,/대학생용 3문항 체험/);
+ assert.match(html,/정식 C-Finder 문항·채점은 연결되지 않았습니다/);
 });
 test('welcome transition is keyboard accessible with reduced-motion support',()=>{
  const html=page(empty);

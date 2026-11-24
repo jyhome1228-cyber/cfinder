@@ -39,12 +39,12 @@ test('all school levels have exactly three demonstration questions and five resp
   for (const [grade,assessment] of Object.entries(ASSESSMENTS)){
     assert.equal(assessment.mode,'demo',grade);
     assert.equal(assessment.questions.length,grade==='university'?3:49,grade);
-    assert.deepEqual(assessment.questions.map(q=>q.domain),['interest','aptitude','values']);
+    assert.deepEqual(grade==='university' ? assessment.questions.map(q=>q.domain) : [...new Set(assessment.questions.map(q=>q.domain))],['interest','aptitude','values']);
     const attempt=createAttempt(tenant.id,assessment);
     const html=renderView({page:'test',index:2,grade,fromReview:false},
       {tenant,assessment,attempt,attempts:{},storageAvailable:true});
     assert.ok(html.includes(grade==='university' ? '체험 3번 문항' : '자기탐색 3번 문항'),grade);
-    assert.ok(html.includes('/ 3'),grade);
+    assert.ok(html.includes('/ '+assessment.questions.length),grade);
     assert.equal((html.match(/type="radio"/g)||[]).length,5,grade);
     assert.ok(html.includes('aria-valuemax="'+assessment.questions.length+'"'),grade);
   }
