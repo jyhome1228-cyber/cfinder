@@ -1,0 +1,40 @@
+/* C-Finder QA7: personal, non-diagnostic response exploration */
+.cf-reflection{margin:31px 0 28px;text-align:left}
+.cf-reflection-head{display:flex;justify-content:space-between;align-items:start;gap:16px;margin-bottom:22px}
+.cf-reflection-head>div>span{font-size:.72rem;color:#1957ef;font-weight:760;letter-spacing:.08em}
+.cf-reflection-head h2{font-size:1.32rem;letter-spacing:-.035em;line-height:1.45;margin:8px 0 7px;color:#22334e}
+.cf-reflection-head p{font-size:.88rem;line-height:1.7;color:#617188;margin:0;word-break:keep-all}
+.cf-reflection-type{white-space:nowrap;background:#f0f5ff;border:1px solid #dbe7fa;border-radius:30px;padding:7px 12px;color:#3767bf;font-size:.75rem;font-weight:660}
+.cf-reflection-intro{max-width:780px;margin:13px auto 0;color:#5e6c81;line-height:1.75;font-size:.9rem;text-align:center}
+.cf-reflection-legend{display:flex;align-items:center;flex-wrap:wrap;gap:11px 20px;font-size:.76rem;color:#62738a;margin-bottom:13px}
+.cf-reflection-legend>span{display:inline-flex;align-items:center;gap:7px}
+.cf-reflection-legend>span:before{content:"";height:9px;width:9px;border-radius:3px;background:#c5cfdf}
+.cf-reflection-legend .cf-legend-mid:before{background:#8eafeb}
+.cf-reflection-legend .cf-legend-high:before{background:#295fe5}
+.cf-reflection-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.cf-reflection-card{border:1px solid #e0e8f2;border-radius:13px;padding:21px 19px 19px;min-width:0;background:#fff}
+.cf-reflection-card-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cf-reflection-card-heading h3{font-size:1.08rem;font-weight:760;color:#263752;line-height:1.45;margin:0}
+.cf-reflection-card-heading>span{font-size:.77rem;color:#65768b;white-space:nowrap}
+.cf-reflection-prompt{font-size:.86rem;color:#596b83;line-height:1.6;min-height:2.8em;margin:12px 0 16px;word-break:keep-all}
+.cf-reflection-distribution{height:10px;width:100%;display:flex;overflow:hidden;border-radius:99px;background:#eef2f9;gap:0}
+.cf-reflection-distribution span{height:100%;display:block;min-width:0}
+.cf-reflection-distribution .cf-response-low{background:#c5cfdf}
+.cf-reflection-distribution .cf-response-mid{background:#8eafeb}
+.cf-reflection-distribution .cf-response-high{background:#295fe5}
+.cf-reflection-counts{display:flex;justify-content:space-between;font-size:.78rem;color:#65758c;margin-top:9px;font-variant-numeric:tabular-nums}
+.cf-reflection-highlights{margin-top:23px}
+.cf-reflection-highlights h4{font-size:.86rem;font-weight:720;color:#304360;margin:0 0 12px;line-height:1.65;word-break:keep-all}
+.cf-reflection-highlights ul{list-style:none;padding:0;margin:0}
+.cf-reflection-highlights li{display:flex;justify-content:space-between;align-items:baseline;gap:9px;padding:9px 0;border-top:1px solid #edf1f7;font-size:.81rem;color:#3b506f;line-height:1.5}
+.cf-reflection-highlights li span{word-break:keep-all}
+.cf-reflection-highlights li strong{white-space:nowrap;color:#2458dc;font-size:.77rem;font-variant-numeric:tabular-nums}
+.cf-reflection-empty{font-size:.8rem;color:#697c95;line-height:1.7;margin:0}
+.cf-reflection-next{margin-top:21px;padding:17px;border-radius:9px;background:#f4f8ff;border:1px solid #e3ebfa}
+.cf-reflection-next>span{font-size:.73rem;color:#2457d5;font-weight:750}
+.cf-reflection-next p{font-size:.83rem;line-height:1.7;color:#3b4f70;margin:8px 0;word-break:keep-all}
+.cf-reflection-next strong{font-size:.82rem;line-height:1.65;color:#1e3c75;display:block;word-break:keep-all}
+.cf-reflection-disclaimer{font-size:.77rem;line-height:1.7;color:#697a90;margin:15px 0 0;word-break:keep-all}
+@media(max-width:1050px){.cf-reflection-grid{grid-template-columns:1fr}.cf-reflection-prompt{min-height:0}.cf-reflection-card{padding:19px 20px}.cf-reflection-highlights li{font-size:.87rem}}
+@media(max-width:620px){.cf-reflection-head{display:block}.cf-reflection-type{display:inline-flex;margin-top:12px}.cf-reflection-legend{font-size:.68rem;gap:9px 12px}.cf-reflection-card{padding:17px 16px}.cf-reflection-head h2{font-size:1.22rem}}
+@media print{.cf-reflection-grid{grid-template-columns:1fr}.cf-reflection-card{break-inside:avoid}}
