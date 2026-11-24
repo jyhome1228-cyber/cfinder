@@ -72,39 +72,39 @@ function topDescriptions(list) {
 function section(id,title,entries,max,tendency,descriptionList,options={}) {
   const topCount=options.topCount||5, full=entries.length;
   return `<section id="sample-${id}" class="sr-section" aria-labelledby="sr-${id}-heading">
-    <div class="sr-section-head"><div><h2 id="sr-${id}-heading">${e(title)}</h2><p>하위 요인 ${full}개 · ${id === 'values' ? '합산 점수' : '5점 척도'}</p></div><span class="sr-factor-count">${topCount}개 주요 항목 표시</span></div>
+    <div class="sr-section-head"><div><h2 id="sr-${id}-heading">${e(title)}</h2><p>자기탐색의 주요 특징을 간추렸어요.</p></div><span class="sr-factor-count">주요 ${topCount}개 항목</span></div>
     <div class="sr-analysis-grid"><div class="sr-analysis-bars">
       ${scoreBars(entries.slice(0,topCount),max)}
-      ${full>topCount ? `<details class="sr-expand"><summary>나머지 ${full-topCount}개 항목 보기</summary>${scoreBars(entries.slice(topCount),max,'sr-full-bars')}</details>` : ''}
+
     </div><aside class="sr-analysis-aside">
       <h3>상위 요인</h3>
       <div class="sr-top-factors">${entries.slice(0,Math.min(3,topCount)).map(([name,value]) => `<div><span>${e(name)}</span><strong>${value}</strong></div>`).join('')}</div>
-      <h3 class="sr-tendency-heading">경향성 해석</h3><p>${e(tendency)}</p>
+      <h3 class="sr-tendency-heading">이렇게 이해해 보세요</h3><p>${e(tendency)}</p>
       ${options.subjects ? `<div class="sr-subjects"><strong>자신 있는 과목</strong><span>${options.subjects.map((x,i)=>`${i+1}순위 ${e(x)}`).join(' · ')}</span></div>` : ''}
     </aside></div>
-    <details class="sr-expand sr-description-expand"><summary>상위 ${e(title)} 요인 설명</summary>${topDescriptions(descriptionList)}</details>
+
   </section>`;
 }
 export function renderSampleReport() {
  const d=SAMPLE_REPORT;
  return `<div class="sr-page">
-   <div class="sr-top"><h1 id="page-heading" tabindex="-1">진로 분석 결과</h1><div class="sr-report-tools"><span class="sr-demo-marker">샘플 · 실제 검사 결과 아님</span><button type="button" class="sr-print-top" data-action="print-sample-report" aria-label="A4 형식으로 결과지 PDF 저장">A4 PDF 저장</button></div></div>
+   <div class="sr-top"><h1 id="page-heading" tabindex="-1">C-Finder 진로탐색 결과 예시</h1><div class="sr-report-tools"><span class="sr-demo-marker">서비스 예시 · 실제 검사 결과 아님</span><button type="button" class="sr-print-top" data-action="print-sample-report" aria-label="C-Finder 요약 결과지 PDF 저장">요약 PDF 저장</button></div></div>
    <div class="sr-hero">
      <div class="sr-profile-type"><span class="sr-hero-code">${d.type}</span><div class="cf-report-pair">${letterArt('E', 'report')}${letterArt('S', 'report')}</div><div><h2>${e(d.typeName)}</h2><p>${e(d.typeDescription)}</p></div></div>
      <div class="sr-hero-meta"><strong>${e(d.level)}</strong><span>흥미 · 적성 · 가치관</span></div>
    </div>
    <nav class="sr-anchor-nav" aria-label="결과 상세 보기"><button type="button" data-sr-scroll="sample-interest" aria-current="true">흥미</button><button type="button" data-sr-scroll="sample-aptitude">적성</button><button type="button" data-sr-scroll="sample-values">가치관</button><button type="button" data-sr-scroll="sample-type">최종 유형</button></nav>
-   ${section('interest','흥미 분석',d.interest,5,d.tendencies.interest,d.descriptions.interest,{topCount:5})}
-   ${section('aptitude','적성 분석',d.aptitude,5,d.tendencies.aptitude,d.descriptions.aptitude,{topCount:6,subjects:d.aptitudeSubjects})}
-   ${section('values','가치관 분석',d.values,12,d.tendencies.values,d.descriptions.values,{topCount:9})}
+   ${section('interest','흥미 분석',d.interest,5,d.tendencies.interest,d.descriptions.interest,{topCount:4})}
+   ${section('aptitude','적성 분석',d.aptitude,5,d.tendencies.aptitude,d.descriptions.aptitude,{topCount:4})}
+   ${section('values','가치관 분석',d.values,12,d.tendencies.values,d.descriptions.values,{topCount:4})}
    <section id="sample-type" class="sr-section" aria-labelledby="sr-type-heading">
      <div class="sr-section-head"><div><h2 id="sr-type-heading">최종 진로 유형</h2><p>RIASEC 6유형</p></div></div>
      <div class="sr-type-layout"><div class="sr-radar-card">${radar(d.riasec)}<div class="sr-radar-values">${d.riasec.map(([code,value,label])=>`<div><span>${code} · ${e(label)}</span><strong>${value}</strong></div>`).join('')}</div></div>
-       <div class="sr-type-copy"><h3>${d.type} — ${e(d.typeName)}</h3><p>${e(d.typeDescription)}</p><h4>추천 직업</h4><div class="sr-jobs">${d.recommended.map(job=>`<span>${e(job)}</span>`).join('')}</div></div>
+       <div class="sr-type-copy"><h3>${d.type} — ${e(d.typeName)}</h3><p>${e(d.typeDescription)}</p><h4>추천 직업</h4><div class="sr-jobs">${d.recommended.slice(0,5).map(job=>`<span>${e(job)}</span>`).join('')}</div></div>
      </div>
    </section>
-   <div class="sr-foot-actions"><button type="button" class="btn btn-primary" data-action="print-sample-report">A4 PDF로 저장</button><a class="btn btn-outline" href="./assets/promo/cfinder_sample_v1_261123.pdf" download="C-Finder_샘플결과지_v1_261123.pdf">원본 PDF 다운로드</a><a class="btn btn-outline" href="#start">진단 체험하기</a></div>
-   <p class="sr-final-note">샘플 점수입니다. 3문항 체험 응답과 무관하며, 실제 진단 결과가 아닙니다.</p>
-   <p class="sr-print-footnote">C-Finder 고등학생용 샘플 결과지 · 실제 개인 검사 결과 아님 · 흥미·적성·가치관 및 RIASEC 점수는 제공된 샘플에서 가져왔습니다.</p>
+   <div class="sr-foot-actions"><button type="button" class="btn btn-primary" data-action="print-sample-report">C-Finder 요약 PDF 저장</button><a class="btn btn-outline" href="#start">진단 체험하기</a></div>
+   <p class="sr-final-note">이 결과지는 C-Finder에서 재구성한 핵심 요약 예시입니다. 샘플 점수이며, 체험 응답과 무관하고 실제 진단 결과가 아닙니다.</p>
+   <p class="sr-print-footnote">C-Finder 자체 양식의 요약 결과 예시 · 실제 개인 검사 결과 아님 · 예시 데이터는 정식 C-Finder 진단 점수가 아닙니다.</p>
  </div>`;
 }
