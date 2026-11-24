@@ -18,6 +18,10 @@ try {
  await page.locator('[data-action="show-grade-choices"]').click();
  await page.locator('[data-action="select-grade"][data-grade="middle"]').click();
  await page.waitForURL(/#intro/);
+ // QA6: practice interactions must never count as actual survey answers.
+ await page.locator('[data-action="tutorial-choice"][data-value="4"]').click();
+ assert.equal(await page.locator('[data-action="tutorial-choice"][aria-pressed="true"]').count(),1);
+ assert.match(await page.locator('[data-tutorial-feedback]').innerText(),/선택했어요/);
  await page.locator('[data-action="begin"]').click();
  await page.waitForURL(/#test\/0/);
  // First page: incomplete answers cannot advance.
@@ -30,6 +34,8 @@ try {
   const rows=page.locator('[data-question-row]');
   const count=await rows.count();
   assert.ok(count>=2&&count<=5);
+  if ([1,7,10].includes(pages)) assert.equal(await page.locator('.cf-domain-enter').count(),1,'Domain transition cue is missing');
+  else assert.equal(await page.locator('.cf-domain-enter').count(),0,'Domain transition cue repeats on every page');
   for(let i=0;i<count;i++) await rows.nth(i).locator('input[type="radio"][value="4"]').check({force:true});
   if(pages===1){
     await page.reload({waitUntil:'domcontentloaded'});
@@ -49,6 +55,7 @@ try {
  assert.match(page.url(),/#review/);
  await page.locator('[data-action="complete"]').click();
  assert.match(page.url(),/#result/);
+ assert.equal(await page.locator('.cf-completion-celebration').count(),1);
  await page.screenshot({path:'qa-artifacts/complete-desktop.png',fullPage:true});
  await context.close();
 
