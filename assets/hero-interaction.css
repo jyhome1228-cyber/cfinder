@@ -216,3 +216,37 @@
   .cf-hero-reaction,.cf-hero-glow{animation:none!important;transition:none!important}
   .cf-hero-character.is-reacting .cf-hero-reaction{opacity:1}
 }
+
+/* Service shell and discovery refinement */
+.site-header .header-inner{gap:28px;min-height:76px}
+.site-header .main-nav{gap:28px}
+.site-header .main-nav .cf-nav-cta{min-height:44px;padding:10px 19px;border-radius:8px;background:#1957ef;color:#fff;font-weight:700}
+.site-header .main-nav .cf-nav-cta::after{display:none}
+.site-footer .cf-footer-grid{display:grid;grid-template-columns:minmax(150px,1fr) minmax(180px,1.2fr) minmax(0,2.8fr);align-items:start;gap:28px}
+.cf-footer-tagline{font-size:15px;line-height:1.7;color:#424a59;margin:0;word-break:keep-all}
+.site-footer .footer-nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;align-items:start}
+.site-footer .footer-nav>div{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.site-footer .footer-nav strong{color:#202020;font-size:14px;margin-bottom:5px}
+.site-footer .footer-nav a{min-height:24px;font-size:14px;line-height:1.5}
+.site-footer .footer-inner{padding-top:42px;padding-bottom:30px}
+.cf-discovery{margin:0 0 56px}
+.cf-discovery>p{font-size:16px;line-height:1.7;color:#535d6c;margin:10px 0 22px;word-break:keep-all}
+.cf-discovery-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.cf-discovery-grid article{background:#f5f8ff;border:1px solid #e2e9f8;padding:26px;border-radius:12px;word-break:keep-all}
+.cf-discovery-grid article>span{color:#1957ef;font-size:12px;font-weight:750;letter-spacing:.05em}
+.cf-discovery-grid h3{font-size:23px;margin:12px 0 8px;color:#202020}
+.cf-discovery-grid p{font-size:15px;line-height:1.7;margin:0;color:#414b5b}
+.cf-impact-orb{position:absolute;z-index:1;left:50%;top:50%;width:22px;height:22px;border-radius:50%;background:#7aaaff;pointer-events:none;opacity:0}
+.cf-impact-one{--ox:-180px;--oy:-65px;--impact-x:-85px;--impact-y:-30px}
+.cf-impact-two{--ox:175px;--oy:60px;--impact-x:85px;--impact-y:25px;background:#a3c5ff;width:15px;height:15px}
+.cf-impact-three{--ox:110px;--oy:-100px;--impact-x:55px;--impact-y:-65px;background:#1957ef;width:11px;height:11px}
+@media(prefers-reduced-motion:no-preference){
+@keyframes cfOrbImpact{0%{opacity:0;transform:translate(var(--ox),var(--oy)) scale(.6)}15%{opacity:1}75%{opacity:1;transform:translate(var(--impact-x),var(--impact-y)) scale(1)}85%{opacity:1;transform:translate(var(--impact-x),var(--impact-y)) scale(1.6);box-shadow:0 0 0 12px #a3c5ff55}100%{opacity:0;transform:translate(var(--impact-x),var(--impact-y)) scale(0)}}
+.cf-impact-orb{animation:cfOrbImpact .65s ease-in both}
+.cf-impact-one{animation-delay:.15s}.cf-impact-two{animation-delay:.45s}.cf-impact-three{animation-delay:.75s}
+.cf-hero-visual:has(.cf-hero-character.is-reacting) .cf-impact-orb{animation-name:cfOrbReplay;animation-delay:0s}
+@keyframes cfOrbReplay{0%{opacity:0;transform:translate(var(--ox),var(--oy)) scale(.5)}15%{opacity:1}70%{opacity:1;transform:translate(var(--impact-x),var(--impact-y)) scale(1)}85%{opacity:1;transform:translate(var(--impact-x),var(--impact-y)) scale(1.6);box-shadow:0 0 0 12px #a3c5ff55}100%{opacity:0;transform:translate(var(--impact-x),var(--impact-y)) scale(0)}}
+}
+@media(max-width:900px){.site-footer .cf-footer-grid{grid-template-columns:1fr 1fr}.site-footer .footer-nav{grid-column:1/-1}}
+@media(max-width:760px){.site-header .header-inner{gap:6px;min-height:0;padding-top:10px}.site-header .main-nav{gap:10px;overflow-x:auto;justify-content:space-between;padding-bottom:8px;font-size:13px}.site-header .main-nav a{min-height:40px}.site-header .main-nav .cf-nav-cta{min-height:38px;padding:8px 10px}.site-footer .cf-footer-grid{grid-template-columns:1fr;gap:20px}.site-footer .footer-nav{grid-column:auto;gap:12px}.site-footer .footer-nav a{font-size:12px}.cf-discovery-grid{grid-template-columns:1fr;gap:10px}.cf-discovery-grid article{padding:20px}.cf-discovery{margin-bottom:38px}.cf-impact-one{--ox:-125px;--impact-x:-64px}.cf-impact-two{--ox:125px;--impact-x:65px}}
+@media print{.site-header,.site-footer{display:none!important}}
