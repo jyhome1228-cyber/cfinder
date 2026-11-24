@@ -40,6 +40,7 @@ try {
  }
  assert.equal(pages,11,'Middle-school questionnaire should have 11 pages');
  assert.match(page.url(),/#review/);
+ await page.locator('.cf-review-domain summary').first().click();
  const edit=page.locator('[data-action="edit"]').first();
  await edit.click();
  assert.match(page.url(),/#test\/0/);
