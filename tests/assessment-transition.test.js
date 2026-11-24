@@ -41,7 +41,7 @@ test('intro focuses on one action and a readable non-card assessment guide',asyn
  assert.ok(html.includes('cf-intro-facts'));
  assert.ok(html.includes('검사를 시작할게요.'));
  assert.ok(html.includes('data-action="begin"'));
- assert.ok(html.includes('학교급 다시 선택'));
+ assert.ok(html.includes('다른 학교 선택'));
  assert.ok(html.includes('49개 하위 요인'));
  assert.ok(!html.includes('class="intro-points"'));
  assert.ok(!html.includes('class="experience-note"'));
