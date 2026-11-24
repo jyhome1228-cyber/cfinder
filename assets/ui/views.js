@@ -107,6 +107,14 @@ function intro({ assessment, attempt, storageAvailable }) {
         <span class="cf-intro-grade">${e(assessment.label)}</span>
         <h1 id="page-heading" tabindex="-1">검사를 시작할게요.</h1>
         <p class="cf-intro-description">정답은 없습니다. 지금의 생각에 가장 가까운 답을 선택해 주세요.</p>
+        <div class="cf-tutorial" aria-label="5단계 응답 연습">
+          <div class="cf-tutorial-top"><div><strong>먼저 선택 방법을 연습해 볼까요?</strong><p>연습 답변은 실제 검사에 저장되지 않아요.</p></div><span>연습</span></div>
+          <p class="cf-tutorial-question">나는 새로운 것을 알아보는 활동이 즐겁다.</p>
+          <div class="cf-tutorial-options" role="group" aria-label="응답 연습 선택">
+            ${assessment.options.map((option,i) => `<button type="button" class="cf-tutorial-choice" data-action="tutorial-choice" data-value="${option.value}" aria-pressed="false" aria-label="${e(option.label)}"><span class="cf-tutorial-orb cf-tutorial-orb--${i+1}" aria-hidden="true"></span><span>${e(option.label)}</span></button>`).join('')}
+          </div>
+          <p class="cf-tutorial-feedback" data-tutorial-feedback role="status" aria-live="polite">정답은 없어요. 지금의 생각에 맞는 원을 하나 눌러보세요.</p>
+        </div>
         <div class="cf-intro-facts" aria-label="검사 안내">
           <div><strong>탐색 영역</strong><span>흥미 · 적성 · 가치관</span></div>
           <div><strong>응답 방식</strong><span>${assessment.questions.length}항목 · 5단계 선택</span></div>
@@ -140,6 +148,7 @@ function question(route, { assessment, attempt, storageAvailable }) {
   }).join('') : '';
   return `<div class="flow-container">${stepper('test')}
     <section class="panel question-panel cf-batch-panel" aria-labelledby="page-heading" data-page-start="${page.start}" data-page-end="${page.end}" data-next-start="${page.next ?? ''}" data-page-number="${page.number}">
+      ${grouped && (page.previous === null || pageForIndex(assessment,page.previous)?.domain !== page.domain) ? `<div class="cf-domain-enter" aria-label="${e(DOMAINS[page.domain].label)} 영역 시작"><span class="cf-domain-enter-visual">${letterArt('C','domain',true)}</span><div><span>새로운 탐색 영역</span><strong>${e(DOMAINS[page.domain].label)}</strong><p>${e(DOMAINS[page.domain].description)}</p></div></div>` : ''}
       <div class="cf-assessment-heading">
         <div class="cf-assessment-title">
           <span class="cf-assessment-eyebrow">${e(assessment.label)} · ${label}${grouped ? ' · 49항목' : ' · 3문항'}</span>
@@ -214,7 +223,7 @@ function result({ assessment, attempt }) {
     return { id, label: d.label, total: items.length, chosen };
   });
   return `<div class="flow-container">${stepper('result')}
-    <section class="panel completion-panel"><div class="completion-check" aria-hidden="true">✓</div><span class="pill">${e(assessment.label)}</span>
+    <section class="panel completion-panel"><div class="cf-completion-celebration" aria-hidden="true"><span class="cf-completion-spark cf-completion-spark-one"></span><span class="cf-completion-spark cf-completion-spark-two"></span><span class="cf-completion-spark cf-completion-spark-three"></span>${letterArt('C', 'complete', true)}</div><div class="completion-check" aria-hidden="true">✓</div><span class="pill">${e(assessment.label)}</span>
       <h1 id="page-heading" tabindex="-1">${factorMode ? '자기탐색 완료' : '체험 완료'}</h1>
       <p class="page-description">${result.answeredCount}개 항목의 응답을 완료했습니다.</p>
       ${factorMode ? `<div class="cf-self-reflection"><h2>내가 선택한 자기탐색 기록</h2><p>선택한 응답 중 ‘그런 편이다’ 이상인 항목을 영역별로 표시합니다. 개인의 자기평가이며, 점수 분석이나 진로 적합도 판정이 아닙니다.</p><div class="cf-self-groups">${groups.map(g => `<section><h3>${g.label}</h3><p>${g.total}개 항목 응답</p><ul>${g.chosen.length ? g.chosen.map(x => `<li>${e(x.name)} <span>${x.value}/5</span></li>`).join('') : '<li>높게 선택한 항목이 없습니다.</li>'}</ul></section>`).join('')}</div></div>` : `<div class="completed-summary">${Object.entries(DOMAINS).map(([id,d]) => `<div><span class="domain-icon">${domainIcon(id)}</span><strong>${d.label}</strong></div>`).join('')}</div>`}
