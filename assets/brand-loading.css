@@ -1,0 +1,69 @@
+/* C-Finder supplied Illustrator brand assets and one-time intro. */
+.brand-wordmark {
+  display:block;
+  flex:0 0 auto;
+  width:145px;
+  height:auto;
+  max-height:39px;
+  object-fit:contain;
+}
+.site-header .brand {gap:0}
+.site-header .brand:has(.co-brand) {gap:9px}
+.promo-header .brand .brand-wordmark {
+  display:block;
+  width:145px;
+  max-height:39px;
+  height:auto;
+}
+.cfinder-intro {
+  position:fixed;
+  inset:0;
+  z-index:999;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:38px;
+  width:100%;
+  height:100dvh;
+  min-height:100vh;
+  background:#214FF4;
+  color:#F9F8FA;
+  overflow:hidden;
+  opacity:1;
+  transition:opacity .22s ease;
+}
+.cfinder-intro.is-leaving {
+  opacity:0;
+  pointer-events:none;
+}
+.cfinder-intro>img {
+  display:block;
+  width:min(427px,82vw);
+  height:auto;
+  flex:0 0 auto;
+}
+.cfinder-intro-skip {
+  position:absolute;
+  bottom:max(26px,env(safe-area-inset-bottom));
+  right:clamp(20px,4vw,56px);
+  min-width:84px;
+  min-height:44px;
+  padding:9px 15px;
+  background:transparent;
+  border:1px solid #ffffff77;
+  border-radius:7px;
+  color:#fff;
+  font:600 14px/1.4 Pretendard,'Apple SD Gothic Neo',sans-serif;
+  cursor:pointer;
+}
+.cfinder-intro-skip:hover {background:#ffffff22;border-color:#fff}
+.cfinder-intro-skip:focus-visible {outline:3px solid #fff;outline-offset:3px}
+@media(max-width:620px){
+  .brand-wordmark,.promo-header .brand .brand-wordmark {width:132px}
+  .cfinder-intro>img {width:min(370px,88vw)}
+}
+@media(prefers-reduced-motion:reduce){
+  .cfinder-intro {transition:none}
+}
+@media print { .cfinder-intro {display:none!important} }

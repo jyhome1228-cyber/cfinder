@@ -7,6 +7,30 @@ import { renderView, pageTitle } from './ui/views.js';
 import { selectHomeDomain, handleHomeTabKey } from './ui/home.js';
 
 const app = document.querySelector('#app');
+const introLoader = document.querySelector('#brand-loader');
+function closeBrandIntro() {
+  if (!introLoader || !introLoader.isConnected || introLoader.classList.contains('is-leaving')) return;
+  introLoader.classList.add('is-leaving');
+  window.setTimeout(() => introLoader.remove(), 240);
+}
+if (introLoader) {
+  let alreadyShown = true;
+  try {
+    alreadyShown = sessionStorage.getItem('cfinder:brand-intro:v1') === 'seen';
+  } catch { /* storage restricted; do not delay the assessment */ }
+  const isHomeEntry = location.hash === '' || location.hash === '#home';
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (alreadyShown || !isHomeEntry || reducedMotion) {
+    introLoader.remove();
+  } else {
+    try { sessionStorage.setItem('cfinder:brand-intro:v1', 'seen'); } catch { /* optional visual state */ }
+    const finishTimer = window.setTimeout(closeBrandIntro, 2920);
+    introLoader.querySelector('.cfinder-intro-skip')?.addEventListener('click', () => {
+      window.clearTimeout(finishTimer);
+      closeBrandIntro();
+    });
+  }
+}
 let reportMotionObserver = null;
 let prePrintOpenDetails = [];
 function setupReportMotion() {

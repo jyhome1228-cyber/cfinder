@@ -11,7 +11,7 @@
     <meta property="og:url" content="https://jyhome1228-cyber.github.io/cfinder/" />
     <link rel="canonical" href="https://jyhome1228-cyber.github.io/cfinder/" />
     <title>C-Finder | 진로검사</title>
-    <link rel="icon" href="./assets/brand/cfinder-mark.svg" type="image/svg+xml" />
+    <link rel="icon" href="./assets/brand/cfinder-official-mark.svg" type="image/svg+xml" />
     <link rel="preload" href="./assets/fonts/PretendardVariable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="./assets/styles.css" />
     <link rel="stylesheet" href="./assets/home.css" />
@@ -20,13 +20,18 @@
     <link rel="stylesheet" href="./assets/service.css" />
     <link rel="stylesheet" href="./assets/editorial.css" />
     <link rel="stylesheet" href="./assets/neutral-theme.css" />
+    <link rel="stylesheet" href="./assets/brand-loading.css" />
     <script src="./assets/app.js" type="module"></script>
   </head>
   <body>
     <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+    <div id="brand-loader" class="cfinder-intro" role="status" aria-label="C-Finder 로딩 중">
+      <img src="./assets/brand/cfinder-loader.svg" alt="" width="427" height="107" aria-hidden="true" fetchpriority="high" />
+      <button type="button" class="cfinder-intro-skip" aria-label="로딩 건너뛰기">건너뛰기</button>
+    </div>
     <div id="app">
       <div class="loading">C-Finder 진로검사 화면을 준비하고 있습니다.</div>
     </div>
-    <noscript>진로검사를 이용하려면 브라우저에서 JavaScript를 켜주세요.</noscript>
+    <noscript><style>#brand-loader{display:none!important}</style>진로검사를 이용하려면 브라우저에서 JavaScript를 켜주세요.</noscript>
   </body>
 </html>

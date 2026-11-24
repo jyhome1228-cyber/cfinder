@@ -13,14 +13,16 @@ const PAGE_TITLES = {
 export function pageTitle(page) { return PAGE_TITLES[page] || PAGE_TITLES.home; }
 
 function finderMark(className = 'brand-mark') {
-  return `<img class="${className}" src="./assets/brand/cfinder-mark.svg" alt="" width="30" height="30" aria-hidden="true">`;
+  return `<img class="${className}" src="./assets/brand/cfinder-official-mark.svg" alt="" width="30" height="30" aria-hidden="true">`;
 }
 
 function header(route, tenant) {
   return `<header class="site-header"><div class="header-inner">
     <a class="brand" href="#home" aria-label="${e(tenant.logoText)} 처음으로">
-      ${finderMark()}<span>${e(tenant.logoText)}</span>
-      ${tenant.isPreview ? '<span class="co-brand">with C-Finder</span>' : ''}
+      ${tenant.isPreview
+        ? `${finderMark()}<span>${e(tenant.logoText)}</span><span class="co-brand">with C-Finder</span>`
+        : '<img class="brand-wordmark" src="./assets/brand/cfinder-official-logo.svg" alt="C-Finder" width="152" height="38">'}
+      
     </a>
     <nav class="main-nav" aria-label="주 메뉴">
       <a href="#start" ${['start', 'intro', 'test', 'review', 'result'].includes(route.page) ? 'aria-current="page"' : ''}>진단 시작하기</a>

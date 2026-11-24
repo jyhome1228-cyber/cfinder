@@ -142,3 +142,9 @@ Pretendard v1.3.9 가변 서체를 자체 제공하며 라이선스는 [OFL.txt]
 ## 흰색·검정·블루 중심 컬러 시스템 (2026-11-24)
 
 사이트 전체에서 짙은 네이비 면적과 제목 색을 제거했습니다. 결과지의 유형 소개 패널은 흰색·검정 텍스트·얇은 테두리로 교체하고 블루는 CTA, 링크, 선택 상태와 점수 그래프에만 사용합니다. 메인과 검사 UI는 `assets/neutral-theme.css`, 홍보페이지는 `assets/promo/neutral-theme.css`를 마지막에 불러와 이전 스타일을 덮어씁니다. 기관 데모의 기본 글씨색 변수도 검정으로 통일합니다.
+
+## 사용자 제공 공식 로고와 탐색 로딩 반영 (2026-11-24)
+
+디자이너가 제공한 Illustrator SVG를 기준으로 메인 및 홍보페이지의 임시 로고를 **파란색 공식 C-Finder 로고**(`assets/brand/cfinder-official-logo.svg`)로 교체했습니다. 파비콘은 동일 원본의 캐릭터 부분을 쓰는 `cfinder-official-mark.svg`를 사용합니다. 구형 `cfinder-mark.svg` / `cfinder-wordmark.svg` 파일은 과거 시안 보존용이며 신규 화면에서 사용하지 않습니다.
+
+로딩 화면은 사용자가 제공한 파란 배경·흰 캐릭터·7개 점 SVG를 기반으로 `assets/brand/cfinder-loader.svg`에 구현했습니다. 캐릭터가 오른쪽으로 이동할 때 흰 점이 차례로 사라집니다. 최초 같은 탭의 메인 진입에서만 나타나며 약 2.9초 내 종료하고 **건너뛰기**, 동작 축소 설정, 메인 이외 직접 링크에서는 생략됩니다. GIF·외부 라이브러리를 사용하지 않습니다. 적용 CSS는 `assets/brand-loading.css`입니다.

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 426.97 107.05" role="img" aria-labelledby="loaderTitle"><title id="loaderTitle">C-Finder 탐색 로딩 애니메이션</title>
+<style>
+  .traveler{animation:cfTravel 2.8s linear both;transform-box:view-box;transform-origin:0 0}
+  .face{animation:cfChomp .27s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:center}
+  .dot{animation:cfEat .09s steps(1,end) forwards}
+  .dot-1{animation-delay:0.550s}
+  .dot-2{animation-delay:0.920s}
+  .dot-3{animation-delay:1.290s}
+  .dot-4{animation-delay:1.660s}
+  .dot-5{animation-delay:2.030s}
+  .dot-6{animation-delay:2.400s}
+  .dot-7{animation-delay:2.770s}
+  @keyframes cfTravel{0%{transform:translateX(0)}100%{transform:translateX(324px)}}
+  @keyframes cfChomp{0%{transform:scaleY(1)}100%{transform:scaleY(.94)}}
+  @keyframes cfEat{to{opacity:0}}
+  @media(prefers-reduced-motion:reduce){.traveler,.face,.dot{animation:none}}
+</style>
+<rect width="426.97" height="107.05" fill="#214FF4"/>
+<circle class="dot dot-1" cx="124.37" cy="51.14" r="8.05" fill="#F9F8FA"/>
+<circle class="dot dot-2" cx="167.59" cy="51.14" r="8.05" fill="#F9F8FA"/>
+<circle class="dot dot-3" cx="210.81" cy="51.14" r="8.05" fill="#F9F8FA"/>
+<circle class="dot dot-4" cx="254.03" cy="51.14" r="8.05" fill="#F9F8FA"/>
+<circle class="dot dot-5" cx="297.25" cy="51.14" r="8.05" fill="#F9F8FA"/>
+<circle class="dot dot-6" cx="340.47" cy="51.14" r="8.05" fill="#F9F8FA"/>
+<circle class="dot dot-7" cx="383.69" cy="51.14" r="8.05" fill="#F9F8FA"/>
+<g class="traveler" fill="#F9F8FA"><g class="face"><path d="M97.9,76.96c-1.8,2.84-4.14,5.04-6.88,6.88-12.11,8.14-27.83,8.28-41.15,2.37l-6.57,2.27c-2.2.76-4.6-.03-6.26-1.52-1.57-1.41-2.83-3.49-2.42-5.83l.84-4.88c-8.14-8.52-11.64-20.08-9.31-31.68,3.04-15.13,14.3-27.02,29.1-31.26,10.27-2.94,20.99-2.66,30.67,1.81,4.99,2.3,9.32,5.51,12.02,10.19,4.33,7.5,1.89,16.36-5.44,20.69-4.29,2.53-8.98,2.62-13.65.76-3.13-1.25-6.69-1.71-9.78-.52-2.83,1.09-4.78,3.53-4.74,6.37s2.01,5.29,4.87,6.21c3.11,1,6.48.23,9.35-1.41,5-2.87,10.51-2.77,15.31.47,6.25,4.22,8.25,12.42,4.02,19.08ZM94.19,70.05c.36-3.33-1.84-6.18-4.17-7.53-3.1-1.81-6.18-1.4-9.09.21-3.48,1.94-7.31,2.91-11.24,2.29-6.62-1.05-11.71-6.56-11.22-13.4.41-5.63,4.74-10.05,10.16-11.32,4.12-.97,8.35-.46,12.27,1.08,3.35,1.32,6.71,1.17,9.54-1.04,2.4-1.88,4.17-4.96,3.63-8.36-1.03-6.48-8.32-10.85-14.59-12.72-20.61-6.15-44.05,5.48-47.48,27.82-1.57,10.22,1.94,20.01,9.56,26.82l-1.03,7.24c-.08.59.18,1.14.55,1.36.22.13.74.29,1.15.15l6.65-2.4c1.28-.46,2.2-.16,3.36.37,8.39,3.84,17.87,4.65,26.78,2.18,6.39-1.78,14.51-6.58,15.17-12.75Z"/><path d="M65.07,27.71c1.64,2.58,1.68,5.88-.2,8.37-1.7,2.26-4.69,2.72-7.08,1.08-3.36-2.32-4.39-6.97-2.47-10.56,1.18-2.2,3.43-3.22,5.87-2.53-.58,1.09-.93,2.01-.62,3,.25.82.99,1.77,2.06,1.92.97.14,1.58-.17,2.43-1.28Z"/><path d="M76.16,32.81c-1.64,2.49-4.59,3.13-7.03,1.75.96-3.87-.06-7.61-2.75-10.54,1.14-2.14,3.46-2.96,5.83-2.28-.99,1.52-.92,3.11.21,4.07s2.65.68,3.81-.59c1.4,2.52,1.44,5.31-.07,7.59Z"/></g></g>
+</svg>
