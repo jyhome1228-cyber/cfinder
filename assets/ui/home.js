@@ -18,20 +18,13 @@ export function renderHome({storageAvailable}) {
  return `<div class="lab-home cf-editorial">
  <section class="lab-hero" aria-labelledby="page-heading">
    <div class="lab-hero-main">
-     <p class="lab-hero-eyebrow">C-Finder 진로검사</p>
-     <h1 id="page-heading" tabindex="-1">진로를 선택하기 전에,<br><span>나를 먼저 알아보세요.</span></h1>
-     <p class="lab-hero-description">흥미·적성·가치관을 함께 살펴보는 진로검사입니다.</p>
-     <div class="lab-hero-actions"><a class="btn btn-primary lab-main-cta" href="#start">진단 시작하기 <span aria-hidden="true">→</span></a><a class="btn lab-sub-cta" href="#report">결과지 보기</a></div>
-     ${!storageAvailable ? '<p class="lab-storage-warning" role="status">이 브라우저는 답변 임시 저장이 제한됩니다.</p>':''}
+     <h1 id="page-heading" tabindex="-1">내가 좋아하는 일은 뭘까?<br><span>나에게 맞는 진로를 찾아보세요.</span></h1>
+     <p class="lab-hero-description">흥미·적성·가치관을 함께 살펴보는 C-Finder 진로검사</p>
+     <div class="lab-hero-actions"><a class="btn btn-primary lab-main-cta" href="#start">진단 시작하기 <span aria-hidden="true">→</span></a></div>
+     ${!storageAvailable ? '<p class="lab-storage-warning" role="status">이 브라우저는 답변 임시 저장이 제한됩니다.</p>' : ''}
    </div>
-   <aside class="lab-hero-aside" aria-label="C-Finder 결과 예시">
-     <div class="lab-aside-top"><strong>C-Finder</strong><span>샘플 결과</span></div>
-     <div class="lab-aside-result"><span>ES</span><div><strong>설득하는 조력가</strong><small>고등학생용 샘플</small></div></div>
-     <dl><div><dt>흥미</dt><dd>27개 하위 요인</dd></div><div><dt>적성</dt><dd>13개 하위 요인</dd></div><div><dt>가치관</dt><dd>9개 하위 요인</dd></div></dl>
-     <a href="#report">샘플 분석 보기 <span aria-hidden="true">→</span></a>
-   </aside>
  </section>
- <div class="lab-meta-line"><span>검사 대상 <strong>중학생 · 고등학생</strong></span><span>화면 체험 <strong>대학생용 포함</strong></span><span>검사 영역 <strong>흥미 · 적성 · 가치관</strong></span></div>
+
  <section class="lab-types" aria-labelledby="lab-types-title">
    <div class="lab-section-headline"><div><h2 id="lab-types-title" class="lab-section-heading">진로 유형 살펴보기</h2><p>Holland RIASEC 6유형</p></div><a href="#report">유형 결과 예시 →</a></div>
    <div class="lab-type-grid">${TYPES.map(typeCard).join('')}</div>

@@ -53,5 +53,6 @@ test('brand assets are reused in both service and promotion with an accessible h
  assert.ok(views.includes('cfinder-mark.svg'));
  assert.match(brand,/viewBox="0 0 64 64"/);
  assert.match(brand,/#1957EF/);
- assert.ok(renderHome({tenant:{isPreview:false},storageAvailable:true}).includes('lab-hero-aside'));
+ assert.ok(renderHome({tenant:{isPreview:false},storageAvailable:true}).includes('lab-hero-main'));
+ assert.ok(!renderHome({tenant:{isPreview:false},storageAvailable:true}).includes('lab-hero-aside'));
 });

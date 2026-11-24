@@ -5,11 +5,18 @@ import { renderHome } from '../assets/ui/home.js';
 import { SAMPLE_REPORT } from '../assets/ui/sample-report.js';
 
 const home = renderHome({storageAvailable:true});
-test('assessment-first homepage retains diagnosis and result navigation',()=>{
+test('assessment-first homepage retains diagnosis and deeper report navigation',()=>{
   assert.match(home,/id="page-heading"/);
   assert.match(home,/href="#start"/);
   assert.match(home,/href="#report"/);
-  assert.match(home,/lab-hero-aside/);
+  assert.ok(!home.includes('lab-hero-aside'));
+  assert.ok(!home.includes('lab-sub-cta'));
+  assert.ok(!home.includes('lab-meta-line'));
+  const hero=home.slice(home.indexOf('<section class="lab-hero"'),home.indexOf('</section>')+10);
+  assert.equal((hero.match(/href="#start"/g)||[]).length,1);
+  assert.ok(!hero.includes('href="#report"'));
+  assert.ok(hero.includes('나에게 맞는 진로를 찾아보세요.'));
+
   assert.match(home,/lab-result-card/);
 });
 test('RIASEC catalog contains all six basic categories, no avatar illustration',()=>{

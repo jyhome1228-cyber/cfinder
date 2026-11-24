@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { renderHome } from '../assets/ui/home.js';
 const context = { tenant:{isPreview:false}, storageAvailable:true };
-test('service home has a single dominant diagnosis entry and result preview',()=>{
+test('service home has centered diagnosis entry and a report preview lower on page',()=>{
  const html=renderHome(context);
  assert.match(html,/id="page-heading"/);
  assert.match(html,/href="#start"/);
