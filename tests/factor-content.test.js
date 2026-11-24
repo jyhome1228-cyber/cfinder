@@ -53,15 +53,15 @@ test('a complete 49-item exploration only reflects user ratings; it never diagno
   assert.ok(html.includes('49개 항목의 응답'));
   assert.ok(html.includes('AI·컴퓨터·정보보안'));
   assert.ok(html.includes('자기평가이며'));
-  assert.ok(html.includes('정식 검사 점수나 RIASEC 진로 유형으로 산출되지 않습니다'));
+  assert.ok(html.includes('공식 점수나 진로 유형은 산출되지 않으며'));
 });
 
 test('question UI shows source-backed factor context and accurate progress',()=>{
   const a=ASSESSMENTS.high;
   const attempt=createAttempt('public',a);
   const html=renderView({page:'test',index:27,grade:'high',fromReview:false},{tenant:resolveTenant(''),assessment:a,attempt,attempts:{},storageAvailable:true});
-  assert.ok(html.includes('자기탐색 28–32번'));
-  assert.ok(html.includes('7 / 11페이지'));
+  assert.ok(html.includes('28–32 / 49'));
+  assert.ok(html.includes('7 <span>/ 11</span>'));
   assert.ok(html.includes('aria-valuemax="49"'));
   assert.ok(html.includes('cf-factor-help'));
   assert.ok(html.includes('cf-scale-head'));
