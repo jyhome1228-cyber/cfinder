@@ -1,0 +1,62 @@
+/* C-Finder QA6: brief practice, domain moments and completion celebration. */
+.cf-intro .cf-tutorial{
+  max-width:720px;margin:26px auto 23px;padding:22px 26px 18px;
+  border:1px solid #dfe9fb;border-radius:13px;background:#f8faff;text-align:left;
+}
+.cf-tutorial-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.cf-tutorial-top strong{display:block;font-size:1rem;color:#1c2d4b;line-height:1.5}
+.cf-tutorial-top p{font-size:.83rem;color:#677b95;margin:5px 0 0;line-height:1.5}
+.cf-tutorial-top>span{flex-shrink:0;background:#e5eeff;color:#1d56d7;border-radius:20px;padding:4px 10px;font-size:.74rem;font-weight:700}
+.cf-tutorial-question{text-align:center;font-size:.95rem;font-weight:700;color:#243955;margin:23px 0 12px;line-height:1.6}
+.cf-tutorial-options{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;align-items:start}
+.cf-tutorial-choice{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:9px;border:0;background:transparent;min-width:0;padding:9px 2px;cursor:pointer;color:#63738b;font:inherit;font-size:.72rem;line-height:1.4;text-align:center;word-break:keep-all}
+.cf-tutorial-orb{--size:39px;display:block;box-sizing:border-box;width:var(--size);height:var(--size);border:2px solid #7da3ed;background:#fff;border-radius:50%;transition:transform .16s ease,background-color .16s ease,box-shadow .16s ease;flex:none}
+.cf-tutorial-orb--1,.cf-tutorial-orb--5{--size:44px}
+.cf-tutorial-orb--2,.cf-tutorial-orb--4{--size:36px}
+.cf-tutorial-orb--3{--size:28px}
+.cf-tutorial-choice:hover .cf-tutorial-orb{transform:scale(1.07)}
+.cf-tutorial-choice.is-selected{color:#214ff4;font-weight:700}
+.cf-tutorial-choice.is-selected .cf-tutorial-orb{background:#214ff4;border-color:#214ff4;box-shadow:0 0 0 4px #dce8ff}
+.cf-tutorial-choice:focus-visible{outline:2px solid #1957ef;outline-offset:2px;border-radius:8px}
+.cf-tutorial-feedback{text-align:center;min-height:2.8em;padding-top:10px;font-size:.82rem;color:#526a8e;line-height:1.5}
+.shell-flow .cf-batch-panel .cf-domain-enter{
+ display:flex;align-items:center;gap:13px;margin:0 0 24px;padding:12px 17px;
+ border-radius:11px;background:linear-gradient(100deg,#edf4ff,#f9fbff);
+ border:1px solid #dce7fa;
+}
+.cf-domain-enter-visual{display:flex;align-items:center;justify-content:center;width:57px;height:57px;flex:none}
+.cf-domain-enter .cf-letter--domain,.cf-domain-enter .cf-letter--domain .cf-letter-img{display:block;width:55px;height:55px;object-fit:contain}
+.cf-domain-enter>div>span{display:block;font-size:.73rem;color:#647fae;line-height:1.4}
+.cf-domain-enter strong{display:block;font-size:1.02rem;color:#1c4ac7;line-height:1.4}
+.cf-domain-enter p{font-size:.82rem;line-height:1.5;color:#64758e;margin:3px 0 0}
+.cf-batch-question .choice input[type=radio]:checked{animation:cfAnswerPop .22s ease-out}
+@keyframes cfAnswerPop{0%{transform:scale(.86)}70%{transform:scale(1.08)}100%{transform:scale(1)}}
+.cf-completion-celebration{position:relative;display:flex;align-items:center;justify-content:center;width:160px;height:150px;margin:2px auto 12px}
+.cf-completion-celebration .cf-letter--complete{display:block;width:140px;height:140px;position:relative;z-index:2}
+.cf-completion-celebration .cf-letter--complete .cf-letter-img{width:100%;height:100%;object-fit:contain}
+.cf-completion-spark{position:absolute;z-index:1;width:10px;height:10px;border-radius:50%;background:#7ba5ff}
+.cf-completion-spark-one{top:18%;left:8%}.cf-completion-spark-two{right:3%;top:32%;width:7px;height:7px}.cf-completion-spark-three{bottom:19%;left:19%;width:7px;height:7px}
+@media(prefers-reduced-motion:no-preference){
+ @keyframes cfDomainReveal{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+ .cf-domain-enter{animation:cfDomainReveal .42s ease-out both}
+ @keyframes cfCelebrate{0%{transform:scale(.85);opacity:.4}60%{transform:scale(1.065);opacity:1}100%{transform:scale(1);opacity:1}}
+ .cf-completion-celebration .cf-letter--complete{animation:cfCelebrate .72s cubic-bezier(.2,.7,.2,1) both}
+ @keyframes cfSpark{0%{opacity:0;transform:scale(.4)}30%{opacity:1;transform:scale(1.4)}100%{opacity:.65;transform:scale(1)}}
+ .cf-completion-spark{animation:cfSpark .8s ease-out both}
+ .cf-completion-spark-two{animation-delay:.13s}.cf-completion-spark-three{animation-delay:.25s}
+}
+@media(max-width:700px){
+ .cf-intro .cf-tutorial{padding:17px 14px 13px;margin:20px auto}
+ .cf-tutorial-options{gap:3px}
+ .cf-tutorial-choice{font-size:.64rem;padding:7px 0;gap:8px}
+ .cf-tutorial-orb--1,.cf-tutorial-orb--5{--size:37px}
+ .cf-tutorial-orb--2,.cf-tutorial-orb--4{--size:31px}
+ .cf-tutorial-orb--3{--size:25px}
+ .shell-flow .cf-batch-panel .cf-domain-enter{padding:11px;gap:9px;margin-bottom:19px}
+ .cf-domain-enter-visual{width:45px;height:45px}
+ .cf-domain-enter .cf-letter--domain,.cf-domain-enter .cf-letter--domain .cf-letter-img{width:44px;height:44px}
+}
+@media(prefers-reduced-motion:reduce){
+ .cf-tutorial-orb,.cf-completion-celebration *, .cf-domain-enter{animation:none!important;transition:none!important}
+}
+@media print{.cf-tutorial,.cf-domain-enter,.cf-completion-celebration{display:none!important}}
