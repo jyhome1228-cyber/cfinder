@@ -49,20 +49,35 @@ function storageNotice(available) {
 }
 
 function start({ attempts, storageAvailable }) {
-  return `<section class="assessment-start" aria-labelledby="page-heading">
-    <h1 id="page-heading" tabindex="-1">검사 선택</h1>
-    
-    <div class="start-grade-options" role="group" aria-label="학교급 선택">${Object.values(ASSESSMENTS).map(assessment => {
-      const attempt = attempts[assessment.grade];
-      const count = attempt ? countAnswered(attempt, assessment) : 0;
-      const completed = attempt?.status === 'completed';
-      const action = completed ? '완료 보기' : count ? '이어서 하기' : '시작하기';
-      const status = completed ? '' : count ? `${count}/${assessment.questions.length}문항 응답` : assessment.grade === 'university' ? '전공 · 직무 탐색' : '흥미 · 적성 · 가치관';
-      return `<button class="start-grade-choice" type="button" data-action="select-grade" data-grade="${assessment.grade}" aria-label="${e(assessment.label)} ${action}"><strong>${e(assessment.label)}</strong><span class="start-grade-status">${status}</span><span class="start-grade-action">${action}</span></button>`;
-    }).join('')}</div>
-    <p class="start-demo-note">모든 검사는 3문항 화면 체험이며 진단 결과는 제공하지 않습니다.</p>
-    ${!storageAvailable ? storageNotice(false) : ''}
-    <a class="text-link start-back" href="#home">처음 화면으로</a>
+  return `<section class="assessment-start cf-welcome-flow" aria-label="진로검사 시작">
+    <div class="cf-welcome-stage" data-start-stage="welcome">
+      <div class="cf-start-content">
+        <p class="cf-welcome-greeting">안녕하세요.</p>
+        <h1 id="page-heading" tabindex="-1">C-Finder 진로검사에<br><span>오신 것을 환영합니다.</span></h1>
+        <p class="cf-welcome-description">나에게 맞는 진로를 알아보는 첫 단계입니다.</p>
+        <button class="btn btn-primary cf-welcome-next" type="button" data-action="show-grade-choices">시작하기 <span aria-hidden="true">→</span></button>
+        <p class="cf-welcome-scope">현재 제공되는 검사는 3문항 화면 체험입니다.</p>
+      </div>
+    </div>
+    <div class="cf-welcome-stage cf-grade-stage" data-start-stage="grade" hidden>
+      <div class="cf-start-content">
+        <p class="cf-welcome-greeting">반가워요.</p>
+        <h2 id="grade-heading" tabindex="-1">지금 어떤 학교급에<br><span>해당하나요?</span></h2>
+        <p class="cf-welcome-description">해당하는 대상을 선택해 주세요.</p>
+        <div class="cf-grade-grid" role="group" aria-labelledby="grade-heading">${Object.values(ASSESSMENTS).map(assessment => {
+          const attempt = attempts[assessment.grade];
+          const count = attempt ? countAnswered(attempt, assessment) : 0;
+          const completed = attempt?.status === 'completed';
+          const action = completed ? '체험 완료 보기' : count ? '이어서 하기' : '검사 시작';
+          const detail = assessment.grade === 'middle' ? '중학교에 다니고 있어요' : assessment.grade === 'high' ? '고등학교에 다니고 있어요' : '대학교에 다니고 있어요';
+          const state = completed ? '응답 완료' : count ? `${count}/${assessment.questions.length}문항 응답` : assessment.grade === 'university' ? '대학생용 화면 체험' : '3문항 화면 체험';
+          return `<button class="cf-grade-option" type="button" data-action="select-grade" data-grade="${assessment.grade}" aria-label="${e(assessment.label)} ${action}"><span class="cf-grade-title">${e(assessment.label)}</span><span class="cf-grade-description">${detail}</span><span class="cf-grade-bottom"><span>${state}</span><strong>${action} <span aria-hidden="true">→</span></strong></span></button>`;
+        }).join('')}</div>
+        <p class="cf-grade-notice">체험에서는 개인 점수와 진로 유형이 산출되지 않습니다.</p>
+        ${!storageAvailable ? storageNotice(false) : ''}
+        <button class="cf-back-step" type="button" data-action="back-to-welcome">이전으로</button>
+      </div>
+    </div>
   </section>`;
 }
 

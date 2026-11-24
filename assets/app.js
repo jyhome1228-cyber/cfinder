@@ -190,6 +190,17 @@ app.addEventListener('click', event => {
   const button = event.target.closest('button[data-action]');
   if (!button || button.disabled) return;
   const action = button.dataset.action;
+  if (action === 'show-grade-choices' || action === 'back-to-welcome') {
+    if (parseRoute(location.hash).page !== 'start') return;
+    const welcome = app.querySelector('[data-start-stage="welcome"]');
+    const grades = app.querySelector('[data-start-stage="grade"]');
+    if (!welcome || !grades) return;
+    const showGrades = action === 'show-grade-choices';
+    welcome.hidden = showGrades;
+    grades.hidden = !showGrades;
+    (showGrades ? grades.querySelector('#grade-heading') : welcome.querySelector('#page-heading'))?.focus({ preventScroll: true });
+    return;
+  }
   if (action === 'home-domain') return selectHomeDomain(app, button.dataset.domain);
   if (action === 'select-grade') return selectGrade(button.dataset.grade);
   if (!assessment() || !currentAttempt()) return;
