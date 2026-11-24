@@ -29,3 +29,25 @@
 
 /* Brand logo alignment with main assessment service */
 .promo-header .brand .brand-symbol{width:30px;height:30px;display:block;object-fit:contain;flex:0 0 auto}
+
+/* QA 1: replace original report image with a self-contained branded preview. */
+.cf-public-report-preview{
+  padding:24px 24px 19px;
+  border:1px solid #dce8ff;
+  border-radius:13px;
+  background:linear-gradient(135deg,#ffffff 15%,#f0f5ff 100%);
+  color:#1d283b;
+  text-align:left;
+}
+.cf-public-report-preview .cf-preview-eyebrow{font-size:11px;letter-spacing:.1em;font-weight:800;color:#1957ef;margin:0 0 5px}
+.cf-public-report-preview h3{font-size:23px;line-height:1.4;margin:0 0 8px;letter-spacing:-.04em}
+.cf-public-report-preview>p:not(.cf-preview-eyebrow){font-size:13px;line-height:1.65;color:#52637d;margin:0}
+.cf-preview-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:22px 0}
+.cf-preview-summary>div{background:white;border:1px solid #e1e8f5;border-radius:9px;padding:14px 10px}
+.cf-preview-summary span,.cf-preview-summary strong,.cf-preview-summary small{display:block}
+.cf-preview-summary span{font-size:11px;color:#1957ef;font-weight:700}
+.cf-preview-summary strong{font-size:15px;margin:6px 0;font-weight:750}
+.cf-preview-summary small{font-size:11px;line-height:1.5;color:#68788b;word-break:keep-all}
+.cf-preview-foot{border-top:1px solid #dce4f2;padding-top:11px;font-size:11px;color:#6f7b90}
+@media(max-width:950px){.cf-preview-summary{gap:6px}.cf-preview-summary>div{padding:10px 7px}.cf-public-report-preview{padding:18px}}
+@media(max-width:650px){.cf-public-report-preview{padding:18px}.cf-preview-summary{gap:7px}.cf-preview-summary>div{padding:12px 8px}.cf-preview-summary strong{font-size:13px}.cf-preview-summary small{font-size:10px}}
