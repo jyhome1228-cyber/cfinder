@@ -168,7 +168,7 @@ function question(route, { assessment, attempt, storageAvailable }) {
       }).join('')}</div>
       <p class="cf-page-feedback" data-page-feedback role="status" aria-live="polite">${completePage ? '이번 페이지의 응답을 마쳤어요. 다음 단계로 진행할 수 있어요.' : `남은 ${missingOnPage.length}개 문항에 응답해 주세요.`}</p>
       <div class="actions"><button class="btn btn-outline" type="button" data-action="previous" data-index="${page.start}">${route.fromReview ? '검토로 돌아가기' : page.previous === null ? '검사 안내' : '이전 페이지'}</button><button class="btn btn-primary" type="button" data-action="next" data-index="${page.start}">${nextLabel}</button></div>
-      <div class="question-utility"><span class="cf-save-state" data-save-state role="status">${storageAvailable ? '응답은 현재 브라우저 탭에 임시 저장됩니다.' : '이 브라우저에서는 응답 저장이 제한됩니다.'}</span><a class="text-link" href="#start">잠시 나가기</a></div>
+      <div class="question-utility"><span class="cf-save-state ${storageAvailable ? '' : 'is-unavailable'}" data-save-state role="status">${storageAvailable ? '응답은 현재 브라우저 탭에 임시 저장됩니다.' : '이 브라우저에서는 응답 저장이 제한됩니다.'}</span><a class="text-link" href="#start">잠시 나가기</a></div>
       <p class="cf-batch-disclaimer">${grouped ? '비공식 자기탐색 · 연구팀의 정식 검사 점수와 진로 유형은 산출되지 않습니다.' : '3문항 화면 체험 · 개인 진단 결과는 제공되지 않습니다.'}</p>
       ${!storageAvailable ? storageNotice(false) : ''}<span class="sr-only" id="response-status" role="status" aria-live="polite"></span>
     </section>
