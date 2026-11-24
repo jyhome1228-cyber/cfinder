@@ -148,11 +148,11 @@ function question(route, { assessment, attempt, storageAvailable }) {
       <div class="cf-batch-questions">${page.questions.map((q,offset) => {
         const index = page.start + offset;
         const answer = attempt.answers[q.id];
-        return `<fieldset class="cf-batch-question" data-question-row="${e(q.id)}">
-          <legend><span class="cf-batch-index">${index + 1}</span><span class="cf-batch-statement">${e(q.text)}</span></legend>
+        return `<div class="cf-batch-question" role="group" aria-labelledby="question-title-${index}" data-question-row="${e(q.id)}">
+          <h2 class="cf-question-heading" id="question-title-${index}"><span class="cf-batch-index">${index + 1}</span><span class="cf-batch-statement">${e(q.text)}</span></h2>
           ${q.description ? `<p class="cf-factor-help">${e(q.description)}</p>` : ''}
           <div class="choice-list" role="group" aria-label="${index + 1}번 응답 선택">${assessment.options.map(option => `<label class="choice ${answer === option.value ? 'is-selected' : ''}"><input type="radio" name="response-${index}" data-question="${e(q.id)}" value="${option.value}" ${answer === option.value ? 'checked' : ''} aria-label="${e(option.label)}"><span>${e(option.label)}</span></label>`).join('')}</div>
-        </fieldset>`;
+        </div>`;
       }).join('')}</div>
       <div class="actions"><button class="btn btn-outline" type="button" data-action="previous" data-index="${page.start}">${route.fromReview ? '검토로 돌아가기' : page.previous === null ? '검사 안내' : '이전 문항'}</button><button class="btn btn-primary" type="button" data-action="next" data-index="${page.start}" ${!completePage ? 'disabled' : ''}>${nextLabel}</button></div>
       <div class="question-utility"><a class="text-link" href="#start">나가기</a></div>
