@@ -194,3 +194,38 @@
  .cf-batch-panel .choice{min-height:56px!important}
  .cf-batch-panel .actions{padding-top:18px;margin-top:13px}
 }
+
+/* Spacing v3: an unmistakable divider and balanced vertical space per question. */
+.shell-flow .cf-batch-panel .cf-batch-questions{
+  margin-top:22px;
+  border-top:2px solid #cbd8ea;
+}
+.shell-flow .cf-batch-panel fieldset.cf-batch-question{
+  padding:38px 0 38px;
+  min-height:236px;
+  border-bottom:2px solid #cbd8ea;
+}
+.shell-flow .cf-batch-panel fieldset.cf-batch-question legend{
+  margin-bottom:13px;
+  line-height:1.75;
+}
+.shell-flow .cf-batch-panel fieldset.cf-batch-question .cf-factor-help{
+  margin:12px 0 23px 39px;
+}
+.shell-flow .cf-batch-panel fieldset.cf-batch-question .choice-list{
+  padding:18px 0 15px;
+  margin:9px auto 0;
+}
+.shell-flow .cf-batch-panel fieldset.cf-batch-question .choice{
+  min-height:68px!important;
+}
+@media(max-width:860px){
+ .shell-flow .cf-batch-panel fieldset.cf-batch-question{padding:31px 0;min-height:210px}
+}
+@media(max-width:620px){
+ .shell-flow .cf-batch-panel fieldset.cf-batch-question{padding:25px 0;min-height:190px}
+ .shell-flow .cf-batch-panel fieldset.cf-batch-question legend{margin-bottom:8px}
+ .shell-flow .cf-batch-panel fieldset.cf-batch-question .cf-factor-help{margin:9px 0 14px 29px}
+ .shell-flow .cf-batch-panel fieldset.cf-batch-question .choice-list{padding:10px 0 8px}
+ .shell-flow .cf-batch-panel fieldset.cf-batch-question .choice{min-height:54px!important}
+}
