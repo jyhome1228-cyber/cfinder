@@ -31,10 +31,10 @@ function radar(items) {
   const spokes=items.map((_,i)=>{const [x,y]=xy(i,max);return `<line x1="${center}" y1="${center}" x2="${x}" y2="${y}" />`}).join('');
   const rings=[50,100,150].map(v=>`<polygon points="${poly(items.map(()=>v))}"/>`).join('');
   const labels=items.map(([code,score],i)=>{const [x,y]=xy(i,180);return `<text x="${x}" y="${y+4}" text-anchor="middle">${e(code)}</text>`}).join('');
-  return `<svg viewBox="0 0 290 290" class="sr-radar" role="img" aria-label="RIASEC 점수: ${items.map(([code,v])=>`${code} ${v}`).join(', ')}"><g class="sr-radar-grid">${spokes}${rings}</g><polygon class="sr-radar-area" points="${poly(items.map(item=>item[1]))}"/><g class="sr-radar-labels">${labels}</g></svg>`;
+  return `<svg viewBox="0 0 290 290" class="sr-radar" role="img" aria-label="RIASEC 예시 점수: ${items.map(([code,v])=>`${code} ${v}`).join(', ')}"><g class="sr-radar-grid">${spokes}${rings}</g><polygon class="sr-radar-area" points="${poly(items.map(item=>item[1]))}"/><g class="sr-radar-labels">${labels}</g></svg>`;
 }
 function section(id,title,entries,max,tendency,options={}) {
-  const topCount=options.topCount||5, full=entries.length;
+  const topCount=options.topCount||5;
   return `<section id="sample-${id}" class="sr-section" aria-labelledby="sr-${id}-heading">
     <div class="sr-section-head"><div><h2 id="sr-${id}-heading">${e(title)}</h2><p>자기탐색의 주요 특징을 간추렸어요.</p></div><span class="sr-factor-count">주요 ${topCount}개 항목</span></div>
     <div class="sr-analysis-grid"><div class="sr-analysis-bars">
@@ -44,7 +44,6 @@ function section(id,title,entries,max,tendency,options={}) {
       <h3>상위 요인</h3>
       <div class="sr-top-factors">${entries.slice(0,Math.min(3,topCount)).map(([name,value]) => `<div><span>${e(name)}</span><strong>${value}</strong></div>`).join('')}</div>
       <h3 class="sr-tendency-heading">이렇게 이해해 보세요</h3><p>${e(tendency)}</p>
-      ${options.subjects ? `<div class="sr-subjects"><strong>자신 있는 과목</strong><span>${options.subjects.map((x,i)=>`${i+1}순위 ${e(x)}`).join(' · ')}</span></div>` : ''}
     </aside></div>
 
   </section>`;
@@ -57,7 +56,7 @@ export function renderSampleReport() {
      <div class="sr-profile-type"><span class="sr-hero-code">${d.type}</span><div class="cf-report-pair">${letterArt('E', 'report')}${letterArt('S', 'report')}</div><div><h2>${e(d.typeName)}</h2><p>${e(d.typeDescription)}</p></div></div>
      <div class="sr-hero-meta"><strong>${e(d.level)}</strong><span>흥미 · 적성 · 가치관</span></div>
    </div>
-   <nav class="sr-anchor-nav" aria-label="결과 상세 보기"><button type="button" data-sr-scroll="sample-interest" aria-current="true">흥미</button><button type="button" data-sr-scroll="sample-aptitude">적성</button><button type="button" data-sr-scroll="sample-values">가치관</button><button type="button" data-sr-scroll="sample-type">최종 유형</button></nav>
+   <nav class="sr-anchor-nav" aria-label="결과 예시 항목 보기"><button type="button" data-sr-scroll="sample-interest" aria-current="true">흥미</button><button type="button" data-sr-scroll="sample-aptitude">적성</button><button type="button" data-sr-scroll="sample-values">가치관</button><button type="button" data-sr-scroll="sample-type">유형 예시</button></nav>
    ${section('interest','흥미 분석',d.interest,5,d.tendencies.interest,{topCount:4})}
    ${section('aptitude','적성 분석',d.aptitude,5,d.tendencies.aptitude,{topCount:4})}
    ${section('values','가치관 분석',d.values,12,d.tendencies.values,{topCount:4})}
