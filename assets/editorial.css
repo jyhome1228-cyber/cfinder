@@ -175,3 +175,33 @@ body{background:#fff}
 
 /* One neutral-blue visual language for all six RIASEC catalog items. */
 .cf-editorial .lab-type .lab-type-art,.cf-editorial .lab-type:nth-child(n) .lab-type-art{background:#f2f5fa;color:#315fa9}
+
+/* Compact process navigation: replace oversized equal-width explanatory columns. */
+.cf-editorial .lab-process{padding:44px 0 45px;border-top:1px solid #e5e9ef}
+.cf-editorial .lab-process-heading{margin-bottom:19px;align-items:center}
+.cf-editorial .lab-process-heading .lab-section-heading{margin:0}
+.cf-editorial .lab-process-heading p{font-size:.9375rem;color:#62718a;line-height:1.7;margin-top:6px}
+.cf-editorial .lab-process-flow{list-style:none;margin:0;padding:0;display:flex;align-items:stretch;gap:0;border:1px solid #dfe6ef;border-radius:8px;background:white}
+.cf-editorial .lab-process-flow>li{position:relative;display:flex;align-items:center;flex:1 1 0;min-width:0;gap:17px;padding:19px 22px}
+.cf-editorial .lab-process-flow>li+li{border-left:1px solid #e8edf4;padding-left:35px}
+.cf-editorial .lab-process-flow>li:not(:last-child):after{content:"›";position:absolute;right:-8px;top:50%;transform:translateY(-50%);color:#1957ef;font-size:22px;font-weight:400;line-height:1;background:#fff;z-index:1;padding:0 2px}
+.cf-editorial .lab-process-index{display:flex;justify-content:center;align-items:center;flex:0 0 auto;width:36px;height:36px;border-radius:50%;background:#edf3ff;color:#1957ef;font-size:.875rem;font-weight:730;font-variant-numeric:tabular-nums}
+.cf-editorial .lab-process-flow>li>div{min-width:0}
+.cf-editorial .lab-process-flow strong{display:block;font-size:1rem;font-weight:700;line-height:1.55;color:#192945}
+.cf-editorial .lab-process-flow p{font-size:.875rem;color:#65748a;line-height:1.65;margin:3px 0 0}
+.cf-editorial .lab-process-note{font-size:.875rem;color:#65758a;line-height:1.75;margin:12px 0 0}
+@media(max-width:860px){
+ .cf-editorial .lab-process-flow>li{padding:17px 12px;gap:10px}
+ .cf-editorial .lab-process-flow>li+li{padding-left:18px}
+ .cf-editorial .lab-process-index{width:31px;height:31px}
+}
+@media(max-width:660px){
+ .cf-editorial .lab-process{padding:36px 0 37px}
+ .cf-editorial .lab-process-heading{align-items:flex-start;gap:10px}
+ .cf-editorial .lab-process-heading>a{font-size:.875rem;max-width:90px}
+ .cf-editorial .lab-process-flow{display:grid;grid-template-columns:1fr;border-radius:8px}
+ .cf-editorial .lab-process-flow>li,.cf-editorial .lab-process-flow>li+li{padding:14px 18px;border-left:0;gap:15px}
+ .cf-editorial .lab-process-flow>li+li{border-top:1px solid #e8edf4}
+ .cf-editorial .lab-process-flow>li:not(:last-child):after{content:none}
+ .cf-editorial .lab-process-flow p{font-size:.875rem}
+}

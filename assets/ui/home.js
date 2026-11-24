@@ -38,13 +38,16 @@ export function renderHome({storageAvailable}) {
    <p class="lab-type-note">유형 설명은 일반적인 탐색 정보입니다. 실제 C-Finder 진로 유형은 정식 검사 기준으로 산출해야 합니다.</p>
  </section>
  <section class="lab-process" aria-labelledby="lab-process-title">
-   <div class="lab-section-headline"><h2 id="lab-process-title" class="lab-section-heading">검사 이용 방법</h2></div>
-   <div class="lab-step-grid">
-     <article><span>01</span><div><h3>검사 선택</h3><p>중학생용·고등학생용·대학생용 체험 중 선택합니다.</p></div></article>
-     <article><span>02</span><div><h3>문항 응답</h3><p>질문에 답하고 마지막에 응답을 확인합니다.</p></div></article>
-     <article><span>03</span><div><h3>결과지 확인</h3><p>고등학생용 샘플 결과지의 구성과 해석을 살펴봅니다.</p></div></article>
+   <div class="lab-section-headline lab-process-heading">
+     <div><h2 id="lab-process-title" class="lab-section-heading">검사 이용 방법</h2><p>학교급을 고르고 문항에 응답한 뒤 샘플 결과지를 살펴보세요.</p></div>
+     <a href="#start">검사 시작하기 →</a>
    </div>
-   <p class="lab-process-note">현재 사이트는 학교급별 3문항 체험이며 개인 점수와 진로 유형을 산출하지 않습니다.</p>
+   <ol class="lab-process-flow">
+     <li><span class="lab-process-index">01</span><div><strong>검사 선택</strong><p>중학생 · 고등학생 · 대학생 체험</p></div></li>
+     <li><span class="lab-process-index">02</span><div><strong>문항 응답</strong><p>3문항 응답 및 답변 검토</p></div></li>
+     <li><span class="lab-process-index">03</span><div><strong>결과지 예시</strong><p>샘플 진로 유형과 분석 확인</p></div></li>
+   </ol>
+   <p class="lab-process-note">현재는 3문항 체험이며 개인 점수나 진로 유형은 산출되지 않습니다.</p>
  </section>
  <section class="lab-result-section" aria-labelledby="lab-result-title">
    <div class="lab-section-headline"><div><h2 id="lab-result-title" class="lab-section-heading">결과 화면 예시</h2><p>고등학생용 샘플 보고서</p></div><a href="#report">상세 결과 보기 →</a></div>

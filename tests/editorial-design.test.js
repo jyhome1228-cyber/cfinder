@@ -43,3 +43,14 @@ test('copy and stylesheet preserve rich FAQ and readable responsive layout',()=>
   assert.match(mainCss,/@media\(max-width:660px\)/);
   assert.match(promoCss,/@media\(max-width:760px\)/);
 });
+
+test('compact usage flow has three accessible ordered stages without redundant cards',()=>{
+ const html=renderHome({storageAvailable:true});
+ assert.match(html,/<ol class="lab-process-flow">/);
+ assert.equal((html.match(/class="lab-process-index"/g)||[]).length,3);
+ assert.ok(html.includes('3문항 체험이며 개인 점수나 진로 유형은 산출되지 않습니다'));
+ assert.ok(!html.includes('<div class="lab-step-grid">'));
+ const css=readFileSync(new URL('../assets/editorial.css',import.meta.url),'utf8');
+ assert.match(css,/lab-process-flow/);
+ assert.match(css,/@media\(max-width:660px\)/);
+});
