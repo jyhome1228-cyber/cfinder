@@ -18,3 +18,29 @@ jobs:
         run: npm run check
       - name: Run assessment and report tests
         run: npm test
+
+  browser:
+    needs: check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser test runner
+        run: npm install --no-save playwright
+      - name: Start C-Finder locally
+        run: |
+          npm run start -- --port 8000 > /tmp/cfinder-server.log 2>&1 &
+          sleep 3
+      - name: Run 49-question browser test and export PDF
+        run: node scripts/qa5-browser.mjs
+      - name: Store QA screenshots and PDF
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa5-browser-artifacts
+          path: qa-artifacts/
+          if-no-files-found: ignore
