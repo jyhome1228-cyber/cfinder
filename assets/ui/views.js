@@ -139,18 +139,18 @@ function question(route, { assessment, attempt, storageAvailable }) {
   }).join('') : '';
   return `<div class="flow-container">${stepper('test')}
     <section class="panel question-panel cf-batch-panel" aria-labelledby="page-heading" data-page-start="${page.start}" data-page-end="${page.end}" data-next-start="${page.next ?? ''}" data-page-number="${page.number}">
-      <div class="panel-heading"><span class="section-kicker">${label} ${page.start + 1}–${page.end}번 <span class="quiet">/ ${total}</span></span><span class="pill">${e(assessment.label)}</span></div>
+      <div class="panel-heading"><span class="section-kicker">${label} · ${page.start + 1}–${page.end}번 <span class="quiet">/ ${total}</span></span><span class="pill">${e(assessment.label)}</span></div>
       <div class="cf-batch-top"><div><h1 id="page-heading" tabindex="-1">${e(DOMAINS[page.domain].label)} 탐색</h1><p>${grouped ? '각 항목을 읽고 나에게 가장 가까운 답을 선택하세요.' : '지금의 생각에 가까운 답을 선택하세요.'}</p></div><span class="cf-page-number">${page.number} / ${page.totalPages}페이지</span></div>
       ${grouped ? `<ol class="cf-domain-progress" aria-label="영역별 진행 상황">${domainProgress}</ol>` : ''}
       <div class="progress-caption"><span data-progress-text>${answered}개 응답 · ${Math.round(answered / total * 100)}%</span><span data-page-status aria-live="polite">${page.questions.length - pageMissingQuestions(assessment, attempt.answers, page).length}/${page.questions.length}개 선택</span></div>
       <div class="progress-track" role="progressbar" aria-label="전체 응답 진행률" aria-valuenow="${answered}" aria-valuemin="0" aria-valuemax="${total}" aria-valuetext="${total}개 중 ${answered}개 응답"><span style="width:${answered / total * 100}%"></span></div>
-      <div class="cf-scale-head" aria-hidden="true">${assessment.options.map(option => `<span>${e(option.label)}</span>`).join('')}</div>
+      <div class="cf-response-guide"><span class="cf-response-guide-title">질문을 읽고 선택해 주세요</span><div class="cf-scale-head" aria-hidden="true">${assessment.options.map(option => `<span>${e(option.label)}</span>`).join('')}</div></div>
       <div class="cf-batch-questions">${page.questions.map((q,offset) => {
         const index = page.start + offset;
         const answer = attempt.answers[q.id];
         return `<div class="cf-batch-question" role="group" aria-labelledby="question-title-${index}" data-question-row="${e(q.id)}">
-          <h2 class="cf-question-heading" id="question-title-${index}"><span class="cf-batch-index">${index + 1}</span><span class="cf-batch-statement">${e(q.text)}</span></h2>
-          ${q.description ? `<p class="cf-factor-help">${e(q.description)}</p>` : ''}
+          <div class="cf-question-copy"><h2 class="cf-question-heading" id="question-title-${index}"><span class="cf-batch-index">${index + 1}</span><span class="cf-batch-statement">${e(q.text)}</span></h2>
+          ${q.description ? `<p class="cf-factor-help">${e(q.description)}</p>` : ''}</div>
           <div class="choice-list" role="group" aria-label="${index + 1}번 응답 선택">${assessment.options.map(option => `<label class="choice ${answer === option.value ? 'is-selected' : ''}"><input type="radio" name="response-${index}" data-question="${e(q.id)}" value="${option.value}" ${answer === option.value ? 'checked' : ''} aria-label="${e(option.label)}"><span>${e(option.label)}</span></label>`).join('')}</div>
         </div>`;
       }).join('')}</div>
