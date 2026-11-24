@@ -43,7 +43,7 @@ test('all school levels have exactly three demonstration questions and five resp
     const attempt=createAttempt(tenant.id,assessment);
     const html=renderView({page:'test',index:2,grade,fromReview:false},
       {tenant,assessment,attempt,attempts:{},storageAvailable:true});
-    assert.ok(html.includes(grade==='university' ? '체험 1–3번' : '자기탐색 1–5번'),grade);
+    assert.ok(html.includes(grade==='university' ? '1–3 / 3' : '1–5 / 49'),grade);
     assert.ok(html.includes('/ '+assessment.questions.length),grade);
     assert.equal((html.match(/type="radio"/g)||[]).length,(grade==='university'?3:5)*5,grade);
     assert.ok(html.includes('aria-valuemax="'+assessment.questions.length+'"'),grade);
