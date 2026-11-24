@@ -114,3 +114,33 @@
 @media(prefers-reduced-motion:reduce){
  .shell-start .cf-welcome-figure .cf-letter--welcome{animation:none!important}
 }
+
+/* Keep the welcome panel aligned to the same content edges as the global header. */
+.shell-start .assessment-start.cf-welcome-flow,
+.shell-start .cf-welcome-stage,
+.shell-start .cf-welcome-stage:not([hidden]){
+  width:100%;
+  max-width:none;
+}
+.shell-start .cf-welcome-stage:not([hidden]){
+  padding-left:0;
+  padding-right:0;
+}
+.shell-start .cf-welcome-stage .cf-start-content,
+.shell-start .cf-welcome-stage .cf-welcome-content{
+  width:100%;
+  max-width:none;
+  box-sizing:border-box;
+  margin-left:0;
+  margin-right:0;
+}
+.shell-start .cf-welcome-stage .cf-welcome-content{
+  padding-left:clamp(24px,4vw,64px);
+  padding-right:clamp(24px,4vw,64px);
+}
+@media(max-width:760px){
+ .shell-start .cf-welcome-stage .cf-welcome-content{
+   padding-left:20px;
+   padding-right:20px;
+ }
+}
