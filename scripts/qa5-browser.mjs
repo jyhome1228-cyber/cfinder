@@ -57,6 +57,10 @@ try {
  assert.match(page.url(),/#result/);
  await page.locator('.cf-completion-celebration').waitFor({state:'visible'});
  assert.equal(await page.locator('.cf-completion-celebration').count(),1);
+ assert.equal(await page.locator('.cf-reflection-card').count(),3,'Three self-reflection domains are expected');
+ assert.equal(await page.locator('.cf-reflection-distribution').count(),3);
+ assert.equal(await page.locator('.cf-reflection-next').count(),3);
+ assert.match(await page.locator('.cf-reflection-disclaimer').innerText(),/응답 개수/);
  await page.screenshot({path:'qa-artifacts/complete-desktop.png',fullPage:true});
  await context.close();
 
