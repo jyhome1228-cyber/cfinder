@@ -1,0 +1,116 @@
+/* C-Finder five-point assessment scale: large ends, small midpoint.
+   Final override is intentionally loaded after legacy service.css. */
+.question-panel .choice-list {
+  display:grid;
+  --max-circle:64px;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  justify-content:center;
+  align-items:start;
+  gap:clamp(4px,1vw,13px);
+  width:min(100%,760px);
+  max-width:760px;
+  margin:10px auto 0;
+  padding:14px 4px 18px;
+  min-inline-size:0;
+  border:0;
+}
+.question-panel .choice {
+  --choice-tone:#6096e9;
+  --circle-diameter:52px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  align-items:center;
+  flex:1 1 auto;
+  width:100%;
+  min-width:0;
+  min-height:118px;
+  padding:4px 2px 6px!important;
+  gap:0;
+  text-align:center;
+  border:0!important;
+  box-shadow:none!important;
+  background:transparent!important;
+  color:#596473;
+  cursor:pointer;
+}
+.question-panel .choice:nth-child(1){--circle-diameter:64px;--choice-tone:#3e7ce6}
+.question-panel .choice:nth-child(2){--circle-diameter:52px;--choice-tone:#82aaf0}
+.question-panel .choice:nth-child(3){--circle-diameter:40px;--choice-tone:#aebfdb}
+.question-panel .choice:nth-child(4){--circle-diameter:52px;--choice-tone:#659af0}
+.question-panel .choice:nth-child(5){--circle-diameter:64px;--choice-tone:#214ff4}
+.question-panel .choice input[type="radio"] {
+  appearance:none;
+  -webkit-appearance:none;
+  display:block;
+  flex:0 0 auto;
+  align-self:center;
+  width:var(--circle-diameter)!important;
+  height:var(--circle-diameter)!important;
+  min-width:0;
+  margin:calc((var(--max-circle) - var(--circle-diameter))/2) 0 !important;
+  padding:0;
+  box-sizing:border-box;
+  border:3px solid var(--choice-tone)!important;
+  border-radius:50%;
+  background:#fff!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  outline:none;
+  cursor:pointer;
+  transform:none;
+  transition:background-color .18s ease,box-shadow .18s ease,transform .18s ease;
+}
+.question-panel .choice input[type="radio"]:hover{
+  transform:scale(1.06);
+  box-shadow:0 0 0 4px rgba(33,79,244,.09)!important;
+}
+.question-panel .choice input[type="radio"]:checked {
+  background:var(--choice-tone)!important;
+  background-image:none!important;
+  border-color:var(--choice-tone)!important;
+  box-shadow:0 0 0 5px rgba(33,79,244,.11)!important;
+  transform:none;
+}
+.question-panel .choice input[type="radio"]:focus-visible {
+  outline:3px solid #153fba;
+  outline-offset:5px;
+}
+.question-panel .choice.is-selected {color:#202020;font-weight:700}
+.question-panel .choice>span {
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  width:100%;
+  max-width:130px;
+  min-height:47px;
+  margin:12px 0 0;
+  font-size:.875rem;
+  font-weight:inherit;
+  line-height:1.5;
+  word-break:keep-all;
+}
+.question-panel .question-heading{margin-bottom:14px}
+@media(max-width:760px){
+ .question-panel .choice-list {--max-circle:50px;gap:4px;padding:12px 0 12px}
+ .question-panel .choice {min-height:103px;min-width:0;padding:3px 0 6px!important}
+ .question-panel .choice:nth-child(1){--circle-diameter:50px}
+ .question-panel .choice:nth-child(2){--circle-diameter:41px}
+ .question-panel .choice:nth-child(3){--circle-diameter:32px}
+ .question-panel .choice:nth-child(4){--circle-diameter:41px}
+ .question-panel .choice:nth-child(5){--circle-diameter:50px}
+ .question-panel .choice>span {font-size:.76rem;min-height:45px;margin-top:11px;line-height:1.4}
+}
+@media(max-width:420px){
+ .question-panel .choice-list {--max-circle:43px;gap:2px}
+ .question-panel .choice:nth-child(1){--circle-diameter:43px}
+ .question-panel .choice:nth-child(2){--circle-diameter:37px}
+ .question-panel .choice:nth-child(3){--circle-diameter:29px}
+ .question-panel .choice:nth-child(4){--circle-diameter:37px}
+ .question-panel .choice:nth-child(5){--circle-diameter:43px}
+ .question-panel .choice input[type="radio"]{border-width:2.5px!important}
+ .question-panel .choice>span {font-size:.71rem;line-height:1.4;margin-top:10px}
+}
+@media(prefers-reduced-motion:reduce){
+ .question-panel .choice input[type="radio"]{transition:none!important}
+}

@@ -123,7 +123,7 @@ function question(route, { assessment, attempt, storageAvailable }) {
   const nextLabel = route.fromReview ? '수정 완료' : route.index === total - 1 ? '응답 검토하기' : '다음 문항';
   return `<div class="flow-container">${stepper('test')}
     <section class="panel question-panel" aria-labelledby="page-heading">
-      <div class="panel-heading"><span class="section-kicker">${route.index + 1}번 문항 <span class="quiet">/ ${total}</span></span><span class="pill">${e(assessment.label)}</span></div>
+      <div class="panel-heading"><span class="section-kicker">체험 ${route.index + 1}번 문항 <span class="quiet">/ ${total}</span></span><span class="pill">${e(assessment.label)}</span></div>
       <div class="progress-caption"><span data-progress-text>${count}개 응답 · ${Math.round(count / total * 100)}%</span></div>
       <div class="progress-track" role="progressbar" aria-label="응답한 문항 수" aria-valuenow="${count}" aria-valuemin="0" aria-valuemax="${total}" aria-valuetext="${total}개 중 ${count}개 응답"><span style="width:${count / total * 100}%"></span></div>
       <div class="question-heading"><span class="domain-label">${e(DOMAINS[q.domain].label)}</span><h1 id="page-heading" tabindex="-1">${e(q.text)}</h1><p id="question-help" class="sr-only">가장 가까운 응답을 선택해 주세요.</p></div>
