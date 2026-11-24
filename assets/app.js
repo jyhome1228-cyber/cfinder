@@ -172,8 +172,9 @@ function refreshAnswerUI(questionId, value) {
     label.classList.toggle('is-selected', label.querySelector('input').checked);
   });
   const missing = pageMissingQuestions(current, attempt.answers, page);
-  const nextButton = app.querySelector('[data-action="next"]');
-  if (nextButton) nextButton.disabled = missing.length > 0;
+  const feedback = app.querySelector('[data-page-feedback]');
+  if (feedback) feedback.textContent = missing.length ? `남은 ${missing.length}개 문항에 응답해 주세요.` : '이번 페이지의 응답을 마쳤어요. 다음 단계로 진행할 수 있어요.';
+  row?.classList.remove('is-missing');
   app.querySelector('[data-progress-text]').textContent = `${count}/${total} 응답 · ${Math.round(count / total * 100)}%`;
   const pageStatus = app.querySelector('[data-page-status]');
   if (pageStatus) pageStatus.textContent = `이번 페이지 ${page.questions.length - missing.length}/${page.questions.length}개 선택`;
@@ -192,6 +193,8 @@ function refreshAnswerUI(questionId, value) {
     });
   }
   app.querySelector('#response-status').textContent = `${current.options.find(o => o.value === value).label}, 응답했어요.`;
+  const saveState = app.querySelector('[data-save-state]');
+  if (saveState) saveState.textContent = storage.available ? '응답이 현재 브라우저 탭에 임시 저장됐어요.' : '저장할 수 없어요. 새로고침하면 응답이 사라질 수 있습니다.';
   if (!storage.available) {
     let notice = app.querySelector('[data-storage-notice]');
     if (!notice) {
@@ -271,8 +274,22 @@ app.addEventListener('click', event => {
     go(route.fromReview ? '#review' : page.previous === null ? '#intro' : `#test/${page.previous}`);
   } else if (action === 'next') {
     const page = pageForIndex(assessment(), route.index);
-    if (!page || pageMissingQuestions(assessment(), currentAttempt().answers, page).length) return;
+    if (!page) return;
+    const missing = pageMissingQuestions(assessment(), currentAttempt().answers, page);
+    if (missing.length) {
+      const rows = [...app.querySelectorAll('[data-question-row]')];
+      rows.forEach(row => row.classList.toggle('is-missing', missing.some(q => q.id === row.dataset.questionRow)));
+      const feedback = app.querySelector('[data-page-feedback]');
+      if (feedback) feedback.textContent = `아직 ${missing.length}개 문항이 남아 있어요. 표시된 문항에 답해 주세요.`;
+      const first = rows.find(row => row.dataset.questionRow === missing[0].id);
+      first?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      first?.querySelector('input[type="radio"]')?.focus({ preventScroll: true });
+      return;
+    }
     go(route.fromReview || page.next === null ? '#review' : `#test/${page.next}`);
+  } else if (action === 'first-missing') {
+    const firstIndex = assessment().questions.findIndex(q => !Object.hasOwn(currentAttempt().answers, q.id));
+    if (firstIndex >= 0) go(`#test/${firstIndex}?from=review`);
   } else if (action === 'edit') go(`#test/${index}?from=review`);
   else if (action === 'last-question') go(`#test/${assessment().questions.length - 1}`);
   else if (action === 'complete') {
