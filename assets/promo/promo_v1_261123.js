@@ -25,32 +25,6 @@ document.querySelectorAll('[data-event]').forEach(link => {
   link.addEventListener('click', () => track(link.dataset.event));
 });
 
-const tabs = [...document.querySelectorAll('[data-report-tab]')];
-if (tabs.length && document.querySelector('.report-tabs')) document.querySelector('.report-tabs').hidden = false;
-function activateReport(tab, focus = false) {
-  tabs.forEach(item => {
-    const active = item === tab;
-    item.setAttribute('aria-selected', String(active));
-    item.tabIndex = active ? 0 : -1;
-    document.getElementById(item.getAttribute('aria-controls')).hidden = !active;
-  });
-  if (focus) tab.focus();
-}
-tabs.forEach((tab, index) => {
-  tab.addEventListener('click', () => activateReport(tab));
-  tab.addEventListener('keydown', event => {
-    let next;
-    if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
-    if (event.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length;
-    if (event.key === 'Home') next = 0;
-    if (event.key === 'End') next = tabs.length - 1;
-    if (next !== undefined) {
-      event.preventDefault();
-      activateReport(tabs[next], true);
-    }
-  });
-});
-
 const inquiryForm = document.querySelector('#inquiry-form');
 const consent = document.querySelector('#inquiry-consent');
 const prepareButton = inquiryForm.querySelector('[type="submit"]');
