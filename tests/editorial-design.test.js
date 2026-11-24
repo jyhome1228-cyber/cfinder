@@ -61,3 +61,13 @@ test('compact usage flow has three accessible ordered stages without redundant c
  assert.match(css,/lab-process-flow/);
  assert.match(css,/@media\(max-width:660px\)/);
 });
+
+test('main hero typography matches the diagnosis welcome typography scale',()=>{
+ const mainCss=readFileSync(new URL('../assets/neutral-theme.css',import.meta.url),'utf8');
+ const welcomeCss=readFileSync(new URL('../assets/welcome-flow.css',import.meta.url),'utf8');
+ assert.match(welcomeCss,/font-size:clamp\(1\.8rem,2\.65vw,2\.35rem\)/);
+ assert.match(mainCss,/\.shell-home \.cf-editorial \.lab-hero h1\s*\{\s*font-size:\s*clamp\(1\.8rem, 2\.65vw, 2\.35rem\)/);
+ assert.match(mainCss,/font-weight:\s*720;/);
+ assert.match(mainCss,/@media\(max-width:660px\)/);
+ assert.match(mainCss,/font-size:\s*clamp\(1\.6rem, 6vw, 1\.96rem\)/);
+});

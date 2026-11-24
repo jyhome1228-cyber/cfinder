@@ -178,3 +178,50 @@ body, .site-header, .site-footer { background: #FFFFFF; color: #202020; }
     justify-content: flex-start;
   }
 }
+
+/* Main hero typography matches the conversational assessment welcome page. */
+.shell-home .cf-editorial .lab-hero {
+  min-height: 430px;
+  padding-top: 85px;
+  padding-bottom: 82px;
+}
+.shell-home .cf-editorial .lab-hero h1 {
+  font-size: clamp(1.8rem, 2.65vw, 2.35rem);
+  line-height: 1.47;
+  font-weight: 720;
+  letter-spacing: -.048em;
+}
+.shell-home .cf-editorial .lab-hero-description {
+  margin: 19px auto 26px;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+.shell-home .cf-editorial .lab-hero-actions .lab-main-cta {
+  min-height: 51px;
+  min-width: 183px;
+  font-weight: 670;
+  box-shadow: none;
+}
+@media(max-width:820px){
+  .shell-home .cf-editorial .lab-hero {
+    min-height: 375px;
+    padding: 65px 12px;
+  }
+  .shell-home .cf-editorial .lab-hero h1 {
+    font-size: clamp(1.8rem, 2.65vw, 2.35rem);
+  }
+}
+@media(max-width:660px){
+  .shell-home .cf-editorial .lab-hero {
+    min-height: 355px;
+    padding: 62px 4px 58px;
+  }
+  .shell-home .cf-editorial .lab-hero h1 {
+    font-size: clamp(1.6rem, 6vw, 1.96rem);
+    line-height: 1.47;
+  }
+  .shell-home .cf-editorial .lab-hero-description {
+    margin: 15px auto 23px;
+    font-size: .9375rem;
+  }
+}
