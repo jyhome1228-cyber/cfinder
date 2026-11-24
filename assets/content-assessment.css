@@ -1,0 +1,42 @@
+/* C-Finder factor-based self-exploration. Not a validated psychometric scale. */
+.question-panel .cf-factor-context{
+  max-width:700px;
+  margin:15px auto 0;
+  padding:13px 17px;
+  border-left:2px solid #BDD0FA;
+  background:#F7FAFF;
+  color:#535E6F;
+  font-size:.95rem;
+  line-height:1.77;
+  text-align:left;
+  word-break:keep-all;
+}
+.question-panel .question-heading:has(.cf-factor-context){margin-top:17px}
+.question-panel .question-heading:has(.cf-factor-context) h1{font-size:clamp(1.28rem,2vw,1.55rem)}
+.cf-self-reflection{
+  max-width:900px;
+  margin:28px auto 23px;
+  text-align:left;
+  border-top:1px solid #E0E6EF;
+  border-bottom:1px solid #E0E6EF;
+  padding:25px 0;
+}
+.cf-self-reflection h2{font-size:1.13rem;font-weight:700;line-height:1.5;color:#202020}
+.cf-self-reflection>p{color:#5F6978;font-size:.9rem;line-height:1.72;margin:7px 0 20px}
+.cf-self-groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:23px}
+.cf-self-groups section{min-width:0}
+.cf-self-groups h3{font-size:1.03rem;line-height:1.5;color:#214FF4;font-weight:700}
+.cf-self-groups section>p{font-size:.83rem;color:#6B7483;margin:4px 0 13px}
+.cf-self-groups ul{list-style:none;margin:0;padding:0;border-top:1px solid #E4E9F1}
+.cf-self-groups li{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:11px 1px;border-bottom:1px solid #E8ECF2;font-size:.9rem;line-height:1.45;color:#323B49;word-break:keep-all}
+.cf-self-groups li span{white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:680;color:#214FF4}
+.review-panel .review-list{margin-top:18px}
+.review-panel .review-item{scroll-margin-top:85px}
+@media(max-width:860px){
+ .cf-self-groups{grid-template-columns:1fr;gap:24px}
+ .cf-self-groups ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px}
+}
+@media(max-width:620px){
+ .question-panel .cf-factor-context{font-size:.875rem;padding:10px 12px}
+ .cf-self-groups ul{display:block}
+}

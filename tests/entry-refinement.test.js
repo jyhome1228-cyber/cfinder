@@ -23,7 +23,7 @@ test('welcome shows a C visual with essential guidance and one start button', ()
   assert.ok(stage.includes('적성'));
   assert.ok(stage.includes('가치관'));
   assert.equal((stage.match(/data-action="show-grade-choices"/g) || []).length, 1);
-  assert.ok(stage.includes('3문항 화면 체험'));
+  assert.ok(stage.includes('49개 요인 자기탐색'));
 });
 test('intro is a focused single CTA with compact information instead of empty columns', () => {
   assert.ok(intro.includes('cf-intro-simple'));
@@ -31,7 +31,7 @@ test('intro is a focused single CTA with compact information instead of empty co
   assert.ok(intro.includes('검사를 시작할게요.'));
   assert.ok(intro.includes('5단계 중 하나 선택'));
   assert.ok(intro.includes('응답 검토 및 수정'));
-  assert.ok(intro.includes('3문항 화면 체험'));
+  assert.ok(intro.includes('49개 하위 요인'));
   assert.equal((intro.match(/data-action="begin"/g) || []).length, 1);
   assert.ok(!intro.includes('cf-intro-lead'));
   assert.ok(!intro.includes('cf-intro-details'));

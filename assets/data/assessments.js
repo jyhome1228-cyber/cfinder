@@ -1,3 +1,4 @@
+import { factorQuestions } from './factor-content.js';
 // UI demonstration items only. These are not the official C-Finder question bank.
 export const DOMAINS = Object.freeze({
   interest: { label: '흥미', question: '어떤 일에 마음이 가나요?', description: '내가 좋아하고 더 알아보고 싶은 활동을 살펴봐요.' },
@@ -27,16 +28,22 @@ function demoAssessment(grade, label, description, questions) {
 }
 
 export const ASSESSMENTS = Object.freeze({
-  middle: demoAssessment('middle', '중학생용', '좋아하는 활동과 진로에 대한 생각을 살펴봅니다.', [
-    { id: 'M-DEMO-01', domain: 'interest', text: '관심이 생긴 활동을 더 알아보는 편이다.' },
-    { id: 'M-DEMO-02', domain: 'aptitude', text: '새로운 활동을 배울 때 방법을 빠르게 익히는 편이다.' },
-    { id: 'M-DEMO-03', domain: 'values', text: '앞으로 할 일을 고를 때 즐겁게 할 수 있는지를 중요하게 생각한다.' }
-  ]),
-  high: demoAssessment('high', '고등학생용', '관심 분야와 강점, 진로 선택 기준을 살펴봅니다.', [
-    { id: 'H-DEMO-01', domain: 'interest', text: '관심 있는 직업이나 전공에 관한 정보를 스스로 찾아본다.' },
-    { id: 'H-DEMO-02', domain: 'aptitude', text: '복잡한 과제를 해결할 때 필요한 정보를 체계적으로 정리할 수 있다.' },
-    { id: 'H-DEMO-03', domain: 'values', text: '진로를 선택할 때 일의 안정성을 중요하게 생각한다.' }
-  ]),
+  middle: Object.freeze({
+    ...demoAssessment('middle', '중학생용', '흥미·적성·가치관 49개 요인을 살펴보는 비공식 자기탐색 설문입니다.', factorQuestions('middle')),
+    id: 'cfinder-middle-factor-exploration',
+    version: 'factor-content-2026-11-24-v1',
+    kind: 'factor_exploration',
+    source: 'C-finder_결과지 데이터.xlsx',
+    formal: false
+  }),
+  high: Object.freeze({
+    ...demoAssessment('high', '고등학생용', '흥미·적성·가치관 49개 요인을 살펴보는 비공식 자기탐색 설문입니다.', factorQuestions('high')),
+    id: 'cfinder-high-factor-exploration',
+    version: 'factor-content-2026-11-24-v1',
+    kind: 'factor_exploration',
+    source: 'C-finder_결과지 데이터.xlsx',
+    formal: false
+  }),
   university: demoAssessment('university', '대학생용', '관심 직무와 강점, 직업 선택 기준을 살펴봅니다.', [
     { id: 'U-DEMO-01', domain: 'interest', text: '관심 있는 직무에 관한 정보를 찾아보는 편이다.' },
     { id: 'U-DEMO-02', domain: 'aptitude', text: '팀 프로젝트에서 복잡한 정보를 이해하기 쉽게 정리할 수 있다.' },

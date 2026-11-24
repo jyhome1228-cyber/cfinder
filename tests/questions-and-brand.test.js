@@ -12,22 +12,22 @@ test('all nine draft questions have complete and separate grade/domain mapping',
   const a=ASSESSMENTS[grade];
   assert.equal(a.grade,grade);
   assert.equal(a.mode,'demo');
-  assert.equal(a.questions.length,3);
-  assert.deepEqual(a.questions.map(q=>q.domain),['interest','aptitude','values']);
+  assert.equal(a.questions.length,grade==='university'?3:49);
+  assert.deepEqual(grade==='university' ? a.questions.map(q=>q.domain) : [...new Set(a.questions.map(q=>q.domain))],['interest','aptitude','values']);
   for(const q of a.questions){
    assert.ok(DOMAINS[q.domain]);
-   assert.ok(q.text.length >= 20 && q.text.length <= 85,q.id);
+   assert.ok(q.text.length >= 15 && q.text.length <= 110,q.id);
    assert.ok(!ids.has(q.id),q.id);
    assert.ok(!/[!?]{2,}/.test(q.text));
    ids.add(q.id);
   }
   assert.equal(a.options.length,5);
  }
- assert.equal(ids.size,9);
+ assert.equal(ids.size,101);
 });
 test('revised question bank version differs from earlier demo and prevents stale responses',()=>{
  const a=ASSESSMENTS.middle;
- assert.equal(a.version,'demo-2026-11-24-v2');
+ assert.equal(a.version,'factor-content-2026-11-24-v1');
  const old={...a,version:'demo-1'};
  assert.notEqual(storageKey('public',a),storageKey('public',old));
 });
@@ -36,7 +36,7 @@ test('all revised questions permit answer, review, and completion but no scores'
   const a=ASSESSMENTS[grade];
   let attempt=createAttempt('public',a,'2026-11-24T00:00:00.000Z');
   for(const q of a.questions)attempt=answerQuestion(attempt,a,q.id,3);
-  assert.equal(countAnswered(attempt,a),3);
+  assert.equal(countAnswered(attempt,a),a.questions.length);
   assert.ok(isComplete(attempt,a));
   assert.equal(Object.hasOwn(attempt,'scores'),false);
   assert.equal(Object.hasOwn(attempt,'careerType'),false);

@@ -59,7 +59,7 @@ function start({ attempts, storageAvailable }) {
         <p class="cf-welcome-description">흥미·적성·가치관을 함께 살펴보는 진로검사</p>
         <button class="btn btn-primary cf-welcome-next" type="button" data-action="show-grade-choices">시작하기 <span aria-hidden="true">→</span></button>
         <div class="cf-welcome-domains" aria-label="검사 영역"><span>흥미</span><span>적성</span><span>가치관</span></div>
-        <p class="cf-welcome-scope">현재는 3문항 화면 체험이며, 개인 진단 결과는 제공되지 않습니다.</p>
+        <p class="cf-welcome-scope">중·고등 49개 요인 자기탐색 · 대학생용 3문항 체험 · 정식 진단 아님</p>
       </div>
     </div>
     <div class="cf-welcome-stage cf-grade-stage" data-start-stage="grade" hidden>
@@ -71,12 +71,12 @@ function start({ attempts, storageAvailable }) {
           const attempt = attempts[assessment.grade];
           const count = attempt ? countAnswered(attempt, assessment) : 0;
           const completed = attempt?.status === 'completed';
-          const action = completed ? '체험 완료 보기' : count ? '이어서 하기' : '검사 시작';
+          const action = completed ? '완료 기록 보기' : count ? '이어서 하기' : '시작하기';
           const detail = assessment.grade === 'middle' ? '중학교에 다니고 있어요' : assessment.grade === 'high' ? '고등학교에 다니고 있어요' : '대학교에 다니고 있어요';
-          const state = completed ? '응답 완료' : count ? `${count}/${assessment.questions.length}문항 응답` : assessment.grade === 'university' ? '대학생용 화면 체험' : '3문항 화면 체험';
+          const state = completed ? '응답 완료' : count ? `${count}/${assessment.questions.length}항목 응답` : assessment.kind === 'factor_exploration' ? '49항목 자기탐색 · 비공식' : '대학생용 3문항 체험';
           return `<button class="cf-grade-option" type="button" data-action="select-grade" data-grade="${assessment.grade}" aria-label="${e(assessment.label)} ${action}"><span class="cf-grade-title">${e(assessment.label)}</span><span class="cf-grade-description">${detail}</span><span class="cf-grade-bottom"><span>${state}</span><strong>${action} <span aria-hidden="true">→</span></strong></span></button>`;
         }).join('')}</div>
-        <p class="cf-grade-notice">체험에서는 개인 점수와 진로 유형이 산출되지 않습니다.</p>
+        <p class="cf-grade-notice">중·고등학생용은 결과지의 49개 요인을 활용한 비공식 자기탐색입니다. 정식 C-Finder 문항·채점은 연결되지 않았습니다.</p>
         ${!storageAvailable ? storageNotice(false) : ''}
         <button class="cf-back-step" type="button" data-action="back-to-welcome">이전으로</button>
       </div>
@@ -102,12 +102,12 @@ function intro({ assessment, attempt, storageAvailable }) {
         <h1 id="page-heading" tabindex="-1">검사를 시작할게요.</h1>
         <p class="cf-intro-description">정답은 없습니다. 지금의 생각에 가장 가까운 답을 선택해 주세요.</p>
         <div class="cf-intro-facts" aria-label="검사 안내">
-          <div><strong>검사 영역</strong><span>흥미 · 적성 · 가치관</span></div>
-          <div><strong>응답 방식</strong><span>5단계 중 하나 선택</span></div>
+          <div><strong>탐색 영역</strong><span>흥미 · 적성 · 가치관</span></div>
+          <div><strong>응답 방식</strong><span>${assessment.questions.length}항목 · 5단계 선택</span></div>
           <div><strong>마지막 확인</strong><span>응답 검토 및 수정</span></div>
         </div>
         <button type="button" class="btn btn-primary cf-intro-main-cta" data-action="begin">${count ? '이어서 응답하기' : '응답 시작하기'} <span aria-hidden="true">→</span></button>
-        <p class="cf-intro-notice">현재는 3문항 화면 체험입니다. 개인 점수나 진로 유형은 산출되지 않습니다.</p>
+        <p class="cf-intro-notice">${assessment.kind === "factor_exploration" ? "제공된 결과지의 49개 하위 요인을 활용한 비공식 자기탐색 설문입니다. 적성은 스스로 느끼는 강점을 묻습니다." : "대학생용 3문항 화면 체험입니다."} 연구팀의 정식 문항·채점 규칙과 연결되지 않으며, 진로 유형을 판정하지 않습니다.</p>
         ${!storageAvailable ? storageNotice(false) : ''}
         <a class="cf-intro-back" href="#start">학교급 다시 선택</a>
       </div>
@@ -123,10 +123,10 @@ function question(route, { assessment, attempt, storageAvailable }) {
   const nextLabel = route.fromReview ? '수정 완료' : route.index === total - 1 ? '응답 검토하기' : '다음 문항';
   return `<div class="flow-container">${stepper('test')}
     <section class="panel question-panel" aria-labelledby="page-heading">
-      <div class="panel-heading"><span class="section-kicker">체험 ${route.index + 1}번 문항 <span class="quiet">/ ${total}</span></span><span class="pill">${e(assessment.label)}</span></div>
+      <div class="panel-heading"><span class="section-kicker">${assessment.kind === "factor_exploration" ? "자기탐색" : "체험"} ${route.index + 1}번 문항 <span class="quiet">/ ${total}</span></span><span class="pill">${e(assessment.label)}</span></div>
       <div class="progress-caption"><span data-progress-text>${count}개 응답 · ${Math.round(count / total * 100)}%</span></div>
       <div class="progress-track" role="progressbar" aria-label="응답한 문항 수" aria-valuenow="${count}" aria-valuemin="0" aria-valuemax="${total}" aria-valuetext="${total}개 중 ${count}개 응답"><span style="width:${count / total * 100}%"></span></div>
-      <div class="question-heading"><span class="domain-label">${e(DOMAINS[q.domain].label)}</span><h1 id="page-heading" tabindex="-1">${e(q.text)}</h1><p id="question-help" class="sr-only">가장 가까운 응답을 선택해 주세요.</p></div>
+      <div class="question-heading"><span class="domain-label">${e(DOMAINS[q.domain].label)}${q.factor ? ` · ${e(q.factor)}` : ""}</span><h1 id="page-heading" tabindex="-1">${e(q.text)}</h1>${q.description ? `<p class="cf-factor-context">${e(q.description)}</p>` : ""}<p id="question-help" class="sr-only">가장 가까운 응답을 선택해 주세요.</p></div>
       <fieldset class="choice-list" aria-describedby="question-help"><legend class="sr-only">${e(q.text)}에 대한 응답</legend>
         ${assessment.options.map(option => `<label class="choice ${answer === option.value ? 'is-selected' : ''}"><input type="radio" name="response" data-question="${e(q.id)}" value="${option.value}" ${answer === option.value ? 'checked' : ''}><span>${e(option.label)}</span></label>`).join('')}
       </fieldset>
@@ -143,13 +143,13 @@ function review({ assessment, attempt, storageAvailable }) {
   const complete = isComplete(attempt, assessment);
   return `<div class="flow-container">${stepper('review')}
     <section class="panel review-panel"><div class="panel-heading"><span class="pill">${e(assessment.label)}</span></div>
-      <h1 id="page-heading" tabindex="-1">응답 검토</h1><p class="page-description">${total}문항 중 ${count}문항에 응답했어요.<br> 수정할 답을 선택하세요.</p>
-      ${!complete ? `<p class="notice" role="status">아직 답하지 않은 ${total - count}문항이 있어요. 모든 응답을 마치면 완료할 수 있어요.</p>` : ''}
+      <h1 id="page-heading" tabindex="-1">응답 검토</h1><p class="page-description">${total}항목 중 ${count}항목에 응답했어요.<br> 수정할 답을 선택하세요.</p>
+      ${!complete ? `<p class="notice" role="status">아직 답하지 않은 ${total - count}항목이 있어요. 모든 응답을 마치면 완료할 수 있어요.</p>` : ''}
       <ol class="review-list">${assessment.questions.map((q, i) => {
         const answer = assessment.options.find(option => option.value === attempt.answers[q.id]);
         return `<li class="review-item ${!answer ? 'is-unanswered' : ''}"><div class="review-meta"><span>${i + 1}번</span><span>${e(DOMAINS[q.domain].label)}</span></div><div class="review-copy"><h2>${e(q.text)}</h2><p>${answer ? e(answer.label) : '<span class="unanswered">아직 응답하지 않았어요</span>'}</p></div><button class="text-button" type="button" data-action="edit" data-index="${i}" aria-label="${i + 1}번 문항 ${answer ? '수정하기' : '응답하기'}">${answer ? '수정하기' : '응답하기'}</button></li>`;
       }).join('')}</ol>
-      <div class="actions"><button class="btn btn-outline" type="button" data-action="last-question">마지막 문항으로</button><button class="btn btn-primary" type="button" data-action="complete" ${!complete ? 'disabled' : ''}>체험 완료하기</button></div>
+      <div class="actions"><button class="btn btn-outline" type="button" data-action="last-question">마지막 문항으로</button><button class="btn btn-primary" type="button" data-action="complete" ${!complete ? 'disabled' : ''}>${assessment.kind === "factor_exploration" ? "자기탐색 완료하기" : "체험 완료하기"}</button></div>
       ${!storageAvailable ? storageNotice(false) : ''}
     </section>
   </div>`;
@@ -157,14 +157,23 @@ function review({ assessment, attempt, storageAvailable }) {
 
 function result({ assessment, attempt }) {
   const result = getResultSummary(attempt, assessment);
+  const factorMode = assessment.kind === 'factor_exploration';
+  const groups = Object.entries(DOMAINS).map(([id,d]) => {
+    const items = assessment.questions.filter(q => q.domain === id)
+      .map(q => ({ name: q.factor, value: attempt.answers[q.id] }))
+      .filter(x => Number.isInteger(x.value));
+    const chosen = items.filter(x => x.value >= 4).sort((a,b) => b.value - a.value).slice(0,4);
+    return { id, label: d.label, total: items.length, chosen };
+  });
   return `<div class="flow-container">${stepper('result')}
     <section class="panel completion-panel"><div class="completion-check" aria-hidden="true">✓</div><span class="pill">${e(assessment.label)}</span>
-      <h1 id="page-heading" tabindex="-1">체험 완료</h1><p class="page-description">${result.answeredCount}문항 응답을 완료했습니다.</p>
-      <div class="completed-summary">${Object.entries(DOMAINS).map(([id, d]) => `<div><span class="domain-icon">${domainIcon(id)}</span><strong>${d.label}</strong></div>`).join('')}</div>
-      <p class="notice">체험용 응답은 진단 점수나 진로 유형으로 산출되지 않습니다.</p>
+      <h1 id="page-heading" tabindex="-1">${factorMode ? '자기탐색 완료' : '체험 완료'}</h1>
+      <p class="page-description">${result.answeredCount}개 항목의 응답을 완료했습니다.</p>
+      ${factorMode ? `<div class="cf-self-reflection"><h2>내가 높게 응답한 항목</h2><p>선택한 응답 중 ‘그런 편이다’ 이상인 항목을 영역별로 표시합니다. 개인의 자기평가이며, 점수 분석이나 진로 적합도 판정이 아닙니다.</p><div class="cf-self-groups">${groups.map(g => `<section><h3>${g.label}</h3><p>${g.total}개 항목 응답</p><ul>${g.chosen.length ? g.chosen.map(x => `<li>${e(x.name)} <span>${x.value}/5</span></li>`).join('') : '<li>높게 선택한 항목이 없습니다.</li>'}</ul></section>`).join('')}</div></div>` : `<div class="completed-summary">${Object.entries(DOMAINS).map(([id,d]) => `<div><span class="domain-icon">${domainIcon(id)}</span><strong>${d.label}</strong></div>`).join('')}</div>`}
+      <p class="notice">이 응답은 연구팀의 정식 검사 점수나 RIASEC 진로 유형으로 산출되지 않습니다. 아래 결과지는 별도의 샘플입니다.</p>
       <div class="actions"><a class="btn btn-outline" href="#home">처음 화면으로</a><a class="btn btn-primary" href="#report">샘플 결과지 보기</a></div>
       <details class="answer-receipt"><summary>내가 응답한 내용 보기</summary><ul>${assessment.questions.map(q => `<li><strong>${e(q.text)}</strong><span>${e(assessment.options.find(o => o.value === attempt.answers[q.id]).label)}</span></li>`).join('')}</ul></details>
-      <button type="button" class="text-button restart-button" data-action="request-restart">새로 체험하기</button>
+      <button type="button" class="text-button restart-button" data-action="request-restart">새로 탐색하기</button>
     </section>
   </div>`;
 }

@@ -42,7 +42,7 @@ test('intro focuses on one action and a readable non-card assessment guide',asyn
  assert.ok(html.includes('검사를 시작할게요.'));
  assert.ok(html.includes('data-action="begin"'));
  assert.ok(html.includes('학교급 다시 선택'));
- assert.ok(html.includes('3문항 화면 체험입니다'));
+ assert.ok(html.includes('49개 하위 요인'));
  assert.ok(!html.includes('class="intro-points"'));
  assert.ok(!html.includes('class="experience-note"'));
  const css=read('../assets/assessment-transition.css');

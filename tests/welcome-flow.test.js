@@ -30,7 +30,7 @@ test('grade selector keeps resume status and separate university disclaimer',()=
  let partial=createAttempt('public',assessment,'2026-11-24T02:00:00.000Z');
  partial=answerQuestion(partial,assessment,assessment.questions[0].id,4);
  const html=page({...empty,high:partial});
- assert.match(html,/1\/3문항 응답/);
+ assert.match(html,/1\/49항목 응답/);
  assert.match(html,/이어서 하기/);
  assert.match(html,/대학생용 화면 체험/);
  assert.match(html,/개인 점수와 진로 유형이 산출되지 않습니다/);

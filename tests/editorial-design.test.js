@@ -36,7 +36,7 @@ test('sample result preview uses source RIASEC values rather than invented perce
   for(const [code,score] of SAMPLE_REPORT.riasec) {
     assert.ok(home.includes('<strong>'+score+'</strong>'),code);
   }
-  assert.ok(home.includes('현재 화면 체험 3문항에서는 개인 결과가 산출되지 않습니다'));
+  assert.ok(home.includes('현재 자기탐색 응답으로는 공식 진로 유형이 산출되지 않습니다'));
 });
 test('copy and stylesheet preserve rich FAQ and readable responsive layout',()=>{
   assert.equal((home.match(/<details>/g)||[]).length,8);
@@ -55,7 +55,7 @@ test('compact usage flow has three accessible ordered stages without redundant c
  const html=renderHome({storageAvailable:true});
  assert.match(html,/<ol class="lab-process-flow">/);
  assert.equal((html.match(/class="lab-process-index"/g)||[]).length,3);
- assert.ok(html.includes('3문항 체험이며 개인 점수나 진로 유형은 산출되지 않습니다'));
+ assert.ok(html.includes('49개 요인 자기탐색은 비공식 설문'));
  assert.ok(!html.includes('<div class="lab-step-grid">'));
  const css=readFileSync(new URL('../assets/editorial.css',import.meta.url),'utf8');
  assert.match(css,/lab-process-flow/);

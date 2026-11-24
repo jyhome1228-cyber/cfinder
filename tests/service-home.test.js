@@ -13,7 +13,7 @@ test('service home has centered diagnosis entry and a report preview lower on pa
 });
 test('home never implies invented personal scores',()=>{
  const html=renderHome(context);
- assert.ok(html.includes('현재 화면 체험 3문항에서는 개인 결과가 산출되지 않습니다'));
+ assert.ok(html.includes('현재 자기탐색 응답으로는 공식 진로 유형이 산출되지 않습니다'));
  assert.ok(!html.includes('88%'));
  assert.ok(!html.includes('76%'));
  assert.ok(!html.includes('83%'));
