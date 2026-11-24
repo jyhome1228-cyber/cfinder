@@ -26,12 +26,13 @@ if (introLoader) {
     alreadyShown = sessionStorage.getItem('cfinder:brand-intro:v1') === 'seen';
   } catch { /* storage restricted; do not delay the assessment */ }
   const isHomeEntry = location.hash === '' || location.hash === '#home';
+  const forceReplay = new URLSearchParams(location.search).get('intro') === 'replay';
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (alreadyShown || !isHomeEntry || reducedMotion) {
+  if ((alreadyShown && !forceReplay) || !isHomeEntry || reducedMotion) {
     introLoader.remove();
   } else {
     try { sessionStorage.setItem('cfinder:brand-intro:v1', 'seen'); } catch { /* optional visual state */ }
-    const finishTimer = window.setTimeout(closeBrandIntro, 2920);
+    const finishTimer = window.setTimeout(closeBrandIntro, 3580);
     introLoader.querySelector('.cfinder-intro-skip')?.addEventListener('click', () => {
       window.clearTimeout(finishTimer);
       closeBrandIntro();

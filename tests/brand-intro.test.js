@@ -22,9 +22,11 @@ test('supplied blue and white eater loader has seven sequential vanishing dots',
   assert.match(svg,/viewBox="0 0 426\.97 107\.05"/);
   assert.match(svg,/#214FF4/);
   assert.match(svg,/#F9F8FA/);
-  assert.match(svg,/cfTravel 2\.8s/);
+  assert.match(svg,/cfTravel 3\.35s/);
   assert.match(svg,/cfEat/);
-  assert.ok(svg.includes('translateX(324px)'));
+  assert.ok(svg.includes('translateX(287px)'));
+  assert.ok(svg.includes('translateX(295px)'));
+  assert.equal((svg.match(/<circle class="impact impact-/g)||[]).length,7);
   assert.equal((svg.match(/<circle class="dot dot-/g)||[]).length,7);
   assert.ok(main.includes('id="brand-loader"'));
   assert.ok(main.includes('cfinder-loader.svg'));
@@ -35,6 +37,10 @@ test('intro is dismissible, honors reduced motion and does not repeat on navigat
   assert.ok(app.includes('cfinder:brand-intro:v1'));
   assert.ok(app.includes("sessionStorage.setItem('cfinder:brand-intro:v1', 'seen')"));
   assert.ok(app.includes('isHomeEntry'));
+  assert.ok(app.includes("get('intro') === 'replay'"));
+  assert.ok(app.includes('3580'));
+  assert.ok(app.includes('forceReplay'));
+
   assert.ok(app.includes('prefers-reduced-motion: reduce'));
   assert.ok(app.includes('cfinder-intro-skip'));
   assert.ok(app.includes('closeBrandIntro'));

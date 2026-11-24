@@ -1,21 +1,46 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 426.97 107.05" role="img" aria-labelledby="loaderTitle"><title id="loaderTitle">C-Finder 탐색 로딩 애니메이션</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 426.97 107.05" role="img" aria-labelledby="loaderTitle"><title id="loaderTitle">C-Finder 캐릭터가 일곱 개의 점을 차례로 먹는 로딩 애니메이션</title>
 <style>
-  .traveler{animation:cfTravel 2.8s linear both;transform-box:view-box;transform-origin:0 0}
-  .face{animation:cfChomp .27s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:center}
-  .dot{animation:cfEat .09s steps(1,end) forwards}
-  .dot-1{animation-delay:0.550s}
-  .dot-2{animation-delay:0.920s}
-  .dot-3{animation-delay:1.290s}
-  .dot-4{animation-delay:1.660s}
-  .dot-5{animation-delay:2.030s}
-  .dot-6{animation-delay:2.400s}
-  .dot-7{animation-delay:2.770s}
-  @keyframes cfTravel{0%{transform:translateX(0)}100%{transform:translateX(324px)}}
-  @keyframes cfChomp{0%{transform:scaleY(1)}100%{transform:scaleY(.94)}}
-  @keyframes cfEat{to{opacity:0}}
-  @media(prefers-reduced-motion:reduce){.traveler,.face,.dot{animation:none}}
+  /* The C reaches each pellet center at the moment its eat animation begins. */
+  .traveler{animation:cfTravel 3.35s linear both;transform-box:view-box;transform-origin:0 0}
+  .face{animation:cfChomp .225s steps(2,end) infinite;transform-box:fill-box;transform-origin:52% 54%}
+  .dot{transform-box:fill-box;transform-origin:center;animation:cfEat .14s ease-in forwards}
+  .impact{transform-box:fill-box;transform-origin:center;opacity:0;animation:cfImpact .24s ease-out forwards}
+  .dot-1,.impact-1{animation-delay:.30s}
+  .dot-2,.impact-2{animation-delay:.75s}
+  .dot-3,.impact-3{animation-delay:1.21s}
+  .dot-4,.impact-4{animation-delay:1.66s}
+  .dot-5,.impact-5{animation-delay:2.11s}
+  .dot-6,.impact-6{animation-delay:2.57s}
+  .dot-7,.impact-7{animation-delay:3.02s}
+  @keyframes cfTravel{
+    0%{transform:translateX(0)}
+    90%{transform:translateX(287px)}
+    100%{transform:translateX(295px)}
+  }
+  @keyframes cfChomp{
+    0%{transform:scaleX(1.025) scaleY(.965)}
+    100%{transform:scaleX(.985) scaleY(1.035)}
+  }
+  @keyframes cfEat{
+    0%{transform:scale(1);opacity:1}
+    42%{transform:scale(1.18);opacity:1}
+    100%{transform:scale(0);opacity:0}
+  }
+  @keyframes cfImpact{
+    0%{transform:scale(.65);opacity:.8}
+    65%{transform:scale(1.45);opacity:.5}
+    100%{transform:scale(1.85);opacity:0}
+  }
+  @media(prefers-reduced-motion:reduce){.traveler,.face,.dot,.impact{animation:none}.impact{display:none}}
 </style>
 <rect width="426.97" height="107.05" fill="#214FF4"/>
+<circle class="impact impact-1" cx="124.37" cy="51.14" r="11.2" fill="none" stroke="#F9F8FA" stroke-width="1.8"/>
+<circle class="impact impact-2" cx="167.59" cy="51.14" r="11.2" fill="none" stroke="#F9F8FA" stroke-width="1.8"/>
+<circle class="impact impact-3" cx="210.81" cy="51.14" r="11.2" fill="none" stroke="#F9F8FA" stroke-width="1.8"/>
+<circle class="impact impact-4" cx="254.03" cy="51.14" r="11.2" fill="none" stroke="#F9F8FA" stroke-width="1.8"/>
+<circle class="impact impact-5" cx="297.25" cy="51.14" r="11.2" fill="none" stroke="#F9F8FA" stroke-width="1.8"/>
+<circle class="impact impact-6" cx="340.47" cy="51.14" r="11.2" fill="none" stroke="#F9F8FA" stroke-width="1.8"/>
+<circle class="impact impact-7" cx="383.69" cy="51.14" r="11.2" fill="none" stroke="#F9F8FA" stroke-width="1.8"/>
 <circle class="dot dot-1" cx="124.37" cy="51.14" r="8.05" fill="#F9F8FA"/>
 <circle class="dot dot-2" cx="167.59" cy="51.14" r="8.05" fill="#F9F8FA"/>
 <circle class="dot dot-3" cx="210.81" cy="51.14" r="8.05" fill="#F9F8FA"/>
