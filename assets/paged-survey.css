@@ -1,0 +1,169 @@
+/* C-Finder paged five-item survey and unified information hierarchy */
+.shell-flow .cf-batch-panel{
+  padding:32px 40px 28px;
+  border:1px solid #e0e6ef;
+  border-radius:12px;
+  background:#fff;
+  box-shadow:none;
+}
+.cf-batch-panel .panel-heading{margin-bottom:19px;display:flex;align-items:center;justify-content:space-between}
+.cf-batch-top{display:flex;justify-content:space-between;align-items:start;gap:20px;padding:0 0 20px}
+.cf-batch-top h1{font-size:1.45rem;line-height:1.5;letter-spacing:-.035em;font-weight:700;color:#222;margin:0}
+.cf-batch-top p{font-size:.92rem;line-height:1.7;color:#647083;margin-top:6px}
+.cf-page-number{font-size:.875rem;color:#586a84;white-space:nowrap;font-weight:640;font-variant-numeric:tabular-nums;padding-top:5px}
+.cf-domain-progress{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:0;margin:0 0 21px}
+.cf-domain-progress li{display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:0;border:1px solid #e4e9f2;background:#fff;padding:12px 15px;border-radius:7px;color:#69758a;font-size:.875rem}
+.cf-domain-progress li strong{color:#4d5a71;font-variant-numeric:tabular-nums;font-size:.875rem}
+.cf-domain-progress li.is-active{border-color:#96b5ff;background:#f6f9ff;color:#214ff4;font-weight:700}
+.cf-domain-progress li.is-active strong{color:#214ff4}
+.cf-batch-panel .progress-caption{display:flex;align-items:center;justify-content:space-between;gap:20px;font-size:.85rem}
+.cf-batch-panel [data-page-status]{font-variant-numeric:tabular-nums;font-weight:630;color:#214ff4}
+.cf-batch-panel .progress-track{height:5px;border-radius:99px}
+.cf-batch-questions{margin:20px 0 8px;border-top:1px solid #e4e9f1}
+.cf-batch-question{
+  display:block;
+  min-width:0;
+  margin:0;
+  padding:23px 0 18px;
+  border:0;
+  border-bottom:1px solid #e4e9f1;
+  background:transparent;
+}
+.cf-batch-question legend{
+  display:flex;
+  align-items:baseline;
+  gap:12px;
+  width:100%;
+  padding:0;
+  margin:0;
+  color:#252525;
+}
+.cf-batch-index{flex:0 0 27px;color:#214ff4;font-size:.92rem;font-weight:720;font-variant-numeric:tabular-nums}
+.cf-batch-statement{font-size:1.04rem;font-weight:670;line-height:1.7;letter-spacing:-.02em;word-break:keep-all}
+.cf-factor-help{margin:8px 0 14px 39px;font-size:.855rem;line-height:1.7;color:#798394;word-break:keep-all}
+.cf-batch-panel .choice-list{
+  width:min(100%,710px);
+  max-width:none;
+  margin:4px auto 0;
+  padding:8px 0 0;
+  gap:4px;
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  align-items:start;
+  border:0;
+}
+.cf-batch-panel .choice{min-height:81px!important;gap:0;padding:0 2px!important}
+.cf-batch-panel .choice:nth-child(1),.cf-batch-panel .choice:nth-child(5){--circle-diameter:39px}
+.cf-batch-panel .choice:nth-child(2),.cf-batch-panel .choice:nth-child(4){--circle-diameter:33px}
+.cf-batch-panel .choice:nth-child(3){--circle-diameter:27px}
+.cf-batch-panel .choice-list{--max-circle:39px}
+.cf-batch-panel .choice input[type="radio"]{
+  width:var(--circle-diameter)!important;
+  height:var(--circle-diameter)!important;
+  margin:calc((var(--max-circle) - var(--circle-diameter))/2) 0!important;
+  border-width:2.5px!important;
+}
+.cf-batch-panel .choice>span{
+  display:block;
+  min-height:32px;
+  margin:8px auto 0;
+  max-width:116px;
+  font-size:.76rem;
+  line-height:1.45;
+  color:#69758a;
+}
+.cf-batch-panel .choice.is-selected>span{color:#222}
+.cf-batch-panel .actions{display:flex;justify-content:space-between;align-items:center;padding-top:20px;margin-top:8px}
+.cf-batch-panel .actions .btn{min-height:47px;border-radius:8px;padding:10px 17px}
+.cf-batch-panel .question-utility{margin-top:9px}
+.cf-batch-disclaimer{font-size:.82rem;color:#7a8495;line-height:1.65;margin-top:12px}
+.cf-batch-panel .choice:focus-within .cf-batch-statement{color:#214ff4}
+@media(max-width:860px){
+ .shell-flow .cf-batch-panel{padding:26px 25px}
+ .cf-batch-statement{font-size:1rem}
+ .cf-batch-question{padding:19px 0 15px}
+ .cf-domain-progress{gap:6px}
+ .cf-domain-progress li{padding:10px 12px}
+}
+@media(max-width:620px){
+ .shell-flow .cf-batch-panel{padding:22px 16px 21px}
+ .cf-batch-top{gap:10px}
+ .cf-batch-top h1{font-size:1.28rem}
+ .cf-batch-top p{font-size:.85rem}
+ .cf-domain-progress{gap:4px}
+ .cf-domain-progress li{display:grid;justify-content:center;text-align:center;gap:2px;padding:8px 4px;font-size:.8rem}
+ .cf-domain-progress li strong{font-size:.75rem}
+ .cf-batch-question legend{gap:8px}
+ .cf-batch-index{flex-basis:21px}
+ .cf-batch-statement{font-size:.96rem}
+ .cf-factor-help{margin:6px 0 11px 29px;font-size:.8rem}
+ .cf-batch-panel .choice-list{width:100%;gap:2px}
+ .cf-batch-panel .choice{min-height:78px!important}
+ .cf-batch-panel .choice:nth-child(1),.cf-batch-panel .choice:nth-child(5){--circle-diameter:36px}
+ .cf-batch-panel .choice:nth-child(2),.cf-batch-panel .choice:nth-child(4){--circle-diameter:30px}
+ .cf-batch-panel .choice:nth-child(3){--circle-diameter:24px}
+ .cf-batch-panel .choice-list{--max-circle:36px}
+ .cf-batch-panel .choice>span{font-size:.67rem;margin-top:7px;line-height:1.4}
+ .cf-batch-panel .actions .btn{font-size:.86rem;min-height:44px;padding:9px 12px}
+}
+@media(max-width:380px){
+ .cf-batch-panel .choice:nth-child(1),.cf-batch-panel .choice:nth-child(5){--circle-diameter:33px}
+ .cf-batch-panel .choice:nth-child(2),.cf-batch-panel .choice:nth-child(4){--circle-diameter:27px}
+ .cf-batch-panel .choice:nth-child(3){--circle-diameter:22px}
+ .cf-batch-panel .choice-list{--max-circle:33px}
+ .cf-batch-panel .choice>span{font-size:.63rem}
+}
+/* Header / footer share a neutral grid and explicit operator information. */
+.site-header .header-inner,.site-footer .footer-inner{max-width:1440px}
+.site-footer .footer-top{align-items:center}
+.site-footer .footer-brand{display:flex;align-items:center;flex-direction:row;gap:12px}
+.site-footer .footer-brand strong{color:#222;font-size:1.05rem}
+.site-footer .footer-bottom{align-items:flex-start}
+.site-footer .footer-information{display:flex;align-items:center;gap:12px 23px;flex-wrap:wrap;font-size:.84rem;line-height:1.7;color:#626c7a}
+.site-footer .footer-information a{color:#444c5a;text-decoration:underline;text-underline-offset:3px}
+.site-footer .footer-notice{max-width:850px;margin:10px 0 0;color:#748092;font-size:.82rem;line-height:1.75}
+@media(max-width:620px){
+ .site-footer .footer-top{flex-direction:column;align-items:flex-start}
+ .site-footer .footer-information{align-items:flex-start;flex-direction:column;gap:3px}
+}
+
+/* Single scale legend per page; circles only on each question to avoid repetition. */
+.cf-scale-head{
+ display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-items:end;
+ width:min(100%,710px);gap:4px;margin:19px auto 0;padding:0;
+ text-align:center;
+}
+.cf-scale-head span{color:#647188;font-size:.76rem;line-height:1.45;word-break:keep-all;padding:0 4px}
+.cf-batch-questions{margin-top:8px}
+.cf-batch-panel .choice>span{display:none!important}
+.cf-batch-panel .choice{min-height:50px!important}
+.cf-batch-panel .choice-list{padding:8px 0 0}
+.cf-batch-panel .cf-batch-question{padding:18px 0 17px}
+@media(max-width:620px){
+ .cf-scale-head{gap:2px;margin-top:14px}
+ .cf-scale-head span{font-size:.67rem;padding:0 1px}
+ .cf-batch-panel .choice{min-height:46px!important}
+ .cf-batch-panel .cf-batch-question{padding:16px 0 14px}
+}
+@media(max-width:380px){
+ .cf-scale-head span{font-size:.62rem}
+}
+
+/* Review by domain rather than a 49-row unbroken list. */
+.cf-review-groups{margin-top:22px;border-top:1px solid #e3e9f1}
+.cf-review-domain{border-bottom:1px solid #e3e9f1}
+.cf-review-domain summary{display:flex;align-items:center;justify-content:space-between;gap:20px;cursor:pointer;list-style:none;padding:18px 10px 18px 1px}
+.cf-review-domain summary::-webkit-details-marker{display:none}
+.cf-review-domain summary strong{font-size:1rem;color:#202020;font-weight:700}
+.cf-review-domain summary span{font-size:.875rem;color:#606d80}
+.cf-review-domain summary:after{content:"+";font-size:1.4rem;color:#214ff4;font-weight:400}
+.cf-review-domain[open] summary:after{content:"−"}
+.cf-review-domain .review-list{margin:0 0 16px;padding:0 6px}
+.cf-review-domain .review-item{border-bottom:1px solid #edf0f5}
+.cf-review-domain .review-item:last-child{border-bottom:0}
+.cf-review-domain .review-copy h2{font-size:.91rem;line-height:1.6}
+@media(max-width:620px){
+ .cf-review-domain summary{padding:15px 2px}
+ .cf-review-domain .review-list{padding:0}
+ .cf-review-domain .review-item{gap:7px}
+}

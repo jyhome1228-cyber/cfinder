@@ -3,6 +3,7 @@ import { resolveTenant, applyTenantTheme } from './config/tenants.js';
 import { createAttempt, answerQuestion, visitQuestion, completeAttempt, countAnswered, getResumeRoute } from './core/assessment.js';
 import { createSessionStore } from './core/storage.js';
 import { parseRoute, navigate, withGrade } from './core/router.js';
+import { pageForIndex, pageMissingQuestions } from './core/pages.js';
 import { renderView, pageTitle } from './ui/views.js';
 import { selectHomeDomain, handleHomeTabKey } from './ui/home.js';
 import { letterArt } from './ui/letter-art.js';
@@ -159,19 +160,38 @@ function render() {
   app.querySelector('#page-heading')?.focus({ preventScroll: true });
 }
 
-function refreshAnswerUI(value) {
-  const count = countAnswered(currentAttempt(), assessment());
-  const total = assessment().questions.length;
-  app.querySelectorAll('.choice').forEach(label => {
+function refreshAnswerUI(questionId, value) {
+  const current = assessment();
+  const attempt = currentAttempt();
+  const page = pageForIndex(current, parseRoute(location.hash).index);
+  if (!page) return;
+  const count = countAnswered(attempt, current);
+  const total = current.questions.length;
+  const row = [...app.querySelectorAll('[data-question-row]')].find(el => el.dataset.questionRow === questionId);
+  row?.querySelectorAll('.choice').forEach(label => {
     label.classList.toggle('is-selected', label.querySelector('input').checked);
   });
-  app.querySelector('[data-action="next"]').disabled = false;
+  const missing = pageMissingQuestions(current, attempt.answers, page);
+  const nextButton = app.querySelector('[data-action="next"]');
+  if (nextButton) nextButton.disabled = missing.length > 0;
   app.querySelector('[data-progress-text]').textContent = `${count}개 응답 · ${Math.round(count / total * 100)}%`;
+  const pageStatus = app.querySelector('[data-page-status]');
+  if (pageStatus) pageStatus.textContent = `${page.questions.length - missing.length}/${page.questions.length}개 선택`;
   const progress = app.querySelector('[role="progressbar"]');
   progress.setAttribute('aria-valuenow', count);
   progress.setAttribute('aria-valuetext', `${total}개 중 ${count}개 응답`);
   progress.firstElementChild.style.width = `${count / total * 100}%`;
-  app.querySelector('#response-status').textContent = `${assessment().options.find(o => o.value === value).label}, 응답했어요.`;
+  // Domain progress counts update without re-rendering, preserving radio keyboard focus.
+  const domainNodes = app.querySelectorAll('.cf-domain-progress li');
+  if (domainNodes.length) {
+    ['interest', 'aptitude', 'values'].forEach((id, i) => {
+      const items = current.questions.filter(q => q.domain === id);
+      const done = items.filter(q => Object.hasOwn(attempt.answers, q.id)).length;
+      const element = domainNodes[i]?.querySelector('strong');
+      if (element) element.textContent = `${done}/${items.length}`;
+    });
+  }
+  app.querySelector('#response-status').textContent = `${current.options.find(o => o.value === value).label}, 응답했어요.`;
   if (!storage.available) {
     let notice = app.querySelector('[data-storage-notice]');
     if (!notice) {
@@ -186,16 +206,16 @@ function refreshAnswerUI(value) {
 
 app.addEventListener('change', event => {
   const input = event.target;
-  if (!(input instanceof HTMLInputElement) || input.name !== 'response') return;
+  if (!(input instanceof HTMLInputElement) || !input.matches('input[data-question]')) return;
   const route = parseRoute(location.hash);
   if (route.page !== 'test' || currentAttempt()?.status !== 'in_progress') return;
-  const question = assessment().questions[route.index];
+  const page = pageForIndex(assessment(), route.index);
+  const question = page?.questions.find(q => q.id === input.dataset.question);
   if (!question) return;
   const value = Number(input.value);
-  if (input.dataset.question !== question.id || !assessment().options.some(o => o.value === value)) return;
+  if (!assessment().options.some(o => o.value === value)) return;
   save(answerQuestion(currentAttempt(), assessment(), question.id, value));
-  // Update only the response controls so native radio keyboard focus is preserved.
-  refreshAnswerUI(value);
+  refreshAnswerUI(question.id, value);
 });
 
 app.addEventListener('click', event => {
@@ -246,11 +266,13 @@ app.addEventListener('click', event => {
   const index = Number(button.dataset.index);
   if (action === 'begin') go(getResumeRoute(currentAttempt(), assessment()));
   else if (action === 'previous') {
-    go(route.fromReview ? '#review' : index === 0 ? '#intro' : `#test/${index - 1}`);
+    const page = pageForIndex(assessment(), route.index);
+    if (!page) return;
+    go(route.fromReview ? '#review' : page.previous === null ? '#intro' : `#test/${page.previous}`);
   } else if (action === 'next') {
-    const q = assessment().questions[route.index];
-    if (!q || !Object.hasOwn(currentAttempt().answers, q.id)) return;
-    go(route.fromReview || index === assessment().questions.length - 1 ? '#review' : `#test/${index + 1}`);
+    const page = pageForIndex(assessment(), route.index);
+    if (!page || pageMissingQuestions(assessment(), currentAttempt().answers, page).length) return;
+    go(route.fromReview || page.next === null ? '#review' : `#test/${page.next}`);
   } else if (action === 'edit') go(`#test/${index}?from=review`);
   else if (action === 'last-question') go(`#test/${assessment().questions.length - 1}`);
   else if (action === 'complete') {

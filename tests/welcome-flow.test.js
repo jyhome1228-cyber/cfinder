@@ -19,7 +19,11 @@ test('conversational entry greets first and hides grade options until requested'
  assert.match(html,/data-action="show-grade-choices"/);
  assert.match(html,/data-start-stage="welcome"/);
  assert.match(html,/data-start-stage="grade" hidden/);
- assert.match(html,/지금 어떤 학교급에/);
+ assert.match(html,/지금 어떤 학교에/);
+ assert.match(html,/다니고 있나요/);
+ assert.ok(html.includes('중학교'));
+ assert.ok(html.includes('고등학교'));
+ assert.ok(html.includes('대학교'));
  assert.equal((html.match(/data-action="select-grade"/g)||[]).length,3);
  assert.ok(html.indexOf('data-start-stage="welcome"')<html.indexOf('data-start-stage="grade"'));
  assert.ok(!html.includes('생년월일'));

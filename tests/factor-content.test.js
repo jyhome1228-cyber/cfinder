@@ -60,9 +60,11 @@ test('question UI shows source-backed factor context and accurate progress',()=>
   const a=ASSESSMENTS.high;
   const attempt=createAttempt('public',a);
   const html=renderView({page:'test',index:27,grade:'high',fromReview:false},{tenant:resolveTenant(''),assessment:a,attempt,attempts:{},storageAvailable:true});
-  assert.ok(html.includes('자기탐색 28번 문항'));
+  assert.ok(html.includes('자기탐색 28–32번'));
+  assert.ok(html.includes('7 / 11페이지'));
   assert.ok(html.includes('aria-valuemax="49"'));
-  assert.ok(html.includes('cf-factor-context'));
+  assert.ok(html.includes('cf-factor-help'));
+  assert.ok(html.includes('cf-scale-head'));
   assert.ok(html.includes('언어이해력'));
-  assert.equal((html.match(/type="radio"/g)||[]).length,5);
+  assert.equal((html.match(/type="radio"/g)||[]).length,25);
 });

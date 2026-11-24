@@ -3,6 +3,7 @@ import { renderHome } from './home.js';
 import { letterArt } from './letter-art.js';
 import { renderSampleReport } from './sample-report.js';
 import { countAnswered, isComplete } from '../core/assessment.js';
+import { pageForIndex, pageMissingQuestions } from '../core/pages.js';
 import { getResultSummary } from '../services/results.js';
 import { escapeHtml as e, domainIcon } from './html.js';
 
@@ -27,7 +28,7 @@ function header(route, tenant) {
     </a>
     <nav class="main-nav" aria-label="주 메뉴">
       <a href="#start" ${['start', 'intro', 'test', 'review', 'result'].includes(route.page) ? 'aria-current="page"' : ''}>진단 시작하기</a>
-      <a href="#report">결과 예시</a>
+      <a href="#report" ${route.page === 'report' ? 'aria-current="page"' : ''}>결과 예시</a>
       <a href="./about/">검사 소개</a>
       <a href="#institutions" ${route.page === 'institutions' ? 'aria-current="page"' : ''}>기관 도입</a>
     </nav>
@@ -36,10 +37,15 @@ function header(route, tenant) {
 
 function footer(tenant) {
   return `<footer class="site-footer"><div class="footer-inner">
-    <div class="footer-top"><div class="footer-brand"><strong>C-Finder</strong></div>
-      <nav class="footer-nav" aria-label="하단 메뉴"><a href="#start">진단 시작하기</a><a href="./about/">검사 소개</a><a href="#report">결과지 미리보기</a><a href="#institutions">기관 도입</a></nav>
+    <div class="footer-top">
+      <a class="footer-brand" href="#home" aria-label="C-Finder 메인으로"><img src="./assets/brand/cfinder-official-logo.svg" alt="C-Finder" width="130" height="33" loading="lazy"></a>
+      <nav class="footer-nav" aria-label="하단 메뉴"><a href="#start">진단 시작하기</a><a href="#report">샘플 결과지</a><a href="./about/">검사 소개</a><a href="#institutions">기관 도입</a></nav>
     </div>
-    <div class="footer-bottom"><p>© 사자가온다(주)${tenant.isPreview ? ` · ${e(tenant.organizationName)} 화면 예시` : ''}</p></div>
+    <div class="footer-bottom"><div>
+      <div class="footer-information"><span>운영 사자가온다(주)</span><span>사업자등록번호 720-88-01853</span><a href="mailto:sajagaonda@gmail.com">sajagaonda@gmail.com</a><a href="https://sjgod.kr" target="_blank" rel="noopener noreferrer">사자가온다 홈페이지</a></div>
+      <p class="footer-notice">현재 중·고등 설문은 49개 요인을 활용한 비공식 자기탐색입니다. 정식 진로검사 점수와 유형을 산출하지 않으며, 응답은 사용 중인 브라우저 탭에 임시 저장됩니다.</p>
+      <p class="footer-notice">© 사자가온다(주)${tenant.isPreview ? ` · ${e(tenant.organizationName)} 화면 예시` : ''}</p>
+    </div></div>
   </div></footer>`;
 }
 
@@ -65,16 +71,16 @@ function start({ attempts, storageAvailable }) {
     <div class="cf-welcome-stage cf-grade-stage" data-start-stage="grade" hidden>
       <div class="cf-start-content">
         <p class="cf-welcome-greeting">반가워요.</p>
-        <h2 id="grade-heading" tabindex="-1">지금 어떤 학교급에<br><span>해당하나요?</span></h2>
+        <h2 id="grade-heading" tabindex="-1">지금 어떤 학교에<br><span>다니고 있나요?</span></h2>
         <p class="cf-welcome-description">해당하는 대상을 선택해 주세요.</p>
         <div class="cf-grade-grid" role="group" aria-labelledby="grade-heading">${Object.values(ASSESSMENTS).map(assessment => {
           const attempt = attempts[assessment.grade];
           const count = attempt ? countAnswered(attempt, assessment) : 0;
           const completed = attempt?.status === 'completed';
           const action = completed ? '완료 기록 보기' : count ? '이어서 하기' : '시작하기';
-          const detail = assessment.grade === 'middle' ? '중학교에 다니고 있어요' : assessment.grade === 'high' ? '고등학교에 다니고 있어요' : '대학교에 다니고 있어요';
+          const detail = assessment.grade === 'middle' ? '중학교' : assessment.grade === 'high' ? '고등학교' : '대학교';
           const state = completed ? '응답 완료' : count ? `${count}/${assessment.questions.length}항목 응답` : assessment.kind === 'factor_exploration' ? '49항목 자기탐색 · 비공식' : '대학생용 3문항 체험';
-          return `<button class="cf-grade-option" type="button" data-action="select-grade" data-grade="${assessment.grade}" aria-label="${e(assessment.label)} ${action}"><span class="cf-grade-title">${e(assessment.label)}</span><span class="cf-grade-description">${detail}</span><span class="cf-grade-bottom"><span>${state}</span><strong>${action} <span aria-hidden="true">→</span></strong></span></button>`;
+          return `<button class="cf-grade-option" type="button" data-action="select-grade" data-grade="${assessment.grade}" aria-label="${e(assessment.label)} ${action}"><span class="cf-grade-title">${e(detail)}</span><span class="cf-grade-description">${detail}</span><span class="cf-grade-bottom"><span>${state}</span><strong>${action} <span aria-hidden="true">→</span></strong></span></button>`;
         }).join('')}</div>
         <p class="cf-grade-notice">중·고등학생용은 결과지의 49개 요인을 활용한 비공식 자기탐색입니다. 정식 C-Finder 문항·채점은 연결되지 않았습니다.</p>
         ${!storageAvailable ? storageNotice(false) : ''}
@@ -116,22 +122,41 @@ function intro({ assessment, attempt, storageAvailable }) {
 }
 
 function question(route, { assessment, attempt, storageAvailable }) {
-  const q = assessment.questions[route.index];
-  const count = countAnswered(attempt, assessment);
+  const page = pageForIndex(assessment, route.index);
+  if (!page) return '';
   const total = assessment.questions.length;
-  const answer = attempt.answers[q.id];
-  const nextLabel = route.fromReview ? '수정 완료' : route.index === total - 1 ? '응답 검토하기' : '다음 문항';
+  const answered = countAnswered(attempt, assessment);
+  const grouped = assessment.kind === 'factor_exploration';
+  const completePage = pageMissingQuestions(assessment, attempt.answers, page).length === 0;
+  const label = grouped ? '자기탐색' : '체험';
+  const nextLabel = route.fromReview ? '검토로 돌아가기' : page.next === null ? '응답 검토하기' : '다음 문항';
+  const domains = ['interest', 'aptitude', 'values'];
+  const domainProgress = grouped ? domains.map(id => {
+    const items = assessment.questions.filter(q => q.domain === id);
+    const count = items.filter(q => Object.hasOwn(attempt.answers, q.id)).length;
+    const isCurrent = id === page.domain;
+    return `<li class="${isCurrent ? 'is-active' : ''}"><span>${e(DOMAINS[id].label)}</span><strong>${count}/${items.length}</strong></li>`;
+  }).join('') : '';
   return `<div class="flow-container">${stepper('test')}
-    <section class="panel question-panel" aria-labelledby="page-heading">
-      <div class="panel-heading"><span class="section-kicker">${assessment.kind === "factor_exploration" ? "자기탐색" : "체험"} ${route.index + 1}번 문항 <span class="quiet">/ ${total}</span></span><span class="pill">${e(assessment.label)}</span></div>
-      <div class="progress-caption"><span data-progress-text>${count}개 응답 · ${Math.round(count / total * 100)}%</span></div>
-      <div class="progress-track" role="progressbar" aria-label="응답한 문항 수" aria-valuenow="${count}" aria-valuemin="0" aria-valuemax="${total}" aria-valuetext="${total}개 중 ${count}개 응답"><span style="width:${count / total * 100}%"></span></div>
-      <div class="question-heading"><span class="domain-label">${e(DOMAINS[q.domain].label)}${q.factor ? ` · ${e(q.factor)}` : ""}</span><h1 id="page-heading" tabindex="-1">${e(q.text)}</h1>${q.description ? `<p class="cf-factor-context">${e(q.description)}</p>` : ""}<p id="question-help" class="sr-only">가장 가까운 응답을 선택해 주세요.</p></div>
-      <fieldset class="choice-list" aria-describedby="question-help"><legend class="sr-only">${e(q.text)}에 대한 응답</legend>
-        ${assessment.options.map(option => `<label class="choice ${answer === option.value ? 'is-selected' : ''}"><input type="radio" name="response" data-question="${e(q.id)}" value="${option.value}" ${answer === option.value ? 'checked' : ''}><span>${e(option.label)}</span></label>`).join('')}
-      </fieldset>
-      <div class="actions"><button class="btn btn-outline" type="button" data-action="previous" data-index="${route.index}">${route.fromReview ? '검토로 돌아가기' : route.index === 0 ? '검사 안내' : '이전 문항'}</button><button class="btn btn-primary" type="button" data-action="next" data-index="${route.index}" ${answer === undefined ? 'disabled' : ''}>${nextLabel}</button></div>
+    <section class="panel question-panel cf-batch-panel" aria-labelledby="page-heading" data-page-start="${page.start}" data-page-end="${page.end}" data-next-start="${page.next ?? ''}" data-page-number="${page.number}">
+      <div class="panel-heading"><span class="section-kicker">${label} ${page.start + 1}–${page.end}번 <span class="quiet">/ ${total}</span></span><span class="pill">${e(assessment.label)}</span></div>
+      <div class="cf-batch-top"><div><h1 id="page-heading" tabindex="-1">${e(DOMAINS[page.domain].label)} 탐색</h1><p>${grouped ? '각 항목을 읽고 나에게 가장 가까운 답을 선택하세요.' : '지금의 생각에 가까운 답을 선택하세요.'}</p></div><span class="cf-page-number">${page.number} / ${page.totalPages}페이지</span></div>
+      ${grouped ? `<ol class="cf-domain-progress" aria-label="영역별 진행 상황">${domainProgress}</ol>` : ''}
+      <div class="progress-caption"><span data-progress-text>${answered}개 응답 · ${Math.round(answered / total * 100)}%</span><span data-page-status aria-live="polite">${page.questions.length - pageMissingQuestions(assessment, attempt.answers, page).length}/${page.questions.length}개 선택</span></div>
+      <div class="progress-track" role="progressbar" aria-label="전체 응답 진행률" aria-valuenow="${answered}" aria-valuemin="0" aria-valuemax="${total}" aria-valuetext="${total}개 중 ${answered}개 응답"><span style="width:${answered / total * 100}%"></span></div>
+      <div class="cf-scale-head" aria-hidden="true">${assessment.options.map(option => `<span>${e(option.label)}</span>`).join('')}</div>
+      <div class="cf-batch-questions">${page.questions.map((q,offset) => {
+        const index = page.start + offset;
+        const answer = attempt.answers[q.id];
+        return `<fieldset class="cf-batch-question" data-question-row="${e(q.id)}">
+          <legend><span class="cf-batch-index">${index + 1}</span><span class="cf-batch-statement">${e(q.text)}</span></legend>
+          ${q.description ? `<p class="cf-factor-help">${e(q.description)}</p>` : ''}
+          <div class="choice-list" role="group" aria-label="${index + 1}번 응답 선택">${assessment.options.map(option => `<label class="choice ${answer === option.value ? 'is-selected' : ''}"><input type="radio" name="response-${index}" data-question="${e(q.id)}" value="${option.value}" ${answer === option.value ? 'checked' : ''} aria-label="${e(option.label)}"><span>${e(option.label)}</span></label>`).join('')}</div>
+        </fieldset>`;
+      }).join('')}</div>
+      <div class="actions"><button class="btn btn-outline" type="button" data-action="previous" data-index="${page.start}">${route.fromReview ? '검토로 돌아가기' : page.previous === null ? '검사 안내' : '이전 5문항'}</button><button class="btn btn-primary" type="button" data-action="next" data-index="${page.start}" ${!completePage ? 'disabled' : ''}>${nextLabel}</button></div>
       <div class="question-utility"><a class="text-link" href="#start">나가기</a></div>
+      <p class="cf-batch-disclaimer">${grouped ? '비공식 자기탐색 · 연구팀의 정식 검사 점수와 진로 유형은 산출되지 않습니다.' : '3문항 화면 체험 · 개인 진단 결과는 제공되지 않습니다.'}</p>
       ${!storageAvailable ? storageNotice(false) : ''}<span class="sr-only" id="response-status" role="status" aria-live="polite"></span>
     </section>
   </div>`;
@@ -141,15 +166,24 @@ function review({ assessment, attempt, storageAvailable }) {
   const count = countAnswered(attempt, assessment);
   const total = assessment.questions.length;
   const complete = isComplete(attempt, assessment);
+  const domains = assessment.kind === 'factor_exploration' ? ['interest','aptitude','values'] : [...new Set(assessment.questions.map(q => q.domain))];
   return `<div class="flow-container">${stepper('review')}
     <section class="panel review-panel"><div class="panel-heading"><span class="pill">${e(assessment.label)}</span></div>
-      <h1 id="page-heading" tabindex="-1">응답 검토</h1><p class="page-description">${total}항목 중 ${count}항목에 응답했어요.<br> 수정할 답을 선택하세요.</p>
+      <h1 id="page-heading" tabindex="-1">응답 검토</h1>
+      <p class="page-description">${total}항목 중 ${count}항목에 응답했어요. 영역을 펼쳐 답변을 확인하고 수정할 수 있어요.</p>
       ${!complete ? `<p class="notice" role="status">아직 답하지 않은 ${total - count}항목이 있어요. 모든 응답을 마치면 완료할 수 있어요.</p>` : ''}
-      <ol class="review-list">${assessment.questions.map((q, i) => {
-        const answer = assessment.options.find(option => option.value === attempt.answers[q.id]);
-        return `<li class="review-item ${!answer ? 'is-unanswered' : ''}"><div class="review-meta"><span>${i + 1}번</span><span>${e(DOMAINS[q.domain].label)}</span></div><div class="review-copy"><h2>${e(q.text)}</h2><p>${answer ? e(answer.label) : '<span class="unanswered">아직 응답하지 않았어요</span>'}</p></div><button class="text-button" type="button" data-action="edit" data-index="${i}" aria-label="${i + 1}번 문항 ${answer ? '수정하기' : '응답하기'}">${answer ? '수정하기' : '응답하기'}</button></li>`;
-      }).join('')}</ol>
-      <div class="actions"><button class="btn btn-outline" type="button" data-action="last-question">마지막 문항으로</button><button class="btn btn-primary" type="button" data-action="complete" ${!complete ? 'disabled' : ''}>${assessment.kind === "factor_exploration" ? "자기탐색 완료하기" : "체험 완료하기"}</button></div>
+      <div class="cf-review-groups">${domains.map(domain => {
+        const items = assessment.questions.map((q,i) => ({q,i})).filter(x=>x.q.domain===domain);
+        const done = items.filter(x=>Object.hasOwn(attempt.answers,x.q.id)).length;
+        return `<details class="cf-review-domain" ${done < items.length ? 'open' : ''}>
+          <summary><strong>${e(DOMAINS[domain].label)}</strong><span>${done}/${items.length}개 응답</span></summary>
+          <ol class="review-list">${items.map(({q,i})=>{
+            const answer = assessment.options.find(option => option.value === attempt.answers[q.id]);
+            return `<li class="review-item ${!answer ? 'is-unanswered' : ''}"><div class="review-meta"><span>${i + 1}번</span></div><div class="review-copy"><h2>${e(q.text)}</h2><p>${answer ? e(answer.label) : '<span class="unanswered">아직 응답하지 않았어요</span>'}</p></div><button class="text-button" type="button" data-action="edit" data-index="${i}" aria-label="${i + 1}번 항목 ${answer ? '수정하기' : '응답하기'}">${answer ? '수정하기' : '응답하기'}</button></li>`;
+          }).join('')}</ol>
+        </details>`;
+      }).join('')}</div>
+      <div class="actions"><button class="btn btn-outline" type="button" data-action="last-question">마지막 문항으로</button><button class="btn btn-primary" type="button" data-action="complete" ${!complete ? 'disabled' : ''}>${assessment.kind === 'factor_exploration' ? '자기탐색 완료하기' : '체험 완료하기'}</button></div>
       ${!storageAvailable ? storageNotice(false) : ''}
     </section>
   </div>`;
