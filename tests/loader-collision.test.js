@@ -14,7 +14,7 @@ test('each pellet vanishes precisely as the C mouth reaches its center', () => {
   assert.match(svg, /90%\{transform:translateX\(287px\)\}/);
   for (let i = 0; i < 7; i++){
     const id=i+1;
-    assert.ok(svg.includes('dot-'+id+',.impact-'+id+'{animation-delay:'+delays[i].toFixed(2)+'s}'),id);
+    assert.ok(svg.includes('dot-'+id+',.impact-'+id+'{animation-delay:'+delays[i].toFixed(2).replace(/^0/, '')+'s}'),id);
     assert.ok(svg.includes('class="dot dot-'+id+'"'),id);
     assert.ok(svg.includes('class="impact impact-'+id+'"'),id);
     const collisionX = mouthX + distance * (delays[i]*1000/movementMs);
