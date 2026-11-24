@@ -254,6 +254,20 @@ app.addEventListener('click', event => {
   const button = event.target.closest('button[data-action]');
   if (!button || button.disabled) return;
   const action = button.dataset.action;
+  if (action === 'tutorial-choice') {
+    if (parseRoute(location.hash).page !== 'intro') return;
+    const tutorial = button.closest('.cf-tutorial');
+    if (!tutorial) return;
+    tutorial.querySelectorAll('[data-action="tutorial-choice"]').forEach(item => {
+      const selected = item === button;
+      item.setAttribute('aria-pressed', String(selected));
+      item.classList.toggle('is-selected', selected);
+    });
+    const option = assessment()?.options.find(item => item.value === Number(button.dataset.value));
+    const message = tutorial.querySelector('[data-tutorial-feedback]');
+    if (message && option) message.textContent = `‘${option.label}’을 선택했어요. 실제 검사에서도 같은 방법으로 답하면 돼요.`;
+    return;
+  }
   if (action === 'show-grade-choices' || action === 'back-to-welcome') {
     if (parseRoute(location.hash).page !== 'start') return;
     const welcome = app.querySelector('[data-start-stage="welcome"]');
