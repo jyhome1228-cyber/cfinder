@@ -56,7 +56,7 @@ export function renderSampleReport() {
      <div class="sr-profile-type"><span class="sr-hero-code">${d.type}</span><div class="cf-report-pair">${letterArt('E', 'report')}${letterArt('S', 'report')}</div><div><span class="sr-profile-eyebrow">유형 표현 디자인 예시</span><h2>${e(d.typeName)}</h2><p>${e(d.typeDescription)}</p></div></div>
      <div class="sr-hero-meta"><strong>${e(d.level)}</strong><span>예시 데이터 · 개인 결과 아님</span></div>
    </div>
-   <div class="sr-report-notice" role="note"><strong>결과지 안내</strong><p>현재 공개된 자기탐색 49항목의 응답으로 공식 점수·RIASEC 유형·추천 직업을 판정하지 않습니다. 아래 숫자와 유형은 결과지 디자인을 설명하기 위한 별도의 샘플입니다.</p></div>
+   <div class="sr-report-notice" role="note"><strong>결과지 안내</strong><p>현재 공개된 자기탐색 49항목의 응답으로 공식 점수·RIASEC 유형·추천 직업을 판정하지 않습니다. 아래 숫자와 유형은 결과지 디자인을 설명하기 위한 별도의 샘플이며 개인 응답과 무관합니다.</p></div>
    <div class="sr-overview" aria-label="결과지 주요 영역"><div><span>INTEREST</span><strong>흥미</strong><p>좋아하는 활동과 관심 분야</p></div><div><span>APTITUDE</span><strong>적성</strong><p>스스로 생각하는 능력과 강점</p></div><div><span>VALUES</span><strong>가치관</strong><p>진로 선택에서 중요한 기준</p></div></div>
    <nav class="sr-anchor-nav" aria-label="결과 예시 항목 보기"><button type="button" data-sr-scroll="sample-interest" aria-current="true">흥미</button><button type="button" data-sr-scroll="sample-aptitude">적성</button><button type="button" data-sr-scroll="sample-values">가치관</button><button type="button" data-sr-scroll="sample-type">유형 예시</button></nav>
    ${section('interest','흥미 분석',d.interest,5,d.tendencies.interest,{topCount:4})}
