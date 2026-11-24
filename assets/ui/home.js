@@ -21,10 +21,19 @@ export function renderHome({storageAvailable}) {
    <div class="lab-hero-main">
      <h1 id="page-heading" tabindex="-1">내가 좋아하는 일은 뭘까?<br><span>나에게 맞는 진로를 찾아보세요.</span></h1>
      <p class="lab-hero-description">흥미·적성·가치관을 함께 살펴보는 C-Finder 진로검사</p>
-     <div class="lab-hero-actions"><a class="btn btn-primary lab-main-cta" href="#start">진단 시작하기 <span aria-hidden="true">→</span></a></div>
-     ${!storageAvailable ? '<p class="lab-storage-warning" role="status">이 브라우저는 답변 임시 저장이 제한됩니다.</p>' : ''}
    </div>
-   <div class="cf-hero-letter">${letterArt('C', 'hero', true)}</div>
+   <div class="cf-hero-letter cf-hero-visual">
+     <span class="cf-hero-glow" aria-hidden="true"></span>
+     <span class="cf-hero-spark cf-hero-spark-one" aria-hidden="true"></span>
+     <span class="cf-hero-spark cf-hero-spark-two" aria-hidden="true"></span>
+     <span class="cf-hero-spark cf-hero-spark-three" aria-hidden="true"></span>
+     <button class="cf-hero-character" type="button" data-action="play-hero-character" aria-label="C-Finder 캐릭터와 인사하기">
+       ${letterArt('C', 'hero', true)}
+       <span class="cf-hero-reaction" role="status" aria-live="polite" aria-atomic="true"></span>
+     </button>
+   </div>
+   <div class="lab-hero-actions"><a class="btn btn-primary lab-main-cta" href="#start">진단 시작하기 <span aria-hidden="true">→</span></a></div>
+   ${!storageAvailable ? '<p class="lab-storage-warning" role="status">이 브라우저는 답변 임시 저장이 제한됩니다.</p>' : ''}
  </section>
 
  <section class="lab-types" aria-labelledby="lab-types-title">

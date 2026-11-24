@@ -1,0 +1,218 @@
+/* C-Finder interactive hero — central C, pale-sky background, restrained motion. */
+.shell-home .cf-editorial .lab-hero {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:0;
+  position:relative;
+  isolation:isolate;
+  width:100%;
+  min-height:0;
+  padding:55px 32px 48px;
+  margin:29px auto 49px;
+  overflow:hidden;
+  border:1px solid #E3EEFF;
+  border-radius:22px;
+  background:radial-gradient(ellipse 360px 260px at 50% 61%,#FFFFFF 0%,#F5F9FF 73%,transparent 100%),#F0F7FF;
+  text-align:center;
+}
+.shell-home .cf-editorial .lab-hero::before,
+.shell-home .cf-editorial .lab-hero::after { content:none; display:none; }
+.shell-home .cf-editorial .lab-hero-main {
+  position:relative;
+  z-index:2;
+  max-width:800px;
+  margin:0 auto;
+  text-align:center;
+}
+.shell-home .cf-editorial .lab-hero h1 {
+  font-size:clamp(1.8rem,2.65vw,2.35rem);
+  font-weight:720;
+  line-height:1.47;
+  letter-spacing:-.048em;
+  color:#202020;
+}
+.shell-home .cf-editorial .lab-hero h1 span{color:#214FF4}
+.shell-home .cf-editorial .lab-hero-description {
+  font-size:1rem;
+  line-height:1.75;
+  color:#5D6776;
+  margin:13px auto 5px;
+  max-width:680px;
+}
+.shell-home .cf-editorial .cf-hero-letter.cf-hero-visual {
+  position:relative;
+  z-index:1;
+  top:auto;
+  right:auto;
+  left:auto;
+  bottom:auto;
+  order:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transform:none;
+  pointer-events:auto;
+  width:min(100%,450px);
+  min-height:257px;
+  margin:0 auto 2px;
+}
+.cf-hero-glow {
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:275px;
+  height:235px;
+  border-radius:50%;
+  transform:translate(-50%,-51%);
+  background:radial-gradient(circle,#DCEAFF 0%,rgba(205,225,255,.65) 37%,rgba(205,225,255,0) 72%);
+  transition:opacity .28s ease,transform .35s ease;
+  pointer-events:none;
+}
+.cf-hero-character {
+  position:relative;
+  z-index:2;
+  width:250px;
+  height:245px;
+  display:grid;
+  place-items:center;
+  padding:0;
+  margin:0;
+  border:0;
+  border-radius:45%;
+  background:transparent;
+  color:inherit;
+  cursor:pointer;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+}
+.cf-hero-character .cf-letter--hero{
+  position:relative;
+  width:232px;
+  height:232px;
+  aspect-ratio:1/1;
+  overflow:visible;
+  transform-origin:center center;
+  filter:drop-shadow(0 13px 16px rgba(51,105,222,.13));
+}
+.cf-hero-character .cf-letter--hero .cf-letter-img{width:100%;height:100%;object-fit:contain}
+.cf-hero-character .cf-letter-fallback{font-size:5rem}
+.cf-hero-character:focus-visible{outline:3px solid #214FF4;outline-offset:3px}
+.cf-hero-character:hover .cf-letter--hero{filter:drop-shadow(0 18px 22px rgba(40,96,220,.23));}
+.cf-hero-visual:has(.cf-hero-character:hover) .cf-hero-glow,
+.cf-hero-visual:has(.cf-hero-character:focus-visible) .cf-hero-glow{
+  opacity:1;transform:translate(-50%,-51%) scale(1.13)
+}
+.cf-hero-spark{
+  position:absolute;
+  display:block;
+  width:12px;
+  height:12px;
+  background:#8FB6F9;
+  clip-path:polygon(50% 0,59% 39%,100% 50%,59% 61%,50% 100%,41% 61%,0 50%,41% 39%);
+  opacity:.65;
+  pointer-events:none;
+}
+.cf-hero-spark-one{left:16%;top:31%;width:14px;height:14px}
+.cf-hero-spark-two{right:17%;top:22%;width:9px;height:9px;background:#6E9CF4}
+.cf-hero-spark-three{right:24%;bottom:22%;width:10px;height:10px;background:#B4CFFA}
+.cf-hero-reaction{
+  position:absolute;
+  z-index:3;
+  top:14px;
+  right:-64px;
+  display:block;
+  min-width:0;
+  opacity:0;
+  padding:9px 14px;
+  border:1px solid #CDDFFF;
+  border-radius:16px 16px 16px 4px;
+  background:#FFF;
+  color:#214FF4;
+  white-space:nowrap;
+  font-size:.92rem;
+  font-weight:680;
+  box-shadow:0 9px 25px rgba(41,88,174,.11);
+  pointer-events:none;
+}
+.shell-home .cf-editorial .lab-hero-actions{
+  position:relative;
+  z-index:2;
+  justify-content:center;
+  margin:2px auto 0;
+}
+.shell-home .cf-editorial .lab-hero-actions .lab-main-cta{
+  min-width:190px;
+  min-height:51px;
+  border-radius:9px;
+  background:#214FF4;
+  border-color:#214FF4;
+  box-shadow:none;
+}
+.shell-home .cf-editorial .lab-hero-actions .lab-main-cta:hover{background:#1643DB;border-color:#1643DB}
+.shell-home .cf-editorial .lab-storage-warning{position:relative;z-index:2;margin:14px auto 0}
+@media(prefers-reduced-motion:no-preference){
+  @keyframes cfHeroFloat{
+    0%,100%{transform:translateY(0) rotate(-1.2deg)}
+    50%{transform:translateY(-8px) rotate(1deg)}
+  }
+  @keyframes cfHeroTap{
+    0%{transform:scale(1) rotate(0)}
+    27%{transform:scale(.9) rotate(-7deg)}
+    57%{transform:scale(1.11) rotate(5deg)}
+    78%{transform:scale(.98) rotate(-2deg)}
+    100%{transform:scale(1) rotate(0)}
+  }
+  @keyframes cfHeroBubble{
+    0%{opacity:0;transform:translate(-6px,6px) scale(.87)}
+    20%,75%{opacity:1;transform:translate(0,0) scale(1)}
+    100%{opacity:0;transform:translate(4px,-3px) scale(.96)}
+  }
+  .cf-hero-character .cf-letter--hero{
+    animation:cfHeroFloat 4s ease-in-out infinite;
+  }
+  .cf-hero-character:hover .cf-letter--hero{
+    animation:none;
+    transform:scale(1.055) rotate(2deg);
+  }
+  .cf-hero-character.is-reacting{
+    animation:cfHeroTap .7s cubic-bezier(.3,.75,.24,1) both;
+  }
+  .cf-hero-character.is-reacting .cf-hero-reaction{
+    animation:cfHeroBubble .72s both ease-out;
+  }
+}
+@media(max-width:760px){
+  .shell-home .cf-editorial .lab-hero{
+    margin:16px auto 39px;
+    padding:43px 22px 40px;
+    border-radius:17px;
+  }
+  .shell-home .cf-editorial .lab-hero h1{font-size:clamp(1.65rem,5.2vw,2.2rem)}
+  .shell-home .cf-editorial .lab-hero-description{margin:13px auto 0;font-size:.9375rem}
+  .shell-home .cf-editorial .cf-hero-letter.cf-hero-visual{
+    min-height:225px;width:100%;margin:0 auto 0;
+  }
+  .cf-hero-character{width:219px;height:217px}
+  .cf-hero-character .cf-letter--hero{width:208px;height:208px}
+  .cf-hero-glow{width:240px;height:205px}
+  .cf-hero-reaction{right:-37px;top:6px}
+}
+@media(max-width:430px){
+  .shell-home .cf-editorial .lab-hero{padding:35px 15px 37px;margin:12px auto 31px}
+  .shell-home .cf-editorial .lab-hero h1{font-size:clamp(1.5rem,6vw,1.85rem)}
+  .shell-home .cf-editorial .lab-hero-description{font-size:.91rem}
+  .shell-home .cf-editorial .cf-hero-letter.cf-hero-visual{min-height:200px}
+  .cf-hero-character{width:188px;height:193px}
+  .cf-hero-character .cf-letter--hero{width:182px;height:182px}
+  .cf-hero-glow{width:205px;height:185px}
+  .cf-hero-reaction{right:-28px;font-size:.83rem;padding:7px 10px}
+  .cf-hero-spark-one{left:11%}
+  .cf-hero-spark-two{right:10%}
+}
+@media(prefers-reduced-motion:reduce){
+  .cf-hero-character,.cf-hero-character .cf-letter--hero,
+  .cf-hero-reaction,.cf-hero-glow{animation:none!important;transition:none!important}
+  .cf-hero-character.is-reacting .cf-hero-reaction{opacity:1}
+}

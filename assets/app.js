@@ -198,6 +198,16 @@ app.addEventListener('change', event => {
 });
 
 app.addEventListener('click', event => {
+  const character = event.target.closest('button[data-action="play-hero-character"]');
+  if (character && parseRoute(location.hash).page === 'home') {
+    const reaction = character.querySelector('.cf-hero-reaction');
+    if (reaction) reaction.textContent = '반가워요!';
+    character.classList.remove('is-reacting');
+    // Restart a short reaction each time, including on touch and keyboard activation.
+    void character.offsetWidth;
+    character.classList.add('is-reacting');
+    return;
+  }
   const printButton = event.target.closest('button[data-action="print-sample-report"]');
   if (printButton && parseRoute(location.hash).page === 'report') {
     window.print();
@@ -249,6 +259,14 @@ app.addEventListener('click', event => {
     const dialog = app.querySelector('#reset-dialog');
     dialog.returnValue = '';
     dialog.showModal();
+  }
+});
+
+app.addEventListener('animationend', event => {
+  if (event.target instanceof HTMLButtonElement &&
+      event.target.matches('[data-action="play-hero-character"]') &&
+      event.animationName === 'cfHeroTap') {
+    event.target.classList.remove('is-reacting');
   }
 });
 
