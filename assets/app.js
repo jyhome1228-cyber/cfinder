@@ -5,8 +5,15 @@ import { createSessionStore } from './core/storage.js';
 import { parseRoute, navigate, withGrade } from './core/router.js';
 import { renderView, pageTitle } from './ui/views.js';
 import { selectHomeDomain, handleHomeTabKey } from './ui/home.js';
+import { letterArt } from './ui/letter-art.js';
 
 const app = document.querySelector('#app');
+// Preserve a usable type label if an externally hosted letter image is unavailable.
+document.addEventListener('error', event => {
+  if (event.target instanceof HTMLImageElement && event.target.hasAttribute('data-letter-asset')) {
+    event.target.closest('.cf-letter')?.classList.add('is-fallback');
+  }
+}, true);
 const introLoader = document.querySelector('#brand-loader');
 function closeBrandIntro() {
   if (!introLoader || !introLoader.isConnected || introLoader.classList.contains('is-leaving')) return;
@@ -93,7 +100,7 @@ function prepareAssessment(next) {
   overlay.className = 'cf-prepare-overlay';
   overlay.setAttribute('role', 'status');
   overlay.setAttribute('aria-live', 'polite');
-  overlay.innerHTML = '<div class="cf-prepare-content"><span class="cf-prepare-brand">C-Finder</span><p>검사를 준비하고 있습니다.</p><span class="cf-prepare-dots" aria-hidden="true"><i></i><i></i><i></i></span></div>';
+  overlay.innerHTML = `<div class="cf-prepare-content">${letterArt('C', 'loading', true)}<p>검사를 준비하고 있습니다.</p><span class="cf-prepare-dots" aria-hidden="true"><i></i><i></i><i></i></span></div>`;
   document.body.append(overlay);
   prepareTimer = window.setTimeout(() => { finishPreparing(); next(); }, 850);
 }

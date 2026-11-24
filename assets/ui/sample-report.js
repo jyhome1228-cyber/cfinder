@@ -1,4 +1,5 @@
 import { escapeHtml as e } from './html.js';
+import { letterArt } from './letter-art.js';
 
 // Source: user-provided "진단검사_만쏘_251206.pdf" (three-page high-school report).
 // Demonstration data only; no scoring algorithm, no user-linked results.
@@ -89,7 +90,7 @@ export function renderSampleReport() {
  return `<div class="sr-page">
    <div class="sr-top"><h1 id="page-heading" tabindex="-1">진로 분석 결과</h1><div class="sr-report-tools"><span class="sr-demo-marker">샘플 · 실제 검사 결과 아님</span><button type="button" class="sr-print-top" data-action="print-sample-report" aria-label="A4 형식으로 결과지 PDF 저장">A4 PDF 저장</button></div></div>
    <div class="sr-hero">
-     <div class="sr-profile-type"><span class="sr-hero-code">${d.type}</span><div><h2>${e(d.typeName)}</h2><p>${e(d.typeDescription)}</p></div></div>
+     <div class="sr-profile-type"><span class="sr-hero-code">${d.type}</span><div class="cf-report-pair">${letterArt('E', 'report')}${letterArt('S', 'report')}</div><div><h2>${e(d.typeName)}</h2><p>${e(d.typeDescription)}</p></div></div>
      <div class="sr-hero-meta"><strong>${e(d.level)}</strong><span>흥미 · 적성 · 가치관</span></div>
    </div>
    <nav class="sr-anchor-nav" aria-label="결과 상세 보기"><button type="button" data-sr-scroll="sample-interest" aria-current="true">흥미</button><button type="button" data-sr-scroll="sample-aptitude">적성</button><button type="button" data-sr-scroll="sample-values">가치관</button><button type="button" data-sr-scroll="sample-type">최종 유형</button></nav>

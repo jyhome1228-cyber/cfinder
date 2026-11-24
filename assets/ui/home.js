@@ -1,4 +1,5 @@
 import { SAMPLE_REPORT } from './sample-report.js';
+import { letterArt } from './letter-art.js';
 import { escapeHtml as e } from './html.js';
 const TYPES = Object.freeze([
  ['R','현실형','실행과 현장','도구와 사물을 다루는 활동'],
@@ -9,7 +10,7 @@ const TYPES = Object.freeze([
  ['C','관습형','정리와 관리','자료를 체계적으로 다루는 활동']
 ]);
 function typeCard([code,name,focus,description]) {
-  return `<article class="lab-type"><div class="lab-type-art" aria-hidden="true">${code}</div><div class="lab-type-info"><span>${e(focus)}</span><h3>${e(name)}</h3><p>${e(description)}</p></div></article>`;
+  return `<article class="lab-type"><div class="lab-type-art">${letterArt(code)}</div><div class="lab-type-info"><span>${e(focus)}</span><h3>${e(name)}</h3><p>${e(description)}</p></div></article>`;
 }
 function riasecRows() {
  return SAMPLE_REPORT.riasec.map(([code,score,name])=>`<div class="lab-riasec-row"><span>${code} <small>${e(name)}</small></span><strong>${score}</strong></div>`).join('');
@@ -23,6 +24,7 @@ export function renderHome({storageAvailable}) {
      <div class="lab-hero-actions"><a class="btn btn-primary lab-main-cta" href="#start">진단 시작하기 <span aria-hidden="true">→</span></a></div>
      ${!storageAvailable ? '<p class="lab-storage-warning" role="status">이 브라우저는 답변 임시 저장이 제한됩니다.</p>' : ''}
    </div>
+   <div class="cf-hero-letter">${letterArt('C', 'hero', true)}</div>
  </section>
 
  <section class="lab-types" aria-labelledby="lab-types-title">
@@ -45,7 +47,7 @@ export function renderHome({storageAvailable}) {
  <section class="lab-result-section" aria-labelledby="lab-result-title">
    <div class="lab-section-headline"><div><h2 id="lab-result-title" class="lab-section-heading">결과 화면 예시</h2><p>고등학생용 샘플 보고서</p></div><a href="#report">상세 결과 보기 →</a></div>
    <div class="lab-result-card">
-     <div class="lab-result-profile"><span class="lab-type-badge">ES</span><h3>설득하는 조력가</h3><p>${e(SAMPLE_REPORT.typeDescription)}</p><div class="lab-result-description"><strong>추천 직업</strong><span>여행기획자 · 연예인 매니저 · 캐스팅디렉터 외</span></div></div>
+     <div class="lab-result-profile"><div class="cf-result-letters">${letterArt('E', 'result')}${letterArt('S', 'result')}</div><span class="lab-type-badge">ES</span><h3>설득하는 조력가</h3><p>${e(SAMPLE_REPORT.typeDescription)}</p><div class="lab-result-description"><strong>추천 직업</strong><span>여행기획자 · 연예인 매니저 · 캐스팅디렉터 외</span></div></div>
      <div class="lab-result-bars"><h4>상위 요인</h4><div class="lab-score-row"><span>흥미</span><strong>사무·회계</strong><em>5</em></div><div class="lab-score-row"><span>적성</span><strong>언어이해력</strong><em>5</em></div><div class="lab-score-row"><span>가치관</span><strong>사회적 인정</strong><em>12</em></div><small>각 영역의 점수 척도는 서로 다릅니다.</small></div>
      <div class="lab-radar"><h4>RIASEC 점수</h4><div class="lab-riasec-list">${riasecRows()}</div></div>
    </div>
