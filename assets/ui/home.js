@@ -23,7 +23,7 @@ export function renderHome({storageAvailable}) {
      <p class="lab-hero-description">흥미·적성·가치관을 함께 살펴보는 C-Finder 진로검사</p>
    </div>
    <div class="cf-hero-letter cf-hero-visual">
-     <span class="cf-hero-glow" aria-hidden="true"></span>
+     <span class="cf-hero-glow" aria-hidden="true"></span><span class="cf-impact-orb cf-impact-one" aria-hidden="true"></span><span class="cf-impact-orb cf-impact-two" aria-hidden="true"></span><span class="cf-impact-orb cf-impact-three" aria-hidden="true"></span>
      <span class="cf-hero-spark cf-hero-spark-one" aria-hidden="true"></span>
      <span class="cf-hero-spark cf-hero-spark-two" aria-hidden="true"></span>
      <span class="cf-hero-spark cf-hero-spark-three" aria-hidden="true"></span>
@@ -36,6 +36,7 @@ export function renderHome({storageAvailable}) {
    ${!storageAvailable ? '<p class="lab-storage-warning" role="status">이 브라우저는 답변 임시 저장이 제한됩니다.</p>' : ''}
  </section>
 
+ <section class="cf-discovery" aria-labelledby="cf-discovery-title"><h2 id="cf-discovery-title" class="lab-section-heading">나를 발견하는 세 가지 단서</h2><p>좋아하는 일, 잘할 수 있다고 느끼는 일, 중요하게 생각하는 가치를 함께 살펴보세요.</p><div class="cf-discovery-grid"><article><span>INTEREST</span><h3>흥미</h3><p>어떤 활동을 할 때 즐겁고 더 알아보고 싶은지 살펴봐요.</p></article><article><span>APTITUDE</span><h3>적성</h3><p>내가 자신감을 느끼는 활동과 스스로 생각하는 강점을 찾아봐요.</p></article><article><span>VALUES</span><h3>가치관</h3><p>미래의 일과 생활에서 무엇을 중요하게 생각하는지 알아봐요.</p></article></div></section>
  <section class="lab-types" aria-labelledby="lab-types-title">
    <div class="lab-section-headline"><div><h2 id="lab-types-title" class="lab-section-heading">진로 유형 살펴보기</h2><p>Holland RIASEC 6유형</p></div><a href="#report">유형 결과 예시 →</a></div>
    <div class="lab-type-grid">${TYPES.map(typeCard).join('')}</div>
@@ -43,12 +44,12 @@ export function renderHome({storageAvailable}) {
  </section>
  <section class="lab-process" aria-labelledby="lab-process-title">
    <div class="lab-section-headline lab-process-heading">
-     <div><h2 id="lab-process-title" class="lab-section-heading">검사 이용 방법</h2><p>학교급을 선택하고 관심·강점·가치를 차례로 살펴보세요.</p></div>
+     <div><h2 id="lab-process-title" class="lab-section-heading">검사 이용 방법</h2><p>다니는 학교를 선택하고 관심·강점·가치를 차례로 살펴보세요.</p></div>
      <a href="#start">검사 시작하기 →</a>
    </div>
    <ol class="lab-process-flow">
      <li><span class="lab-process-index">01</span><div><strong>검사 선택</strong><p>중학생 · 고등학생 · 대학생 체험</p></div></li>
-     <li><span class="lab-process-index">02</span><div><strong>문항 응답</strong><p>중·고 49항목 · 대학 3문항</p></div></li>
+     <li><span class="lab-process-index">02</span><div><strong>문항 응답</strong><p>한 화면에 최대 5문항씩 응답</p></div></li>
      <li><span class="lab-process-index">03</span><div><strong>결과지 예시</strong><p>샘플 진로 유형과 분석 확인</p></div></li>
    </ol>
    <p class="lab-process-note">중·고등 49개 요인 자기탐색은 비공식 설문으로, 진로 유형을 판정하지 않습니다.</p>
