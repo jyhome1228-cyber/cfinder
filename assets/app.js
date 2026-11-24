@@ -7,6 +7,39 @@ import { renderView, pageTitle } from './ui/views.js';
 import { selectHomeDomain, handleHomeTabKey } from './ui/home.js';
 
 const app = document.querySelector('#app');
+let reportMotionObserver = null;
+let prePrintOpenDetails = [];
+function setupReportMotion() {
+  reportMotionObserver?.disconnect();
+  reportMotionObserver = null;
+  if (parseRoute(location.hash).page !== 'report') return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  const sections = [...app.querySelectorAll('.sr-section')];
+  reportMotionObserver = new IntersectionObserver(entries => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      entry.target.classList.add('sr-in-view');
+      reportMotionObserver?.unobserve(entry.target);
+    }
+  }, { threshold: 0.1, rootMargin: '0px 0px 30px 0px' });
+  sections.forEach(section => {
+    section.classList.add('sr-motion-ready');
+    reportMotionObserver.observe(section);
+  });
+}
+function expandPrintableReport() {
+  if (parseRoute(location.hash).page !== 'report') return;
+  prePrintOpenDetails = [...app.querySelectorAll('.sr-page details:not([open])')];
+  prePrintOpenDetails.forEach(details => { details.open = true; });
+  app.querySelectorAll('.sr-section').forEach(section => section.classList.add('sr-in-view'));
+}
+function restorePrintableReport() {
+  prePrintOpenDetails.forEach(details => { if (details.isConnected) details.open = false; });
+  prePrintOpenDetails = [];
+}
+window.addEventListener('beforeprint', expandPrintableReport);
+window.addEventListener('afterprint', restorePrintableReport);
+
 const tenant = resolveTenant(location.search);
 const storage = createSessionStore();
 const attempts = Object.fromEntries(Object.entries(ASSESSMENTS).map(([grade, assessment]) => [grade, storage.loadAttempt(tenant.id, assessment)]));
@@ -62,6 +95,7 @@ function render() {
     tenant, assessment: assessment(), attempt: currentAttempt(), attempts,
     storageAvailable: storage.available
   });
+  setupReportMotion();
   const dialog = app.querySelector('#reset-dialog');
   dialog.addEventListener('close', () => {
     if (dialog.returnValue !== 'restart' || !assessment()) return;
@@ -113,6 +147,11 @@ app.addEventListener('change', event => {
 });
 
 app.addEventListener('click', event => {
+  const printButton = event.target.closest('button[data-action="print-sample-report"]');
+  if (printButton && parseRoute(location.hash).page === 'report') {
+    window.print();
+    return;
+  }
   const reportJump = event.target.closest('button[data-sr-scroll]');
   if (reportJump && parseRoute(location.hash).page === 'report') {
     const target = app.querySelector('#' + reportJump.dataset.srScroll);

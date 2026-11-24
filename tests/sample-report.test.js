@@ -77,3 +77,35 @@ test('neutral report theme overrides dark navy hero and keeps sample warning vis
  assert.ok(promo.includes('promo/neutral-theme.css'));
  assert.ok(renderSampleReport().includes('샘플 · 실제 검사 결과 아님'));
 });
+
+test('report provides native A4 save and original downloadable PDF without scoring', async () => {
+  const { readFileSync } = await import('node:fs');
+  const report = renderSampleReport();
+  const stylesheet = readFileSync(new URL('../assets/report-print.css', import.meta.url), 'utf8');
+  const index = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+  const app = readFileSync(new URL('../assets/app.js', import.meta.url), 'utf8');
+  const buttons = report.match(/data-action="print-sample-report"/g) || [];
+  assert.equal(buttons.length, 2);
+  assert.ok(report.includes('C-Finder_샘플결과지_v1_261123.pdf'));
+  assert.ok(report.includes('assets/promo/cfinder_sample_v1_261123.pdf'));
+  assert.ok(report.includes('sr-print-footnote'));
+  assert.match(stylesheet, /@page\s*\{\s*size:A4 portrait;/);
+  assert.match(stylesheet, /@media print\s*\{/);
+  assert.match(stylesheet, /#sample-aptitude,#sample-values,#sample-type\s*\{\s*break-before:page/);
+  assert.match(stylesheet, /transform:none!important/);
+  assert.match(index, /assets\/report-print\.css/);
+  assert.match(app, /window\.print\(\)/);
+  assert.match(app, /window\.addEventListener\('beforeprint', expandPrintableReport\)/);
+  assert.match(app, /window\.addEventListener\('afterprint', restorePrintableReport\)/);
+});
+test('report animation has reduced-motion and intersection fallback', async () => {
+  const { readFileSync } = await import('node:fs');
+  const css = readFileSync(new URL('../assets/report-print.css', import.meta.url), 'utf8');
+  const app = readFileSync(new URL('../assets/app.js', import.meta.url), 'utf8');
+  assert.match(css, /prefers-reduced-motion:no-preference/);
+  assert.match(css, /sr-motion-ready/);
+  assert.match(css, /sr-in-view/);
+  assert.match(app, /IntersectionObserver/);
+  assert.match(app, /reportMotionObserver\?\.disconnect\(\)/);
+  assert.match(app, /prefers-reduced-motion: reduce/);
+});

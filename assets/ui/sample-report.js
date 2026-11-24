@@ -87,7 +87,7 @@ function section(id,title,entries,max,tendency,descriptionList,options={}) {
 export function renderSampleReport() {
  const d=SAMPLE_REPORT;
  return `<div class="sr-page">
-   <div class="sr-top"><h1 id="page-heading" tabindex="-1">진로 분석 결과</h1><span class="sr-demo-marker">샘플 · 실제 검사 결과 아님</span></div>
+   <div class="sr-top"><h1 id="page-heading" tabindex="-1">진로 분석 결과</h1><div class="sr-report-tools"><span class="sr-demo-marker">샘플 · 실제 검사 결과 아님</span><button type="button" class="sr-print-top" data-action="print-sample-report" aria-label="A4 형식으로 결과지 PDF 저장">A4 PDF 저장</button></div></div>
    <div class="sr-hero">
      <div class="sr-profile-type"><span class="sr-hero-code">${d.type}</span><div><h2>${e(d.typeName)}</h2><p>${e(d.typeDescription)}</p></div></div>
      <div class="sr-hero-meta"><strong>${e(d.level)}</strong><span>흥미 · 적성 · 가치관</span></div>
@@ -102,7 +102,8 @@ export function renderSampleReport() {
        <div class="sr-type-copy"><h3>${d.type} — ${e(d.typeName)}</h3><p>${e(d.typeDescription)}</p><h4>추천 직업</h4><div class="sr-jobs">${d.recommended.map(job=>`<span>${e(job)}</span>`).join('')}</div></div>
      </div>
    </section>
-   <div class="sr-foot-actions"><a class="btn btn-primary" href="./assets/promo/cfinder_sample_v1_261123.pdf" download="C-Finder_샘플결과지_v1_261123.pdf">원본 샘플 PDF 다운로드</a><a class="btn btn-outline" href="#start">진단 체험하기</a></div>
+   <div class="sr-foot-actions"><button type="button" class="btn btn-primary" data-action="print-sample-report">A4 PDF로 저장</button><a class="btn btn-outline" href="./assets/promo/cfinder_sample_v1_261123.pdf" download="C-Finder_샘플결과지_v1_261123.pdf">원본 PDF 다운로드</a><a class="btn btn-outline" href="#start">진단 체험하기</a></div>
    <p class="sr-final-note">샘플 점수입니다. 3문항 체험 응답과 무관하며, 실제 진단 결과가 아닙니다.</p>
+   <p class="sr-print-footnote">C-Finder 고등학생용 샘플 결과지 · 실제 개인 검사 결과 아님 · 흥미·적성·가치관 및 RIASEC 점수는 제공된 샘플에서 가져왔습니다.</p>
  </div>`;
 }
