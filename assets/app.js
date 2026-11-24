@@ -81,16 +81,36 @@ function save(attempt) {
   storage.saveAttempt(attempt, assessment());
 }
 
+let prepareTimer = null;
+function finishPreparing() {
+  if (prepareTimer !== null) window.clearTimeout(prepareTimer);
+  prepareTimer = null;
+  document.querySelector('.cf-prepare-overlay')?.remove();
+}
+function prepareAssessment(next) {
+  finishPreparing();
+  const overlay = document.createElement('div');
+  overlay.className = 'cf-prepare-overlay';
+  overlay.setAttribute('role', 'status');
+  overlay.setAttribute('aria-live', 'polite');
+  overlay.innerHTML = '<div class="cf-prepare-content"><span class="cf-prepare-brand">C-Finder</span><p>검사를 준비하고 있습니다.</p><span class="cf-prepare-dots" aria-hidden="true"><i></i><i></i><i></i></span></div>';
+  document.body.append(overlay);
+  prepareTimer = window.setTimeout(() => { finishPreparing(); next(); }, 850);
+}
+
 function selectGrade(grade) {
-  if (!Object.hasOwn(ASSESSMENTS, grade)) return;
+  if (!Object.hasOwn(ASSESSMENTS, grade) || prepareTimer !== null) return;
   activeGrade = grade;
   storage.saveGrade(tenant.id, grade);
-  if (!currentAttempt()) {
-    save(createAttempt(tenant.id, assessment()));
-    go('#intro');
+  if (!currentAttempt()) save(createAttempt(tenant.id, assessment()));
+  const destination = countAnswered(currentAttempt(), assessment()) || currentAttempt().status === 'completed'
+    ? getResumeRoute(currentAttempt(), assessment()) : '#intro';
+  if (currentAttempt().status === 'completed') {
+    go(destination);
   } else {
-    go(countAnswered(currentAttempt(), assessment()) || currentAttempt().status === 'completed'
-      ? getResumeRoute(currentAttempt(), assessment()) : '#intro');
+    prepareAssessment(() => {
+      if (parseRoute(location.hash).page === 'start') go(destination);
+    });
   }
 }
 
@@ -234,5 +254,5 @@ document.querySelector('.skip-link').addEventListener('click', event => {
   main?.scrollIntoView({ block: 'start' });
 });
 
-window.addEventListener('hashchange', render);
+window.addEventListener('hashchange', () => { if (prepareTimer !== null) finishPreparing(); render(); });
 render();
