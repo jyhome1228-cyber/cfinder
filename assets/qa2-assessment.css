@@ -61,3 +61,25 @@
   .shell-flow .cf-batch-panel .cf-batch-question.is-missing{padding-left:10px}
   .cf-review-summary{padding:15px 16px}
 }
+
+/* QA4 responsive and storage-state refinements */
+.cf-batch-panel .cf-save-state.is-unavailable{color:#925122;font-weight:650}
+.cf-batch-panel .cf-save-state.is-unavailable::before{background:#d69a4c}
+.shell-flow .cf-batch-panel .cf-assessment-heading,
+.shell-flow .cf-batch-panel .cf-assessment-progress,
+.shell-flow .cf-batch-panel .cf-response-guide{min-width:0}
+@media(max-width:700px){
+  .shell-flow .cf-batch-panel{max-width:100%;overflow-wrap:break-word}
+  .shell-flow .cf-batch-panel .cf-assessment-heading{align-items:flex-start}
+  .shell-flow .cf-batch-panel .cf-assessment-title{min-width:0}
+  .shell-flow .cf-batch-panel .cf-assessment-counter{white-space:nowrap}
+  .shell-flow .cf-batch-panel .cf-assessment-progress-top{flex-wrap:wrap}
+  .shell-flow .cf-batch-panel .cf-scale-head{grid-template-columns:repeat(5,minmax(0,1fr));min-width:0}
+  .shell-flow .cf-batch-panel .cf-scale-head span{overflow-wrap:anywhere;word-break:keep-all}
+  .shell-flow .cf-batch-panel .cf-batch-question .choice-list{min-width:0}
+  .shell-flow .cf-batch-panel .cf-batch-question .choice{min-width:0}
+}
+@media(max-width:380px){
+  .shell-flow .cf-batch-panel .cf-response-guide .cf-scale-head span{font-size:.62rem}
+  .shell-flow .cf-batch-panel .cf-assessment-counter strong{font-size:.9rem}
+}
