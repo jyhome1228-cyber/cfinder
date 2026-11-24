@@ -48,7 +48,9 @@ test('a five-item page is gated until all five valid answers are stored',()=>{
  assert.ok(html.includes('data-next-start="5"'));
  assert.ok(html.includes('1 <span>/ 11</span>'));
  assert.equal((html.match(/type="radio"/g)||[]).length,25);
- assert.ok(html.includes('data-action="next" data-index="0"'));\n const app=readFileSync(new URL('../assets/app.js',import.meta.url),'utf8');\n assert.ok(app.includes('pageMissingQuestions(assessment(), currentAttempt().answers, page)'));
+ assert.ok(html.includes('data-action="next" data-index="0"'));
+ const app=readFileSync(new URL('../assets/app.js',import.meta.url),'utf8');
+ assert.ok(app.includes('pageMissingQuestions(assessment(), currentAttempt().answers, page)'));
  for(const q of first.questions) a=answerQuestion(a,assessment,q.id,4);
  assert.equal(pageMissingQuestions(assessment,a.answers,first).length,0);
  html=htmlFor(0,a);
