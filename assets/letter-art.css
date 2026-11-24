@@ -9,8 +9,8 @@
 .cf-hero-letter .cf-letter{width:100%;aspect-ratio:1/1}
 .shell-home .cf-editorial .lab-hero{position:relative}
 .shell-home .cf-editorial .lab-hero-main{z-index:2;position:relative;max-width:780px}
-.cf-editorial .lab-type .lab-type-art{display:flex;align-items:center;justify-content:center;width:95px;height:111px;background:#f7f8fc!important;border:0;border-radius:7px;padding:4px;overflow:hidden}
-.cf-editorial .lab-type:nth-child(n) .lab-type-art{background:#f7f8fc!important}
+.cf-editorial .lab-type .lab-type-art{display:flex;align-items:center;justify-content:center;width:95px;height:111px;background:transparent!important;border:0;border-radius:7px;padding:4px;overflow:hidden}
+.cf-editorial .lab-type:nth-child(n) .lab-type-art{background:transparent!important}
 .cf-letter--card{width:86px;height:98px;max-width:100%}
 .cf-editorial .lab-type .lab-type-art .cf-letter-fallback{font-size:2.5rem;border-radius:8px}
 .cf-result-letters{display:flex;gap:3px;align-items:center;width:100%;margin:0 0 13px}
