@@ -1,0 +1,63 @@
+/* QA phase 2: focused question feedback and predictable navigation. */
+.cf-batch-panel .cf-page-feedback{
+  margin:21px 0 0;
+  padding:11px 14px;
+  border:1px solid #dde8fb;
+  border-radius:8px;
+  background:#f7faff;
+  color:#4e6080;
+  font-size:.875rem;
+  line-height:1.5;
+}
+.shell-flow .cf-batch-panel .cf-batch-question.is-missing{
+  border-left:3px solid #e69b3c;
+  background:linear-gradient(90deg,rgba(255,245,229,.84),transparent 55%);
+  padding-left:14px;
+}
+.cf-batch-panel .cf-batch-question.is-missing .cf-question-heading .cf-batch-statement{
+  color:#8b4b17;
+}
+.cf-batch-panel .cf-save-state{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  font-size:.83rem;
+  color:#64758b;
+  line-height:1.5;
+}
+.cf-batch-panel .cf-save-state::before{
+  content:"";
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#64a987;
+  flex:none;
+}
+.cf-batch-panel .question-utility{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:10px 24px;
+  padding-top:12px;
+}
+.cf-review-summary{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+  padding:19px 22px;
+  margin:20px 0;
+  background:#f6f9ff;
+  border:1px solid #e0eaf9;
+  border-radius:10px;
+}
+.cf-review-summary strong{font-size:1.12rem;color:#1e4fec;font-variant-numeric:tabular-nums}
+.cf-review-summary span{font-size:.9rem;color:#4d5e76;line-height:1.6}
+.cf-missing-cta{margin-bottom:10px}
+.cf-review-domain summary span{font-variant-numeric:tabular-nums}
+.cf-review-domain .review-item.is-unanswered{background:#fff8ed;border-left:3px solid #e1a35a;padding-left:10px}
+@media(max-width:700px){
+  .cf-batch-panel .cf-page-feedback{font-size:.82rem}
+  .shell-flow .cf-batch-panel .cf-batch-question.is-missing{padding-left:10px}
+  .cf-review-summary{padding:15px 16px}
+}
