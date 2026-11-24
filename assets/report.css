@@ -140,3 +140,29 @@
  .sr-bar-label{font-size:.875rem}
 }
 @media(max-width:360px){.sr-section{padding:19px 13px}.sr-bar-row{gap:6px}.sr-anchor-nav button{padding:11px 12px}}
+
+/* QA 2026-11-24: report and navigation share the site's 1440px / 48px grid.
+   The outer .shell already supplies matching 48/32/20/16px responsive gutters. */
+.shell-report .sr-page {
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  min-width: 0;
+}
+.shell-report .sr-top,
+.shell-report .sr-hero,
+.shell-report .sr-anchor-nav,
+.shell-report .sr-section,
+.shell-report .sr-foot-actions,
+.shell-report .sr-final-note {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.shell-report .sr-analysis-grid > *,
+.shell-report .sr-type-layout > * {
+  min-width: 0;
+}
+@media (max-width: 700px) {
+  .shell-report .sr-page { width: 100%; }
+  .shell-report .sr-bar-label { overflow-wrap: anywhere; }
+}

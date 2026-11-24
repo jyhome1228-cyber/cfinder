@@ -50,3 +50,17 @@ test('sample report uses compact aligned analysis and explicit section state',()
  assert.ok(page.includes('하위 요인 13개'));
  assert.ok(page.includes('하위 요인 9개'));
 });
+
+test('report shares header and footer gutters at desktop and mobile widths', async () => {
+  const { readFileSync } = await import('node:fs');
+  const styles = readFileSync(new URL('../assets/styles.css', import.meta.url), 'utf8');
+  const report = readFileSync(new URL('../assets/report.css', import.meta.url), 'utf8');
+  const views = readFileSync(new URL('../assets/ui/views.js', import.meta.url), 'utf8');
+  assert.match(styles, /\.header-inner\s*\{\s*max-width:\s*1440px;\s*padding:\s*0 48px/);
+  assert.match(styles, /\.shell\s*\{\s*max-width:\s*1440px;\s*padding:\s*56px 48px/);
+  assert.match(styles, /\.footer-inner\s*\{\s*max-width:\s*1440px;\s*padding:\s*32px 48px/);
+  assert.match(report, /\.shell-report \.sr-page\s*\{[\s\S]*?max-width:\s*none;/);
+  assert.match(report, /\.shell-report \.sr-page\s*\{[\s\S]*?margin-inline:\s*0;/);
+  assert.match(views, /shell-\$\{route\.page\}/);
+  assert.match(styles, /@media \(max-width:620px\)/);
+});
