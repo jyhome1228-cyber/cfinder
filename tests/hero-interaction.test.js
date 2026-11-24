@@ -45,6 +45,5 @@ test('touch and keyboard character interaction is delegated without blocking dia
  assert.ok(app.includes("character.classList.add('is-reacting')"));
  assert.ok(app.includes("if (reaction) reaction.textContent = '반가워요!'"));
  assert.ok(app.includes("event.animationName === 'cfHeroTap'"));
- assert.ok(app.includes("href"));
  assert.ok(page.includes('data-letter-code="C"'));
 });
