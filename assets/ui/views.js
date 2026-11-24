@@ -139,12 +139,23 @@ function question(route, { assessment, attempt, storageAvailable }) {
   }).join('') : '';
   return `<div class="flow-container">${stepper('test')}
     <section class="panel question-panel cf-batch-panel" aria-labelledby="page-heading" data-page-start="${page.start}" data-page-end="${page.end}" data-next-start="${page.next ?? ''}" data-page-number="${page.number}">
-      <div class="panel-heading"><span class="section-kicker">${label} · ${page.start + 1}–${page.end}번 <span class="quiet">/ ${total}</span></span><span class="pill">${e(assessment.label)}</span></div>
-      <div class="cf-batch-top"><div><h1 id="page-heading" tabindex="-1">${e(DOMAINS[page.domain].label)} 탐색</h1><p>${grouped ? '각 항목을 읽고 나에게 가장 가까운 답을 선택하세요.' : '지금의 생각에 가까운 답을 선택하세요.'}</p></div><span class="cf-page-number">${page.number} / ${page.totalPages}페이지</span></div>
-      ${grouped ? `<ol class="cf-domain-progress" aria-label="영역별 진행 상황">${domainProgress}</ol>` : ''}
-      <div class="progress-caption"><span data-progress-text>${answered}개 응답 · ${Math.round(answered / total * 100)}%</span><span data-page-status aria-live="polite">${page.questions.length - pageMissingQuestions(assessment, attempt.answers, page).length}/${page.questions.length}개 선택</span></div>
-      <div class="progress-track" role="progressbar" aria-label="전체 응답 진행률" aria-valuenow="${answered}" aria-valuemin="0" aria-valuemax="${total}" aria-valuetext="${total}개 중 ${answered}개 응답"><span style="width:${answered / total * 100}%"></span></div>
-      <div class="cf-response-guide"><span class="cf-response-guide-title">질문을 읽고 선택해 주세요</span><div class="cf-scale-head" aria-hidden="true">${assessment.options.map(option => `<span>${e(option.label)}</span>`).join('')}</div></div>
+      <div class="cf-assessment-heading">
+        <div class="cf-assessment-title">
+          <span class="cf-assessment-eyebrow">${e(assessment.label)} · ${label}</span>
+          <h1 id="page-heading" tabindex="-1">${e(DOMAINS[page.domain].label)} 탐색</h1>
+          <p>각 문항을 읽고 나에게 가장 가까운 답을 선택해 주세요.</p>
+        </div>
+        <div class="cf-assessment-counter"><strong>${page.number} <span>/ ${page.totalPages}</span></strong><span>페이지</span></div>
+      </div>
+      <div class="cf-assessment-progress">
+        <div class="cf-assessment-progress-top">
+          <strong>전체 진행률 <span data-progress-text>${answered}/${total} 응답 · ${Math.round(answered / total * 100)}%</span></strong>
+          <span data-page-status aria-live="polite">이번 페이지 ${page.questions.length - pageMissingQuestions(assessment, attempt.answers, page).length}/${page.questions.length}개 선택</span>
+        </div>
+        <div class="progress-track" role="progressbar" aria-label="전체 응답 진행률" aria-valuenow="${answered}" aria-valuemin="0" aria-valuemax="${total}" aria-valuetext="${total}개 중 ${answered}개 응답"><span style="width:${answered / total * 100}%"></span></div>
+        ${grouped ? `<ol class="cf-domain-progress" aria-label="영역별 진행 상황">${domainProgress}</ol>` : ''}
+      </div>
+      <div class="cf-response-guide"><span class="cf-response-guide-title">문항 <span>${page.start + 1}–${page.end} / ${total}</span></span><div class="cf-scale-head" aria-hidden="true">${assessment.options.map(option => `<span>${e(option.label)}</span>`).join('')}</div></div>
       <div class="cf-batch-questions">${page.questions.map((q,offset) => {
         const index = page.start + offset;
         const answer = attempt.answers[q.id];
