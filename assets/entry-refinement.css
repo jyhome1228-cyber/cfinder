@@ -1,0 +1,116 @@
+/* Unified C-Finder welcome + assessment intro, designed around a single decision. */
+.shell-start .assessment-start.cf-welcome-flow{display:block;min-height:0}
+.shell-start .cf-welcome-stage:not([hidden]){min-height:0;padding:35px 0 40px;display:flex;align-items:center;justify-content:center}
+.shell-start .cf-welcome-content{
+  width:min(100%,1040px);
+  max-width:none;
+  padding:33px 36px 35px;
+  margin:0 auto;
+  border:1px solid #e3ecf9;
+  border-radius:18px;
+  background:radial-gradient(ellipse at 50% 18%,#fff 0%,#f4f9ff 66%,#eff6ff 100%);
+  text-align:center;
+}
+.shell-start .cf-welcome-figure{
+  display:grid;place-items:center;
+  width:176px;height:156px;
+  margin:0 auto 2px;
+  position:relative;
+}
+.shell-start .cf-welcome-figure::before{
+  position:absolute;inset:9px 4px;
+  content:"";display:block;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(167,202,255,.4) 0%,rgba(167,202,255,0) 76%);
+  pointer-events:none;
+}
+.shell-start .cf-welcome-figure .cf-letter--welcome{width:160px;height:155px;z-index:1;filter:drop-shadow(0 12px 13px rgba(50,100,208,.12))}
+.shell-start .cf-welcome-greeting{margin:0 0 11px}
+.shell-start .cf-welcome-flow h1{
+  font-size:clamp(1.7rem,2.65vw,2.35rem);
+  font-weight:720;line-height:1.44;
+}
+.shell-start .cf-welcome-description{margin:14px auto 21px;line-height:1.7}
+.shell-start .cf-welcome-next{min-height:50px}
+.shell-start .cf-welcome-domains{
+  display:flex;align-items:center;justify-content:center;
+  gap:24px;margin:23px auto 0;
+}
+.shell-start .cf-welcome-domains span{font-size:.93rem;font-weight:600;color:#4a5c77;position:relative}
+.shell-start .cf-welcome-domains span+span::before{
+  content:"";position:absolute;left:-13px;top:50%;
+  width:3px;height:3px;border-radius:50%;background:#9caecb;
+}
+.shell-start .cf-welcome-scope{margin:11px auto 0;font-size:.83rem;color:#717b8c}
+.shell-start .cf-grade-stage:not([hidden]){padding:42px 0 50px}
+.shell-flow .cf-intro-layout .flow-steps{margin-bottom:0}
+.shell-flow .cf-intro.cf-intro-simple{
+ display:flex;align-items:flex-start;justify-content:center;
+ width:100%;min-height:490px;
+ padding:69px 20px 60px;
+ border-top:0;
+ text-align:center;
+}
+.shell-flow .cf-intro-inner{width:min(100%,830px);margin:0 auto}
+.shell-flow .cf-intro-simple .cf-intro-grade{padding:6px 13px}
+.shell-flow .cf-intro-simple h1{
+  margin:19px 0 10px;
+  font-size:clamp(1.65rem,2.5vw,2.1rem);
+  font-weight:710;
+}
+.shell-flow .cf-intro-simple .cf-intro-description{max-width:630px;margin:0 auto;color:#606a78;line-height:1.75}
+.shell-flow .cf-intro-facts{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:0;margin:31px auto 27px;padding:18px 0;
+  border-top:1px solid #e4eaf2;border-bottom:1px solid #e4eaf2;
+  text-align:center;
+}
+.shell-flow .cf-intro-facts div{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:0;padding:0 12px}
+.shell-flow .cf-intro-facts div+div{border-left:1px solid #e8edf4}
+.shell-flow .cf-intro-facts strong{font-size:.9375rem;font-weight:680;color:#222}
+.shell-flow .cf-intro-facts span{font-size:.89rem;line-height:1.6;color:#667184;word-break:keep-all}
+.shell-flow .cf-intro-main-cta{
+ display:inline-flex;align-items:center;justify-content:space-between;gap:26px;
+ min-width:195px;min-height:51px;margin:0 auto;
+ padding:12px 20px 12px 24px;
+ background:#214ff4;border:1px solid #214ff4;border-radius:9px;
+ font-size:.96rem;font-weight:660;color:#fff;
+}
+.shell-flow .cf-intro-main-cta:hover{background:#1941d8;border-color:#1941d8}
+.shell-flow .cf-intro-simple .cf-intro-notice{margin:16px auto 4px;max-width:600px;font-size:.84rem;color:#717b8c}
+.shell-flow .cf-intro-simple .cf-intro-back{display:flex;justify-content:center;width:max-content;margin:5px auto 0;font-size:.875rem}
+.shell-flow .cf-intro-simple .save-note{font-size:.875rem}
+@media(prefers-reduced-motion:no-preference){
+ .shell-start .cf-welcome-figure .cf-letter--welcome{animation:cfWelcomeCharacterFloat 4.2s ease-in-out infinite}
+ @keyframes cfWelcomeCharacterFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+}
+@media(max-width:760px){
+ .shell-start .cf-welcome-stage:not([hidden]){padding:20px 0 29px}
+ .shell-start .cf-welcome-content{padding:29px 22px 30px}
+ .shell-start .cf-welcome-figure{width:145px;height:140px}
+ .shell-start .cf-welcome-figure .cf-letter--welcome{width:138px;height:135px}
+ .shell-flow .cf-intro.cf-intro-simple{padding:52px 0 47px;min-height:440px}
+}
+@media(max-width:620px){
+ .shell-start .cf-welcome-content{padding:27px 16px 27px;border-radius:14px}
+ .shell-start .cf-welcome-stage:not([hidden]){padding:12px 0 26px}
+ .shell-start .cf-welcome-figure{width:125px;height:118px}
+ .shell-start .cf-welcome-figure .cf-letter--welcome{width:120px;height:117px}
+ .shell-start .cf-welcome-flow h1{font-size:clamp(1.55rem,6vw,1.95rem)}
+ .shell-start .cf-welcome-description{font-size:.94rem}
+ .shell-flow .cf-intro.cf-intro-simple{padding:43px 0 42px;min-height:0}
+ .shell-flow .cf-intro-facts{grid-template-columns:1fr;gap:0;text-align:left;padding:5px 0;margin:25px auto 24px}
+ .shell-flow .cf-intro-facts div{flex-direction:row;align-items:baseline;justify-content:flex-start;padding:11px 4px;gap:15px}
+ .shell-flow .cf-intro-facts div+div{border-left:0;border-top:1px solid #e8edf4}
+ .shell-flow .cf-intro-facts strong{flex:0 0 87px}
+ .shell-flow .cf-intro-facts span{font-size:.875rem}
+}
+@media(max-width:360px){
+ .shell-start .cf-welcome-content{padding:24px 12px}
+ .shell-start .cf-welcome-domains{gap:19px}
+ .shell-flow .cf-intro-facts div{gap:7px}
+ .shell-flow .cf-intro-facts strong{flex-basis:78px;font-size:.875rem}
+}
+@media(prefers-reduced-motion:reduce){
+ .shell-start .cf-welcome-figure .cf-letter--welcome{animation:none!important}
+}

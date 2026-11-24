@@ -1,5 +1,6 @@
 import { ASSESSMENTS, DOMAINS } from '../data/assessments.js';
 import { renderHome } from './home.js';
+import { letterArt } from './letter-art.js';
 import { renderSampleReport } from './sample-report.js';
 import { countAnswered, isComplete } from '../core/assessment.js';
 import { getResultSummary } from '../services/results.js';
@@ -51,12 +52,14 @@ function storageNotice(available) {
 function start({ attempts, storageAvailable }) {
   return `<section class="assessment-start cf-welcome-flow" aria-label="진로검사 시작">
     <div class="cf-welcome-stage" data-start-stage="welcome">
-      <div class="cf-start-content">
+      <div class="cf-start-content cf-welcome-content">
+        <div class="cf-welcome-figure" aria-hidden="true">${letterArt('C', 'welcome', true)}</div>
         <p class="cf-welcome-greeting">안녕하세요.</p>
         <h1 id="page-heading" tabindex="-1">C-Finder 진로검사에<br><span>오신 것을 환영합니다.</span></h1>
-        <p class="cf-welcome-description">나에게 맞는 진로를 알아보는 첫 단계입니다.</p>
+        <p class="cf-welcome-description">흥미·적성·가치관을 함께 살펴보는 진로검사</p>
         <button class="btn btn-primary cf-welcome-next" type="button" data-action="show-grade-choices">시작하기 <span aria-hidden="true">→</span></button>
-        <p class="cf-welcome-scope">현재 제공되는 검사는 3문항 화면 체험입니다.</p>
+        <div class="cf-welcome-domains" aria-label="검사 영역"><span>흥미</span><span>적성</span><span>가치관</span></div>
+        <p class="cf-welcome-scope">현재는 3문항 화면 체험이며, 개인 진단 결과는 제공되지 않습니다.</p>
       </div>
     </div>
     <div class="cf-welcome-stage cf-grade-stage" data-start-stage="grade" hidden>
@@ -93,25 +96,20 @@ function stepper(current) {
 function intro({ assessment, attempt, storageAvailable }) {
   const count = countAnswered(attempt, assessment);
   return `<div class="flow-container cf-intro-layout">${stepper('intro')}
-    <section class="cf-intro" aria-labelledby="page-heading">
-      <div class="cf-intro-lead">
+    <section class="cf-intro cf-intro-simple" aria-labelledby="page-heading">
+      <div class="cf-intro-inner">
         <span class="cf-intro-grade">${e(assessment.label)}</span>
-        <h1 id="page-heading" tabindex="-1">검사를 시작하기 전에</h1>
-        <p class="cf-intro-description">현재 자신에게 가장 가까운 답을 선택해 주세요.</p>
-        <div class="cf-intro-cta">
-          <button type="button" class="btn btn-primary" data-action="begin">${count ? '이어서 응답하기' : '응답 시작하기'} <span aria-hidden="true">→</span></button>
-          <a class="cf-intro-back" href="#start">학교급 다시 선택</a>
+        <h1 id="page-heading" tabindex="-1">검사를 시작할게요.</h1>
+        <p class="cf-intro-description">정답은 없습니다. 지금의 생각에 가장 가까운 답을 선택해 주세요.</p>
+        <div class="cf-intro-facts" aria-label="검사 안내">
+          <div><strong>검사 영역</strong><span>흥미 · 적성 · 가치관</span></div>
+          <div><strong>응답 방식</strong><span>5단계 중 하나 선택</span></div>
+          <div><strong>마지막 확인</strong><span>응답 검토 및 수정</span></div>
         </div>
-      </div>
-      <div class="cf-intro-details">
-        <h2>검사 진행 안내</h2>
-        <dl>
-          <div><dt>검사 영역</dt><dd>흥미 · 적성 · 가치관</dd></div>
-          <div><dt>응답 방법</dt><dd>정답은 없습니다. 자신의 생각대로 답해 주세요.</dd></div>
-          <div><dt>응답 확인</dt><dd>마지막에 선택한 답을 검토하고 수정할 수 있습니다.</dd></div>
-        </dl>
+        <button type="button" class="btn btn-primary cf-intro-main-cta" data-action="begin">${count ? '이어서 응답하기' : '응답 시작하기'} <span aria-hidden="true">→</span></button>
         <p class="cf-intro-notice">현재는 3문항 화면 체험입니다. 개인 점수나 진로 유형은 산출되지 않습니다.</p>
         ${!storageAvailable ? storageNotice(false) : ''}
+        <a class="cf-intro-back" href="#start">학교급 다시 선택</a>
       </div>
     </section>
   </div>`;
