@@ -142,9 +142,9 @@ function question(route, { assessment, attempt, storageAvailable }) {
     <section class="panel question-panel cf-batch-panel" aria-labelledby="page-heading" data-page-start="${page.start}" data-page-end="${page.end}" data-next-start="${page.next ?? ''}" data-page-number="${page.number}">
       <div class="cf-assessment-heading">
         <div class="cf-assessment-title">
-          <span class="cf-assessment-eyebrow">${e(assessment.label)} · ${label}</span>
-          <h1 id="page-heading" tabindex="-1">${e(DOMAINS[page.domain].label)} 탐색</h1>
-          <p>각 문항을 읽고 나에게 가장 가까운 답을 선택해 주세요.</p>
+          <span class="cf-assessment-eyebrow">${e(assessment.label)} · ${label}${grouped ? ' · 49항목' : ' · 3문항'}</span>
+          <h1 id="page-heading" tabindex="-1">${grouped ? `${e(DOMAINS[page.domain].label)} 탐색` : '진로탐색 화면 체험'}</h1>
+          <p>${grouped ? '각 문항을 읽고 나에게 가장 가까운 답을 선택해 주세요.' : '흥미·적성·가치관 예시 문항을 차례로 경험해 보세요.'}</p>
         </div>
         <div class="cf-assessment-counter"><strong>${page.number} <span>/ ${page.totalPages}</span></strong><span>페이지</span></div>
       </div>
@@ -183,7 +183,7 @@ function review({ assessment, attempt, storageAvailable }) {
   return `<div class="flow-container">${stepper('review')}
     <section class="panel review-panel"><div class="panel-heading"><span class="pill">${e(assessment.label)}</span></div>
       <h1 id="page-heading" tabindex="-1">응답 검토</h1>
-      <p class="page-description">${total}항목 중 ${count}항목에 응답했어요. 아래 영역을 펼쳐 답변을 확인하거나 수정해 주세요.</p>
+      <p class="page-description">${total}항목 중 ${count}항목에 응답했어요. 아래 영역을 펼쳐 답변을 확인하거나 수정해 주세요. 응답은 현재 브라우저 탭에 임시 보관되며 다른 기기에는 연동되지 않습니다.</p>
       <div class="cf-review-summary"><strong>${count} / ${total} 응답 완료</strong><span>${complete ? '모든 문항에 답했어요. 최종 완료 전에 답변을 확인해 주세요.' : `미응답 ${total - count}개가 남아 있어요.`}</span></div>
       ${!complete ? `<p class="notice" role="status">아직 답하지 않은 문항이 있어요. 아래 버튼을 눌러 바로 이동할 수 있어요.</p><button type="button" class="btn btn-outline cf-missing-cta" data-action="first-missing">첫 미응답 문항으로 이동</button>` : ''}
       <div class="cf-review-groups">${domains.map(domain => {
