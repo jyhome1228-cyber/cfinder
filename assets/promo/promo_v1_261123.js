@@ -26,7 +26,7 @@ document.querySelectorAll('[data-event]').forEach(link => {
 });
 
 const tabs = [...document.querySelectorAll('[data-report-tab]')];
-document.querySelector('.report-tabs').hidden = false;
+if (tabs.length && document.querySelector('.report-tabs')) document.querySelector('.report-tabs').hidden = false;
 function activateReport(tab, focus = false) {
   tabs.forEach(item => {
     const active = item === tab;
