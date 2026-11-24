@@ -194,7 +194,10 @@ function refreshAnswerUI(questionId, value) {
   }
   app.querySelector('#response-status').textContent = `${current.options.find(o => o.value === value).label}, 응답했어요.`;
   const saveState = app.querySelector('[data-save-state]');
-  if (saveState) saveState.textContent = storage.available ? '응답이 현재 브라우저 탭에 임시 저장됐어요.' : '저장할 수 없어요. 새로고침하면 응답이 사라질 수 있습니다.';
+  if (saveState) {
+    saveState.textContent = storage.available ? '응답이 현재 브라우저 탭에 임시 저장됐어요.' : '저장할 수 없어요. 새로고침하면 응답이 사라질 수 있습니다.';
+    saveState.classList.toggle('is-unavailable', !storage.available);
+  }
   if (!storage.available) {
     let notice = app.querySelector('[data-storage-notice]');
     if (!notice) {
