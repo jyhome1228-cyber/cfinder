@@ -174,9 +174,9 @@ function refreshAnswerUI(questionId, value) {
   const missing = pageMissingQuestions(current, attempt.answers, page);
   const nextButton = app.querySelector('[data-action="next"]');
   if (nextButton) nextButton.disabled = missing.length > 0;
-  app.querySelector('[data-progress-text]').textContent = `${count}개 응답 · ${Math.round(count / total * 100)}%`;
+  app.querySelector('[data-progress-text]').textContent = `${count}/${total} 응답 · ${Math.round(count / total * 100)}%`;
   const pageStatus = app.querySelector('[data-page-status]');
-  if (pageStatus) pageStatus.textContent = `${page.questions.length - missing.length}/${page.questions.length}개 선택`;
+  if (pageStatus) pageStatus.textContent = `이번 페이지 ${page.questions.length - missing.length}/${page.questions.length}개 선택`;
   const progress = app.querySelector('[role="progressbar"]');
   progress.setAttribute('aria-valuenow', count);
   progress.setAttribute('aria-valuetext', `${total}개 중 ${count}개 응답`);
