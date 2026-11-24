@@ -27,19 +27,19 @@ function header(route, tenant) {
       
     </a>
     <nav class="main-nav" aria-label="주 메뉴">
-      <a href="#start" ${['start', 'intro', 'test', 'review', 'result'].includes(route.page) ? 'aria-current="page"' : ''}>진단 시작하기</a>
+      <a href="#home" ${route.page === 'home' ? 'aria-current="page"' : ''}>홈</a>
       <a href="#report" ${route.page === 'report' ? 'aria-current="page"' : ''}>결과 예시</a>
       <a href="./about/">검사 소개</a>
-      <a href="#institutions" ${route.page === 'institutions' ? 'aria-current="page"' : ''}>기관 도입</a>
+      <a href="#institutions" ${route.page === 'institutions' ? 'aria-current="page"' : ''}>기관 도입</a><a class="cf-nav-cta" href="#start" ${['start', 'intro', 'test', 'review', 'result'].includes(route.page) ? 'aria-current="page"' : ''}>진단 시작하기</a>
     </nav>
   </div></header>`;
 }
 
 function footer(tenant) {
   return `<footer class="site-footer"><div class="footer-inner">
-    <div class="footer-top">
-      <a class="footer-brand" href="#home" aria-label="C-Finder 메인으로"><img src="./assets/brand/cfinder-official-logo.svg" alt="C-Finder" width="130" height="33" loading="lazy"></a>
-      <nav class="footer-nav" aria-label="하단 메뉴"><a href="#start">진단 시작하기</a><a href="#report">샘플 결과지</a><a href="./about/">검사 소개</a><a href="#institutions">기관 도입</a></nav>
+    <div class="footer-top cf-footer-grid">
+      <a class="footer-brand" href="#home" aria-label="C-Finder 메인으로"><img src="./assets/brand/cfinder-official-logo.svg" alt="C-Finder" width="130" height="33" loading="lazy"></a><p class="cf-footer-tagline">나를 이해하는 첫걸음, C-Finder.<br>흥미와 강점, 나만의 가치를 발견하세요.</p>
+      <nav class="footer-nav" aria-label="하단 메뉴"><div><strong>서비스</strong><a href="#start">진단 시작하기</a><a href="#report">샘플 결과지</a><a href="./about/">검사 소개</a></div><div><strong>학교 및 기관</strong><a href="#institutions">기관 도입</a><a href="./about/#contact">도입 문의</a><a href="mailto:sajagaonda@gmail.com">이메일 문의</a></div><div><strong>이용 안내</strong><a href="#home">서비스 홈</a><a href="./about/">검사 안내</a><a href="https://sjgod.kr" target="_blank" rel="noopener noreferrer">운영사 홈페이지</a></div></nav>
     </div>
     <div class="footer-bottom"><div>
       <div class="footer-information"><span>운영 사자가온다(주)</span><span>사업자등록번호 720-88-01853</span><a href="mailto:sajagaonda@gmail.com">sajagaonda@gmail.com</a><a href="https://sjgod.kr" target="_blank" rel="noopener noreferrer">사자가온다 홈페이지</a></div>
@@ -80,7 +80,7 @@ function start({ attempts, storageAvailable }) {
           const action = completed ? '완료 기록 보기' : count ? '이어서 하기' : '시작하기';
           const detail = assessment.grade === 'middle' ? '중학교' : assessment.grade === 'high' ? '고등학교' : '대학교';
           const state = completed ? '응답 완료' : count ? `${count}/${assessment.questions.length}항목 응답` : assessment.kind === 'factor_exploration' ? '49항목 자기탐색 · 비공식' : '대학생용 3문항 체험';
-          return `<button class="cf-grade-option" type="button" data-action="select-grade" data-grade="${assessment.grade}" aria-label="${e(assessment.label)} ${action}"><span class="cf-grade-title">${e(detail)}</span><span class="cf-grade-description">${detail}</span><span class="cf-grade-bottom"><span>${state}</span><strong>${action} <span aria-hidden="true">→</span></strong></span></button>`;
+          return `<button class="cf-grade-option" type="button" data-action="select-grade" data-grade="${assessment.grade}" aria-label="${e(assessment.label)} ${action}"><span class="cf-grade-title">${e(detail)}</span><span class="cf-grade-description">${assessment.grade === 'middle' ? '관심 분야와 나의 강점 탐색' : assessment.grade === 'high' ? '진로 선택을 위한 자기탐색' : '전공과 직무 탐색 화면 체험'}</span><span class="cf-grade-bottom"><span>${state}</span><strong>${action} <span aria-hidden="true">→</span></strong></span></button>`;
         }).join('')}</div>
         <p class="cf-grade-notice">중·고등학생용은 결과지의 49개 요인을 활용한 비공식 자기탐색입니다. 정식 C-Finder 문항·채점은 연결되지 않았습니다.</p>
         ${!storageAvailable ? storageNotice(false) : ''}
@@ -115,7 +115,7 @@ function intro({ assessment, attempt, storageAvailable }) {
         <button type="button" class="btn btn-primary cf-intro-main-cta" data-action="begin">${count ? '이어서 응답하기' : '응답 시작하기'} <span aria-hidden="true">→</span></button>
         <p class="cf-intro-notice">${assessment.kind === "factor_exploration" ? "제공된 결과지의 49개 하위 요인을 활용한 비공식 자기탐색 설문입니다. 적성은 스스로 느끼는 강점을 묻습니다." : "대학생용 3문항 화면 체험입니다."} 연구팀의 정식 문항·채점 규칙과 연결되지 않으며, 진로 유형을 판정하지 않습니다.</p>
         ${!storageAvailable ? storageNotice(false) : ''}
-        <a class="cf-intro-back" href="#start">학교급 다시 선택</a>
+        <a class="cf-intro-back" href="#start">다른 학교 선택</a>
       </div>
     </section>
   </div>`;
@@ -154,7 +154,7 @@ function question(route, { assessment, attempt, storageAvailable }) {
           <div class="choice-list" role="group" aria-label="${index + 1}번 응답 선택">${assessment.options.map(option => `<label class="choice ${answer === option.value ? 'is-selected' : ''}"><input type="radio" name="response-${index}" data-question="${e(q.id)}" value="${option.value}" ${answer === option.value ? 'checked' : ''} aria-label="${e(option.label)}"><span>${e(option.label)}</span></label>`).join('')}</div>
         </fieldset>`;
       }).join('')}</div>
-      <div class="actions"><button class="btn btn-outline" type="button" data-action="previous" data-index="${page.start}">${route.fromReview ? '검토로 돌아가기' : page.previous === null ? '검사 안내' : '이전 5문항'}</button><button class="btn btn-primary" type="button" data-action="next" data-index="${page.start}" ${!completePage ? 'disabled' : ''}>${nextLabel}</button></div>
+      <div class="actions"><button class="btn btn-outline" type="button" data-action="previous" data-index="${page.start}">${route.fromReview ? '검토로 돌아가기' : page.previous === null ? '검사 안내' : '이전 문항'}</button><button class="btn btn-primary" type="button" data-action="next" data-index="${page.start}" ${!completePage ? 'disabled' : ''}>${nextLabel}</button></div>
       <div class="question-utility"><a class="text-link" href="#start">나가기</a></div>
       <p class="cf-batch-disclaimer">${grouped ? '비공식 자기탐색 · 연구팀의 정식 검사 점수와 진로 유형은 산출되지 않습니다.' : '3문항 화면 체험 · 개인 진단 결과는 제공되지 않습니다.'}</p>
       ${!storageAvailable ? storageNotice(false) : ''}<span class="sr-only" id="response-status" role="status" aria-live="polite"></span>
@@ -226,7 +226,7 @@ function institutions({ tenant }) {
         
       </div>
     </div>
-    <div class="institution-grid"><section class="institution-card"><h2>공통 검사 흐름</h2><p>기관별 설정에도 검사 진행 방식은 같습니다.</p><ul class="feature-list"><li>학교급에 맞는 검사 선택</li><li>흥미 · 적성 · 가치관 문항 응답</li><li>응답 검토와 결과 확인</li><li>모바일과 PC에서 같은 흐름</li></ul></section><section class="institution-card"><h2>기관별 설정</h2><p>기관명·색상·안내 문구를 변경할 수 있습니다.</p><ul class="feature-list"><li>기관 이름과 브랜드 색상</li><li>학생에게 전하는 안내 문구</li><li>기관별 검사 시작 주소</li></ul></section></div>
+    <div class="institution-grid"><section class="institution-card"><h2>공통 검사 흐름</h2><p>기관별 설정에도 검사 진행 방식은 같습니다.</p><ul class="feature-list"><li>다니는 학교에 맞는 검사 선택</li><li>흥미 · 적성 · 가치관 문항 응답</li><li>응답 검토와 결과 확인</li><li>모바일과 PC에서 같은 흐름</li></ul></section><section class="institution-card"><h2>기관별 설정</h2><p>기관명·색상·안내 문구를 변경할 수 있습니다.</p><ul class="feature-list"><li>기관 이름과 브랜드 색상</li><li>학생에게 전하는 안내 문구</li><li>기관별 검사 시작 주소</li></ul></section></div>
     <section class="institution-next"><div><h2>기관 운영 항목</h2><a class="text-link" href="./about/#contact">기관 도입 문의하기</a></div><dl><div><dt>학생 참여 방식</dt><dd>기관에서 학생에게 검사를 안내하고 참여시키는 방법</dd></div><div><dt>결과 열람 범위</dt><dd>학생과 담당자가 각각 확인할 수 있는 정보</dd></div><div><dt>기관 운영 화면</dt><dd>검사 진행 현황과 기관 보고서의 구성</dd></div></dl></section>`;
 }
 
