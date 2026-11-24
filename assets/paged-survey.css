@@ -167,3 +167,30 @@
  .cf-review-domain .review-list{padding:0}
  .cf-review-domain .review-item{gap:7px}
 }
+
+/* 2026-11-24: Give each five-question row a clear, generous vertical rhythm. */
+.cf-batch-questions{margin-top:17px;border-top:1px solid #dce4ef}
+.cf-batch-panel .cf-batch-question{
+  padding:31px 0 29px;
+  border-bottom:1px solid #dce4ef;
+}
+.cf-batch-panel .cf-batch-question legend{padding-bottom:4px}
+.cf-batch-panel .cf-factor-help{
+  margin-top:13px;
+  margin-bottom:18px;
+  line-height:1.85;
+}
+.cf-batch-panel .choice-list{padding:14px 0 7px;margin-top:7px}
+.cf-batch-panel .choice{min-height:65px!important}
+.cf-batch-panel .actions{margin-top:18px;padding-top:24px}
+@media(max-width:860px){
+ .cf-batch-panel .cf-batch-question{padding:27px 0 26px}
+}
+@media(max-width:620px){
+ .cf-batch-questions{margin-top:14px}
+ .cf-batch-panel .cf-batch-question{padding:24px 0 23px}
+ .cf-batch-panel .cf-factor-help{margin-top:10px;margin-bottom:13px;line-height:1.7}
+ .cf-batch-panel .choice-list{padding:10px 0 5px;margin-top:5px}
+ .cf-batch-panel .choice{min-height:56px!important}
+ .cf-batch-panel .actions{padding-top:18px;margin-top:13px}
+}
