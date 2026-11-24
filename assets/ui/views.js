@@ -217,9 +217,9 @@ function result({ assessment, attempt }) {
     <section class="panel completion-panel"><div class="completion-check" aria-hidden="true">✓</div><span class="pill">${e(assessment.label)}</span>
       <h1 id="page-heading" tabindex="-1">${factorMode ? '자기탐색 완료' : '체험 완료'}</h1>
       <p class="page-description">${result.answeredCount}개 항목의 응답을 완료했습니다.</p>
-      ${factorMode ? `<div class="cf-self-reflection"><h2>내가 높게 응답한 항목</h2><p>선택한 응답 중 ‘그런 편이다’ 이상인 항목을 영역별로 표시합니다. 개인의 자기평가이며, 점수 분석이나 진로 적합도 판정이 아닙니다.</p><div class="cf-self-groups">${groups.map(g => `<section><h3>${g.label}</h3><p>${g.total}개 항목 응답</p><ul>${g.chosen.length ? g.chosen.map(x => `<li>${e(x.name)} <span>${x.value}/5</span></li>`).join('') : '<li>높게 선택한 항목이 없습니다.</li>'}</ul></section>`).join('')}</div></div>` : `<div class="completed-summary">${Object.entries(DOMAINS).map(([id,d]) => `<div><span class="domain-icon">${domainIcon(id)}</span><strong>${d.label}</strong></div>`).join('')}</div>`}
-      <p class="notice">이 응답은 연구팀의 정식 검사 점수나 RIASEC 진로 유형으로 산출되지 않습니다. 아래 결과지는 별도의 샘플입니다.</p>
-      <div class="actions"><a class="btn btn-outline" href="#home">처음 화면으로</a><a class="btn btn-primary" href="#report">샘플 결과지 보기</a></div>
+      ${factorMode ? `<div class="cf-self-reflection"><h2>내가 선택한 자기탐색 기록</h2><p>선택한 응답 중 ‘그런 편이다’ 이상인 항목을 영역별로 표시합니다. 개인의 자기평가이며, 점수 분석이나 진로 적합도 판정이 아닙니다.</p><div class="cf-self-groups">${groups.map(g => `<section><h3>${g.label}</h3><p>${g.total}개 항목 응답</p><ul>${g.chosen.length ? g.chosen.map(x => `<li>${e(x.name)} <span>${x.value}/5</span></li>`).join('') : '<li>높게 선택한 항목이 없습니다.</li>'}</ul></section>`).join('')}</div></div>` : `<div class="completed-summary">${Object.entries(DOMAINS).map(([id,d]) => `<div><span class="domain-icon">${domainIcon(id)}</span><strong>${d.label}</strong></div>`).join('')}</div>`}
+      <p class="notice">지금 확인한 내용은 나의 직접 응답을 정리한 자기탐색 기록입니다. 공식 점수나 진로 유형은 산출되지 않으며, 아래 결과지는 개인 응답과 무관한 별도 디자인 예시입니다.</p>
+      <div class="actions"><a class="btn btn-outline" href="#home">처음 화면으로</a><a class="btn btn-primary" href="#report">결과지 구성 예시 보기</a></div>
       <details class="answer-receipt"><summary>내가 응답한 내용 보기</summary><ul>${assessment.questions.map(q => `<li><strong>${e(q.text)}</strong><span>${e(assessment.options.find(o => o.value === attempt.answers[q.id]).label)}</span></li>`).join('')}</ul></details>
       <button type="button" class="text-button restart-button" data-action="request-restart">새로 탐색하기</button>
     </section>
