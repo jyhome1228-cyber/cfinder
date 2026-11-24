@@ -79,7 +79,7 @@ test('browser back and review links retain the school grade', () => {
 test('public report has no original PDF link and is clearly marked as a sample', async () => {
   const html = await readFile(new URL('../about/index.html', import.meta.url), 'utf8');
   const report = await readFile(new URL('../assets/ui/sample-report.js', import.meta.url), 'utf8');
-  assert.doesNotMatch(html, /report-result-detail_v1_261123\\.webp|cfinder_sample_v1_261123\\.pdf/);
-  assert.doesNotMatch(report, /원본 PDF 다운로드|cfinder_sample_v1_261123\\.pdf/);
+  assert.doesNotMatch(html, /report-result-detail_v1_261123|cfinder_sample_v1_261123/);
+  assert.doesNotMatch(report, /원본 PDF 다운로드|cfinder_sample_v1_261123/);
   assert.match(report, /실제 검사 결과 아님/);
 });
