@@ -407,3 +407,93 @@
   .shell-flow .cf-batch-panel .cf-batch-question>.choice-list{margin:15px auto 0!important}
   .shell-flow .cf-batch-panel .cf-batch-question .choice{min-height:51px!important}
 }
+
+/* Top-of-assessment redesign: reduce repeated labels and align the scale with answers. */
+.shell-flow .cf-batch-panel{padding:34px 42px}
+.shell-flow .cf-batch-panel .cf-assessment-heading{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:20px;
+  padding:0 0 25px;
+}
+.shell-flow .cf-batch-panel .cf-assessment-title{min-width:0}
+.shell-flow .cf-batch-panel .cf-assessment-eyebrow{
+  display:block;margin-bottom:10px;font-size:.84rem;line-height:1.5;
+  letter-spacing:-.01em;font-weight:640;color:#557093;
+}
+.shell-flow .cf-batch-panel .cf-assessment-title h1{
+  margin:0;color:#1d2635;font-size:1.7rem;line-height:1.35;
+  font-weight:750;letter-spacing:-.045em;
+}
+.shell-flow .cf-batch-panel .cf-assessment-title p{
+  margin:10px 0 0;color:#657186;font-size:.92rem;line-height:1.65;
+}
+.shell-flow .cf-batch-panel .cf-assessment-counter{
+  display:flex;align-items:baseline;gap:8px;padding-top:12px;
+  flex-shrink:0;font-size:.83rem;color:#67758a;
+}
+.shell-flow .cf-batch-panel .cf-assessment-counter strong{
+  color:#1c4fec;font-size:1.2rem;font-weight:730;font-variant-numeric:tabular-nums;
+}
+.shell-flow .cf-batch-panel .cf-assessment-counter strong span{color:#98a2b4;font-weight:500}
+.shell-flow .cf-batch-panel .cf-assessment-progress{
+  padding:20px 22px 18px;
+  border:1px solid #e0e8f3;
+  border-radius:12px;
+  background:#f8faff;
+}
+.shell-flow .cf-batch-panel .cf-assessment-progress-top{
+  display:flex;align-items:center;justify-content:space-between;gap:15px;
+  margin-bottom:13px;color:#67758a;font-size:.83rem;
+}
+.shell-flow .cf-batch-panel .cf-assessment-progress-top strong{
+  color:#344359;font-weight:650;
+}
+.shell-flow .cf-batch-panel .cf-assessment-progress-top strong span{
+  margin-left:8px;color:#1957ef;font-weight:700;font-variant-numeric:tabular-nums;
+}
+.shell-flow .cf-batch-panel [data-page-status]{color:#66748a;font-size:.83rem;font-weight:550}
+.shell-flow .cf-batch-panel .cf-assessment-progress .progress-track{margin:0;height:6px;background:#e0e8f5}
+.shell-flow .cf-batch-panel .cf-assessment-progress .cf-domain-progress{
+  display:flex;justify-content:flex-start;flex-wrap:wrap;gap:8px 25px;
+  margin:15px 0 0;padding:0;
+}
+.shell-flow .cf-batch-panel .cf-assessment-progress .cf-domain-progress li{
+  display:inline-flex;align-items:center;justify-content:flex-start;gap:7px;
+  padding:0;border:0;background:transparent;border-radius:0;
+  font-size:.8rem;line-height:1.4;font-weight:500;color:#8290a3;
+}
+.shell-flow .cf-batch-panel .cf-assessment-progress .cf-domain-progress li strong{
+  font-size:.8rem;color:inherit;font-weight:620;
+}
+.shell-flow .cf-batch-panel .cf-assessment-progress .cf-domain-progress li.is-active,
+.shell-flow .cf-batch-panel .cf-assessment-progress .cf-domain-progress li.is-active strong{
+  color:#1957ef;font-weight:720;
+}
+.shell-flow .cf-batch-panel .cf-response-guide{
+  padding:25px 0 11px;
+  border-bottom:1px solid #dce5f0;
+}
+.shell-flow .cf-batch-panel .cf-response-guide-title{
+  color:#56667d;font-size:.84rem;font-weight:700;
+}
+.shell-flow .cf-batch-panel .cf-response-guide-title span{
+  color:#97a3b5;font-weight:550;margin-left:7px;
+}
+.shell-flow .cf-batch-panel .cf-response-guide .cf-scale-head span{
+  font-size:.76rem;color:#596980;
+}
+@media(max-width:960px){
+ .shell-flow .cf-batch-panel{padding:29px 27px}
+}
+@media(max-width:700px){
+ .shell-flow .cf-batch-panel{padding:24px 17px}
+ .shell-flow .cf-batch-panel .cf-assessment-heading{gap:12px;padding-bottom:20px}
+ .shell-flow .cf-batch-panel .cf-assessment-title h1{font-size:1.43rem}
+ .shell-flow .cf-batch-panel .cf-assessment-title p{font-size:.86rem;margin-top:7px}
+ .shell-flow .cf-batch-panel .cf-assessment-counter{padding-top:8px;gap:5px}
+ .shell-flow .cf-batch-panel .cf-assessment-counter strong{font-size:1rem}
+ .shell-flow .cf-batch-panel .cf-assessment-progress{padding:16px 14px;border-radius:10px}
+ .shell-flow .cf-batch-panel .cf-assessment-progress-top{flex-wrap:wrap;gap:6px}
+ .shell-flow .cf-batch-panel .cf-assessment-progress .cf-domain-progress{gap:7px 18px}
+ .shell-flow .cf-batch-panel .cf-response-guide{padding:20px 0 10px}
+ .shell-flow .cf-batch-panel .cf-response-guide-title{display:block;margin-bottom:12px}
+}
