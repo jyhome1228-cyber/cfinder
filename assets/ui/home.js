@@ -1,16 +1,29 @@
 import { SAMPLE_REPORT } from './sample-report.js';
 import { letterArt } from './letter-art.js';
 import { escapeHtml as e } from './html.js';
-const TYPES = Object.freeze([
- ['R','현실형','실행과 현장','도구와 사물을 다루는 활동'],
- ['I','탐구형','탐색과 연구','분석하고 원리를 알아보는 활동'],
- ['A','예술형','표현과 창작','아이디어를 만들고 표현하는 활동'],
- ['S','사회형','소통과 지원','사람을 돕고 함께하는 활동'],
- ['E','진취형','설득과 기획','계획을 추진하고 이끄는 활동'],
- ['C','관습형','정리와 관리','자료를 체계적으로 다루는 활동']
+// General Holland RIASEC exploration concepts, not individual C-Finder diagnoses.
+export const TYPES = Object.freeze([
+ {code:'R',name:'현실형',focus:'실행과 현장',description:'도구와 사물을 다루는 활동',intro:'손으로 직접 만들어 보고, 도구를 쓰거나 실제로 작동하는 것을 확인하는 활동에 흥미를 느낄 수 있어요.',traits:['만들고 조립하기','기구와 장비 다루기','현장에서 직접 시도하기'],example:'간단한 조립 키트를 완성하거나 생활 속 불편함을 해결할 물건을 만들어 보세요.',question:'설명서를 읽는 것과 직접 만들어 보는 것 중 어떤 과정이 더 즐거웠나요?'},
+ {code:'I',name:'탐구형',focus:'탐색과 연구',description:'분석하고 원리를 알아보는 활동',intro:'왜 그런 일이 일어나는지 질문하고, 자료를 찾거나 관찰하며 원리를 이해하는 활동에 흥미를 느낄 수 있어요.',traits:['관찰하고 실험하기','자료 조사와 비교','문제의 원인 찾아보기'],example:'평소 궁금했던 현상 하나를 골라 가설을 세우고 간단한 관찰 기록을 남겨 보세요.',question:'결과를 알아내기까지 어떤 질문이 새롭게 생겼나요?'},
+ {code:'A',name:'예술형',focus:'표현과 창작',description:'아이디어를 만들고 표현하는 활동',intro:'새로운 아이디어를 떠올리고, 그림·글·음악·영상 등 자신만의 방식으로 표현하는 활동에 흥미를 느낄 수 있어요.',traits:['아이디어 떠올리기','자유롭게 표현하기','새로운 방식으로 만들기'],example:'같은 주제를 그림, 짧은 글, 사진 가운데 한 가지 방법으로 표현해 보세요.',question:'어떤 표현 방법을 선택했을 때 내 생각이 가장 잘 드러났나요?'},
+ {code:'S',name:'사회형',focus:'소통과 지원',description:'사람을 돕고 함께하는 활동',intro:'사람들의 이야기를 듣고, 함께 문제를 해결하거나 다른 사람의 배움을 돕는 활동에 흥미를 느낄 수 있어요.',traits:['이야기 듣고 공감하기','함께 배우고 가르치기','협력하며 돕기'],example:'친구와 서로 잘하는 것을 알려주는 작은 배움 시간을 만들어 보세요.',question:'누군가와 함께했을 때 가장 보람 있었던 순간은 언제였나요?'},
+ {code:'E',name:'진취형',focus:'설득과 기획',description:'계획을 추진하고 이끄는 활동',intro:'아이디어를 사람들에게 제안하고, 목표를 정하거나 팀과 함께 계획을 실행하는 활동에 흥미를 느낄 수 있어요.',traits:['아이디어 제안하기','목표와 계획 세우기','사람들과 일 추진하기'],example:'학교생활을 더 편리하게 만드는 아이디어를 생각해 짧게 발표해 보세요.',question:'사람들에게 제안할 때 어떤 점을 가장 강조하고 싶었나요?'},
+ {code:'C',name:'관습형',focus:'정리와 관리',description:'자료를 체계적으로 다루는 활동',intro:'정보를 분류하고, 순서를 정하거나 꼼꼼하게 확인해서 일이 잘 진행되도록 돕는 활동에 흥미를 느낄 수 있어요.',traits:['자료 분류하고 정리하기','규칙과 순서 살피기','일정과 기록 관리하기'],example:'이번 주 해야 할 일을 나만의 기준으로 분류하고 보기 쉬운 표를 만들어 보세요.',question:'정리한 뒤 무엇이 더 편해졌고, 어떤 기준이 유용했나요?'}
 ]);
-function typeCard([code,name,focus,description]) {
-  return `<article class="lab-type"><div class="lab-type-art">${letterArt(code)}</div><div class="lab-type-info"><span>${e(focus)}</span><h3>${e(name)}</h3><p>${e(description)}</p></div></article>`;
+function typeCard(type) {
+  return `<button class="lab-type cf-type-trigger" type="button" data-action="open-riasec" data-type="${type.code}" aria-haspopup="dialog" aria-controls="cf-riasec-dialog" aria-label="${e(type.name)} 자세히 알아보기">
+    <span class="lab-type-art">${letterArt(type.code)}</span><span class="lab-type-info"><span>${e(type.focus)}</span><strong class="cf-type-card-name">${e(type.name)}</strong><span class="cf-type-card-description">${e(type.description)}</span></span><span class="cf-type-card-more" aria-hidden="true">+</span>
+  </button>`;
+}
+function typeDialog() {
+  return `<dialog id="cf-riasec-dialog" class="cf-riasec-dialog" aria-labelledby="cf-riasec-title" aria-describedby="cf-riasec-description">
+    <div class="cf-riasec-modal">
+      <div class="cf-riasec-modal-bar"><span>RIASEC TYPE GUIDE</span><button type="button" data-action="close-riasec" class="cf-riasec-close" aria-label="유형 소개 닫기">×</button></div>
+      <div class="cf-riasec-modal-top"><div class="cf-riasec-modal-art" data-riasec-art aria-hidden="true"></div><div class="cf-riasec-modal-heading"><span data-riasec-focus></span><h2 id="cf-riasec-title"></h2><p id="cf-riasec-description"></p></div></div>
+      <div class="cf-riasec-modal-body"><section><h3>이런 활동을 살펴보세요</h3><ul data-riasec-traits></ul></section><section class="cf-riasec-explore"><h3>직접 해볼 수 있는 탐색</h3><p data-riasec-example></p><span>생각해 볼 질문</span><strong data-riasec-question></strong></section></div>
+      <div class="cf-riasec-modal-foot"><p>여섯 유형은 서로 배타적이지 않아요. 이 내용은 유형 소개이며 개인 진단 결과는 아닙니다.</p><button type="button" data-action="close-riasec" class="cf-riasec-dismiss">다른 유형도 살펴보기</button></div>
+    </div>
+  </dialog>`;
 }
 function riasecRows() {
  return SAMPLE_REPORT.riasec.map(([code,score,name])=>`<div class="lab-riasec-row"><span>${code} <small>${e(name)}</small></span><strong>${score}</strong></div>`).join('');
@@ -40,7 +53,7 @@ export function renderHome({storageAvailable}) {
  <section class="lab-types" aria-labelledby="lab-types-title">
    <div class="lab-section-headline"><div><h2 id="lab-types-title" class="lab-section-heading">진로 유형 살펴보기</h2><p>Holland RIASEC 6유형</p></div><a href="#report">유형 결과 예시 →</a></div>
    <div class="lab-type-grid">${TYPES.map(typeCard).join('')}</div>
-   <p class="lab-type-note">유형 설명은 일반적인 탐색 정보입니다. 실제 C-Finder 진로 유형은 정식 검사 기준으로 산출해야 합니다.</p>
+   ${typeDialog()}
  </section>
  <section class="lab-process" aria-labelledby="lab-process-title">
    <div class="lab-section-headline lab-process-heading">
