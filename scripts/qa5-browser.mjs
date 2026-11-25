@@ -51,7 +51,11 @@ try {
  assert.match(page.url(),/#review/);
  await page.locator('.cf-review-refined').waitFor();
  assert.equal(await page.locator('.cf-review-domain').count(),3);
- assert.match(await page.locator('.cf-review-status-copy').innerText(),/49/);
+ assert.match(await page.locator('.cf-review-clean-progress').innerText(),/49/);
+ assert.match(await page.locator('.cf-review-finish-bubble').innerText(),/나의 탐색 결과를 보러 가요/);
+ assert.equal(await page.locator('.cf-review-finish-character .cf-letter--review').count(),1);
+ assert.equal(await page.locator('.cf-review-domain summary .cf-review-chevron').count(),3);
+ assert.equal(await page.locator('button[data-action="complete"]').innerText(),'나의 탐색 결과 보기');
  const reviewStorage=await page.evaluate(()=>Object.fromEntries(Array.from({length:sessionStorage.length},(_,i)=>{
    const key=sessionStorage.key(i); return [key,sessionStorage.getItem(key)];
  })));
@@ -82,6 +86,7 @@ try {
   await mobile.goto(base+'#review?grade=middle',{waitUntil:'domcontentloaded'});
   await mobile.locator('.cf-review-refined').waitFor();
   assert.equal(await mobile.locator('.cf-review-domain').count(),3);
+  assert.equal(await mobile.locator('.cf-review-finish-bubble').count(),1);
   assert.equal(await mobile.evaluate(()=>document.documentElement.scrollWidth-innerWidth),0,'Review panel must not overflow on mobile');
   await mobile.screenshot({path:'qa-artifacts/review-mobile.png',fullPage:true});
   await mobileCtx.close();
