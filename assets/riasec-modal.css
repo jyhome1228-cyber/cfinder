@@ -49,3 +49,15 @@
 @media(max-width:650px){.cf-riasec-dialog{width:calc(100vw - 24px);max-height:88dvh;border-radius:14px}.cf-riasec-modal{padding:18px}.cf-riasec-modal-top{grid-template-columns:108px minmax(0,1fr);gap:14px;padding:16px 0}.cf-riasec-modal-art{min-height:110px}.cf-riasec-modal-art .cf-letter--modal{width:108px;height:108px}.cf-riasec-modal-heading h2{font-size:1.5rem}.cf-riasec-modal-heading>p{font-size:.83rem;line-height:1.65}.cf-riasec-modal-body{grid-template-columns:1fr;gap:9px}.cf-riasec-modal-body section{padding:15px}.cf-riasec-modal-foot{flex-direction:column;align-items:stretch}.cf-riasec-dismiss{width:100%;white-space:normal}.cf-editorial .lab-type-grid .cf-type-trigger{padding:12px 14px;grid-template-columns:74px minmax(0,1fr) 22px}.cf-editorial .cf-type-trigger .lab-type-info{gap:3px}}
 @media(prefers-reduced-motion:reduce){.cf-editorial .cf-type-trigger{transition:none!important;transform:none!important}}
 @media print{.cf-riasec-dialog{display:none!important}}
+
+/* Source-verified RIASEC reference: six names only, no invented traits/activities. */
+.cf-editorial .cf-type-trigger .cf-type-card-description{font-size:.82rem;color:#5476b0}
+.cf-riasec-source-message{font-size:.88rem;color:#637792;line-height:1.75;border:1px solid #e3eaf5;border-radius:9px;padding:15px 18px;background:#f7faff;word-break:keep-all}
+.cf-riasec-type-index{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:17px}
+.cf-riasec-type-index button{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:9px 11px;background:#fff;color:#405571;border:1px solid #e1e8f3;border-radius:8px;font-size:.84rem;font-weight:650;cursor:pointer;transition:border-color .15s,background .15s}
+.cf-riasec-type-index button span{font-size:.87rem;color:#2457e9;font-weight:800}
+.cf-riasec-type-index button:hover{border-color:#9ab6ef;background:#f7faff}
+.cf-riasec-type-index button[aria-pressed="true"]{border-color:#2457e9;background:#f2f6ff;color:#1f4cac}
+.cf-riasec-type-index button:focus-visible{outline:3px solid #1957ef;outline-offset:2px}
+@media(max-width:650px){.cf-riasec-type-index{grid-template-columns:repeat(2,minmax(0,1fr))}.cf-riasec-source-message{font-size:.81rem;padding:13px}}
+@media(prefers-reduced-motion:reduce){.cf-riasec-type-index button{transition:none}}
