@@ -13,6 +13,23 @@ async function openPage(width,height=900){
  return {context,page};
 }
 try {
+ // The original dot-eating C intro should run only on a first home visit.
+ {
+  const introContext=await browser.newContext({viewport:{width:1440,height:900},reducedMotion:'no-preference'});
+  const introPage=await introContext.newPage();
+  introPage.on('pageerror',error=>errors.push(error.message));
+  await introPage.goto(base+'#home',{waitUntil:'domcontentloaded'});
+  await introPage.locator('#brand-loader').waitFor({state:'visible'});
+  assert.equal(await introPage.locator('#brand-loader img[src*="cfinder-loader.svg"]').count(),1);
+  await introPage.locator('.cfinder-intro-skip').click();
+  await introPage.locator('#brand-loader').waitFor({state:'detached'});
+  await introPage.reload({waitUntil:'domcontentloaded'});
+  assert.equal(await introPage.locator('#brand-loader').count(),0,'Intro must not replay on reload');
+  await introPage.goto(base+'?intro=replay#home',{waitUntil:'domcontentloaded'});
+  await introPage.locator('#brand-loader').waitFor({state:'visible'});
+  await introPage.locator('.cfinder-intro-skip').click();
+  await introContext.close();
+ }
  const {context,page}=await openPage(1440);
  await page.goto(base+'#start',{waitUntil:'domcontentloaded'});
  await page.locator('[data-action="show-grade-choices"]').click();
