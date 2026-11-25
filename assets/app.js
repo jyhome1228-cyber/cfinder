@@ -250,19 +250,16 @@ function openRiasecType(code, trigger) {
   const type = TYPES.find(item => item.code === code);
   const dialog = app.querySelector('#cf-riasec-dialog');
   if (!type || !dialog || typeof dialog.showModal !== 'function') return;
-  lastRiasecTrigger = trigger;
+  if (!dialog.open) {
+    lastRiasecTrigger = trigger;
+    dialog.showModal();
+  }
   dialog.querySelector('[data-riasec-art]').innerHTML = letterArt(type.code, 'modal', true);
-  dialog.querySelector('[data-riasec-focus]').textContent = type.focus;
+  dialog.querySelector('[data-riasec-focus]').textContent = `RIASEC ${type.code}`;
   dialog.querySelector('#cf-riasec-title').textContent = type.name;
-  dialog.querySelector('#cf-riasec-description').textContent = type.intro;
-  dialog.querySelector('[data-riasec-traits]').replaceChildren(...type.traits.map(value => {
-    const li = document.createElement('li');
-    li.textContent = value;
-    return li;
-  }));
-  dialog.querySelector('[data-riasec-example]').textContent = type.example;
-  dialog.querySelector('[data-riasec-question]').textContent = type.question;
-  dialog.showModal();
+  dialog.querySelectorAll('[data-action="switch-riasec"]').forEach(button => {
+    button.setAttribute('aria-pressed', String(button.dataset.type === type.code));
+  });
   dialog.querySelector('[data-action="close-riasec"]')?.focus();
 }
 
@@ -270,6 +267,11 @@ app.addEventListener('click', event => {
   const typeTrigger = event.target.closest('button[data-action="open-riasec"]');
   if (typeTrigger && parseRoute(location.hash).page === 'home') {
     openRiasecType(typeTrigger.dataset.type, typeTrigger);
+    return;
+  }
+  const typeSwitch = event.target.closest('button[data-action="switch-riasec"]');
+  if (typeSwitch && app.querySelector('#cf-riasec-dialog')?.open) {
+    openRiasecType(typeSwitch.dataset.type, lastRiasecTrigger);
     return;
   }
   const typeDismiss = event.target.closest('button[data-action="close-riasec"]');
