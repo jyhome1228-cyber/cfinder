@@ -67,3 +67,6 @@
   .cfinder-intro {transition:none}
 }
 @media print { .cfinder-intro {display:none!important} }
+
+/* Never paint the optional splash before application JavaScript decides to replay it. */
+#brand-loader[hidden]{display:none!important}
