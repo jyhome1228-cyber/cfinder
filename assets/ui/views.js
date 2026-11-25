@@ -31,7 +31,7 @@ function header(route, tenant) {
       <a href="#home" ${route.page === 'home' ? 'aria-current="page"' : ''}>홈</a>
       <a href="#report" ${route.page === 'report' ? 'aria-current="page"' : ''}>결과 예시</a>
       <a href="./about/">검사 소개</a>
-      <a href="#institutions" ${route.page === 'institutions' ? 'aria-current="page"' : ''}>기관 도입</a><a class="cf-nav-cta" href="#start" ${['start', 'intro', 'test', 'review', 'result'].includes(route.page) ? 'aria-current="page"' : ''}>진단 시작하기</a>
+      <a class="cf-nav-cta" href="#start" ${['start', 'intro', 'test', 'review', 'result'].includes(route.page) ? 'aria-current="page"' : ''}>진단 시작하기</a>
     </nav>
   </div></header>`;
 }
