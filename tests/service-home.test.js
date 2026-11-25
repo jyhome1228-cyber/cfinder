@@ -9,7 +9,7 @@ test('service home has centered diagnosis entry and a report preview lower on pa
  assert.match(html,/href="#report"/);
  assert.match(html,/lab-result-card/);
  assert.match(html,/RIASEC 6유형/);
- assert.equal((html.match(/class="lab-type"/g)||[]).length,6);
+ assert.equal((html.match(/class="lab-type cf-type-trigger"/g)||[]).length,6);
 });
 test('home never implies invented personal scores',()=>{
  const html=renderHome(context);
