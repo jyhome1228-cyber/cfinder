@@ -22,20 +22,22 @@ function closeBrandIntro() {
   window.setTimeout(() => introLoader.remove(), 240);
 }
 if (introLoader) {
+  // A full brand intro is a first-home-visit experience, not a loading gate.
+  // Don't interrupt a route change from About or a return from the assessment.
   let alreadyShown = true;
   try {
-    alreadyShown = sessionStorage.getItem('cfinder:brand-intro:v1') === 'seen';
-  } catch { /* storage restricted; do not delay the assessment */ }
+    alreadyShown = sessionStorage.getItem('cfinder:brand-intro:v2') === 'seen';
+  } catch { /* storage restricted; skip optional brand animation */ }
   const isHomeEntry = location.hash === '' || location.hash === '#home';
+  const fromAbout = document.referrer.startsWith(location.origin + location.pathname + 'about/');
   const forceReplay = new URLSearchParams(location.search).get('intro') === 'replay';
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // Never block normal navigation with the long decorative intro.
-  // The original animation remains available only via ?intro=replay.
-  if (!forceReplay || !isHomeEntry || reducedMotion) {
+  const shouldPlay = isHomeEntry && !reducedMotion && (forceReplay || (!alreadyShown && !fromAbout));
+  if (!shouldPlay) {
     introLoader.remove();
   } else {
     introLoader.hidden = false;
-    try { sessionStorage.setItem('cfinder:brand-intro:v1', 'seen'); } catch { /* optional visual state */ }
+    try { sessionStorage.setItem('cfinder:brand-intro:v2', 'seen'); } catch { /* optional visual state */ }
     const finishTimer = window.setTimeout(closeBrandIntro, 3580);
     introLoader.querySelector('.cfinder-intro-skip')?.addEventListener('click', () => {
       window.clearTimeout(finishTimer);
