@@ -41,11 +41,14 @@ try {
     const modal=typesPage.locator('#cf-riasec-dialog');
     await modal.waitFor({state:'visible'});
     assert.equal(await modal.locator('[data-riasec-art] .cf-letter--modal').count(),1);
-    assert.equal(await modal.locator('[data-riasec-traits] li').count(),3);
+    assert.equal(await modal.locator('[data-action="switch-riasec"]').count(),6);
+    assert.match(await modal.locator('.cf-riasec-source-message').innerText(),/원본 기획서/);
     await modal.locator('[data-action="close-riasec"]').first().click();
     await modal.waitFor({state:'hidden'});
   }
   await typesPage.locator('[data-action="open-riasec"][data-type="R"]').click();
+  await typesPage.locator('[data-action="switch-riasec"][data-type="I"]').click();
+  assert.equal(await typesPage.locator('#cf-riasec-title').innerText(),'탐구형');
   await typesPage.keyboard.press('Escape');
   await typesPage.locator('#cf-riasec-dialog').waitFor({state:'hidden'});
   await typesPage.screenshot({path:'qa-artifacts/riasec-home.png',fullPage:true});
