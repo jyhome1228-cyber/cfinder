@@ -233,7 +233,7 @@ function reflectionPanel(groups) {
             </div>
             <div class="cf-reflection-counts"><span>${low}개</span><span>${mid}개</span><span>${high}개</span></div>
             <div class="cf-reflection-highlights"><h4>내가 '그런 편' 이상으로 선택한 항목</h4>
-              ${group.highlighted.length ? `<ul>${group.highlighted.map(item=>`<li><span>${e(item.name)}</span><strong>${item.value} / 5</strong></li>`).join('')}</ul>` : '<p class="cf-reflection-empty">높게 선택한 항목이 없어도 괜찮아요. 다른 응답도 나를 이해하는 단서가 돼요.</p>'}
+              ${group.highlighted.length ? `<ul>${group.highlighted.map(item=>`<li><span>${e(item.name)}</span><strong>${item.value} / 5</strong></li>`).join('')}</ul>` : '<p class="cf-reflection-empty">높게 선택한 항목이 없어도 괜찮아요. 다른 응답도 나를 알아가는 단서가 돼요.</p>'}
             </div>
           </div>
           <aside class="cf-reflection-next" aria-label="${e(group.label)} 다음 탐색 안내"><div class="cf-reflection-next-label"><span class="cf-reflection-next-mark" aria-hidden="true">✦</span> 다음에 해볼 일</div><p>${e(group.activity)}</p><div class="cf-reflection-next-question"><span>생각해 볼 질문</span><strong>${e(group.question)}</strong></div></aside>
@@ -249,7 +249,7 @@ function result({ assessment, attempt }) {
   const factorMode = assessment.kind === 'factor_exploration';
   const reflection = factorMode ? getReflectionSummary(attempt, assessment) : null;
   return `<div class="flow-container">${stepper('result')}
-    <section class="panel completion-panel"><div class="cf-completion-celebration" aria-hidden="true"><span class="cf-completion-spark cf-completion-spark-one"></span><span class="cf-completion-spark cf-completion-spark-two"></span><span class="cf-completion-spark cf-completion-spark-three"></span>${letterArt('C', 'complete', true)}</div><div class="completion-check" aria-hidden="true">✓</div><span class="pill">${e(assessment.label)}</span>
+    <section class="panel completion-panel"><div class="cf-completion-celebration" aria-hidden="true"><span class="cf-completion-spark cf-completion-spark-one"></span><span class="cf-completion-spark cf-completion-spark-two"></span><span class="cf-completion-spark cf-completion-spark-three"></span>${letterArt('C', 'complete', true)}</div><div class="completion-check" aria-hidden="true">✓</div><span class="pill">${e(assessment.label)}</span><span class="cf-completion-status">${factorMode ? '자기탐색 완료' : '체험 완료'}</span>
       <h1 id="page-heading" tabindex="-1">${factorMode ? '나를 알아가는 첫 탐색을 마쳤어요!' : '화면 체험을 마쳤어요!'}</h1>
       <p class="page-description">${result.answeredCount}개 항목의 응답을 모두 마쳤어요. 이제 나의 선택을 천천히 돌아볼까요?</p>
       ${factorMode ? `<div class="cf-completion-overview"><span><strong>49</strong>개 문항 응답</span><span>흥미 · 적성 · 가치관</span><span>나의 응답 기록</span></div>${reflectionPanel(reflection)}` : `<div class="completed-summary">${Object.entries(DOMAINS).map(([id,d]) => `<div><span class="domain-icon">${domainIcon(id)}</span><strong>${d.label}</strong></div>`).join('')}</div><p class="cf-reflection-intro">3문항 화면 체험을 마쳤어요. 이 체험에서는 개인 분석 결과를 제공하지 않아요.</p>`}
