@@ -27,6 +27,8 @@ try {
  // First page: incomplete answers cannot advance.
  await page.locator('[data-action="next"]').click();
  assert.equal(await page.locator('.cf-batch-question.is-missing').count(),5);
+ assert.equal(await page.locator('[data-page-feedback] .cf-letter--feedback').count(),1);
+ assert.match(await page.locator('[data-feedback-title]').innerText(),/답하지 않은 문항/);
  let pages=0;
  while (new URL(page.url()).hash.startsWith('#test/')) {
   pages++;
@@ -41,6 +43,7 @@ try {
     await page.reload({waitUntil:'domcontentloaded'});
     assert.equal(await page.locator('input[type="radio"][value="4"]:checked').count(),count,'Responses not restored');
   }
+  if(pages===1) assert.match(await page.locator('[data-feedback-title]').innerText(),/다 답했어요/);
   await page.locator('[data-action="next"]').click();
   await page.waitForTimeout(30);
  }
