@@ -5,7 +5,7 @@ import { createSessionStore } from './core/storage.js';
 import { parseRoute, navigate, withGrade } from './core/router.js';
 import { pageForIndex, pageMissingQuestions } from './core/pages.js';
 import { renderView, pageTitle } from './ui/views.js';
-import { selectHomeDomain, handleHomeTabKey } from './ui/home.js';
+import { selectHomeDomain, handleHomeTabKey, TYPES } from './ui/home.js';
 import { letterArt } from './ui/letter-art.js';
 
 const app = document.querySelector('#app');
@@ -154,6 +154,10 @@ function render() {
     storageAvailable: storage.available
   });
   setupReportMotion();
+  app.querySelector('#cf-riasec-dialog')?.addEventListener('close', () => {
+    if (lastRiasecTrigger?.isConnected) lastRiasecTrigger.focus({ preventScroll: true });
+    lastRiasecTrigger = null;
+  });
   const dialog = app.querySelector('#reset-dialog');
   dialog.addEventListener('close', () => {
     if (dialog.returnValue !== 'restart' || !assessment()) return;
@@ -241,7 +245,44 @@ app.addEventListener('change', event => {
   refreshAnswerUI(question.id, value);
 });
 
+let lastRiasecTrigger = null;
+function openRiasecType(code, trigger) {
+  const type = TYPES.find(item => item.code === code);
+  const dialog = app.querySelector('#cf-riasec-dialog');
+  if (!type || !dialog || typeof dialog.showModal !== 'function') return;
+  lastRiasecTrigger = trigger;
+  dialog.querySelector('[data-riasec-art]').innerHTML = letterArt(type.code, 'modal', true);
+  dialog.querySelector('[data-riasec-focus]').textContent = type.focus;
+  dialog.querySelector('#cf-riasec-title').textContent = type.name;
+  dialog.querySelector('#cf-riasec-description').textContent = type.intro;
+  dialog.querySelector('[data-riasec-traits]').replaceChildren(...type.traits.map(value => {
+    const li = document.createElement('li');
+    li.textContent = value;
+    return li;
+  }));
+  dialog.querySelector('[data-riasec-example]').textContent = type.example;
+  dialog.querySelector('[data-riasec-question]').textContent = type.question;
+  dialog.showModal();
+  dialog.querySelector('[data-action="close-riasec"]')?.focus();
+}
+
 app.addEventListener('click', event => {
+  const typeTrigger = event.target.closest('button[data-action="open-riasec"]');
+  if (typeTrigger && parseRoute(location.hash).page === 'home') {
+    openRiasecType(typeTrigger.dataset.type, typeTrigger);
+    return;
+  }
+  const typeDismiss = event.target.closest('button[data-action="close-riasec"]');
+  if (typeDismiss) {
+    typeDismiss.closest('dialog')?.close();
+    return;
+  }
+  const backdrop = event.target;
+  if (backdrop instanceof HTMLDialogElement && backdrop.id === 'cf-riasec-dialog') {
+    const rect = backdrop.getBoundingClientRect();
+    if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) backdrop.close();
+    return;
+  }
   const character = event.target.closest('button[data-action="play-hero-character"]');
   if (character && parseRoute(location.hash).page === 'home') {
     const reaction = character.querySelector('.cf-hero-reaction');
