@@ -1,0 +1,87 @@
+/* C-Finder: refined survey surface, rhythm and action hierarchy */
+.shell-flow .cf-batch-panel{
+  border-radius:16px;
+  border-color:#e5ebf5;
+  box-shadow:0 15px 45px rgba(20,55,113,.035);
+}
+.shell-flow .cf-batch-panel .cf-assessment-heading{padding-bottom:23px}
+.shell-flow .cf-batch-panel .cf-assessment-title h1{letter-spacing:-.045em;font-weight:760}
+.shell-flow .cf-batch-panel .cf-assessment-title p{color:#6a7991;font-size:.9rem}
+.shell-flow .cf-batch-panel .cf-assessment-counter{
+  align-self:flex-start;
+  padding:9px 13px;
+  margin-top:2px;
+  border-radius:10px;
+  background:#f5f8fe;
+  border:1px solid #ebf0f9;
+}
+.shell-flow .cf-batch-panel .cf-assessment-counter strong{font-variant-numeric:tabular-nums}
+.shell-flow .cf-batch-panel .cf-assessment-progress{
+  border:1px solid #e3ebf8;
+  border-radius:11px;
+  background:#f9fbff;
+  padding:18px 21px 16px;
+}
+.shell-flow .cf-batch-panel .cf-assessment-progress .progress-track{border-radius:99px;overflow:hidden}
+.shell-flow .cf-batch-panel .cf-assessment-progress .progress-track>span{border-radius:99px}
+.shell-flow .cf-batch-panel .cf-response-guide{border-bottom:1px solid #e6ecf4;padding-bottom:13px}
+.shell-flow .cf-batch-panel .cf-batch-questions>.cf-batch-question{
+  border-bottom:1px solid #edf1f7;
+  transition:background-color .15s ease;
+}
+.shell-flow .cf-batch-panel .cf-batch-questions>.cf-batch-question:last-child{
+  border-bottom:0;
+}
+.shell-flow .cf-batch-panel .cf-question-heading .cf-batch-index{
+  color:#426ad5;font-weight:740;
+}
+.shell-flow .cf-batch-panel .cf-question-heading .cf-batch-statement{
+  color:#24334c;font-weight:650;word-break:keep-all;
+}
+.shell-flow .cf-batch-panel .cf-batch-question .cf-factor-help{
+  color:#748199;line-height:1.6;
+}
+.shell-flow .cf-batch-panel .actions{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  border-top:1px solid #edf1f7;
+  margin-top:20px;padding-top:22px;
+}
+.shell-flow .cf-batch-panel .actions .btn{
+  border-radius:10px;min-height:48px;
+  font-size:.92rem;font-weight:690;
+  padding:12px 23px;
+}
+.shell-flow .cf-batch-panel .actions .btn-outline{
+  color:#52657f;background:#fff;border:1px solid #dce5f1;
+}
+.shell-flow .cf-batch-panel .actions .btn-outline:hover{
+  background:#f6f9fd;border-color:#b9cee8;
+}
+.shell-flow .cf-batch-panel .actions .btn-primary{
+  background:#1957ef;color:#fff;border:1px solid #1957ef;min-width:145px;
+}
+.shell-flow .cf-batch-panel .actions .btn-primary:hover{background:#1049da}
+.shell-flow .cf-batch-panel .question-utility{
+  border:0;margin-top:1px;padding-top:9px;
+}
+.shell-flow .cf-batch-panel .cf-batch-disclaimer{
+  max-width:850px;margin-top:22px;font-size:.78rem;line-height:1.7;
+  color:#8490a2;
+}
+@media(max-width:700px){
+  .shell-flow .cf-batch-panel{border-radius:13px}
+  .shell-flow .cf-batch-panel .cf-assessment-counter{
+    padding:7px 9px;gap:5px;
+  }
+  .shell-flow .cf-batch-panel .cf-assessment-progress{padding:16px 14px}
+  .shell-flow .cf-batch-panel .cf-batch-questions>.cf-batch-question{padding-block:23px}
+  .shell-flow .cf-batch-panel .actions{padding-top:19px;margin-top:15px}
+  .shell-flow .cf-batch-panel .actions .btn{min-height:47px;padding:10px 15px;font-size:.87rem}
+  .shell-flow .cf-batch-panel .actions .btn-primary{min-width:0}
+}
+@media(max-width:390px){
+  .shell-flow .cf-batch-panel .actions .btn{padding-inline:11px}
+}
+@media(prefers-reduced-motion:reduce){
+ .shell-flow .cf-batch-panel .cf-batch-questions>.cf-batch-question{transition:none}
+}
