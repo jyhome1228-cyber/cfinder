@@ -218,22 +218,26 @@ function review({ assessment, attempt, storageAvailable }) {
 
 function reflectionPanel(groups) {
   return `<section class="cf-reflection" aria-labelledby="cf-reflection-heading">
-    <div class="cf-reflection-head"><div><span>MY EXPLORATION</span><h2 id="cf-reflection-heading">내가 선택한 응답 살펴보기</h2><p>정답이나 진로 적합도가 아니라, 방금 내가 직접 선택한 답변을 정리한 기록이에요.</p></div><span class="cf-reflection-type">비공식 자기탐색</span></div>
-    <div class="cf-reflection-legend" aria-label="응답 범례"><span class="cf-legend-low">그렇지 않은 편 (1·2)</span><span class="cf-legend-mid">보통 (3)</span><span class="cf-legend-high">그런 편 (4·5)</span></div>
-    <div class="cf-reflection-grid">${groups.map(group => {
+    <div class="cf-reflection-head"><div><span>MY EXPLORATION</span><h2 id="cf-reflection-heading">나의 선택, 이렇게 정리했어요</h2><p>흥미·적성·가치관별로 내가 직접 선택한 답을 정리했어요. 높고 낮음으로 나를 평가하는 결과는 아니에요.</p></div><span class="cf-reflection-type">나의 응답 기록</span></div>
+    <div class="cf-reflection-legend" aria-label="응답 범례"><span class="cf-legend-low">그렇지 않은 편 1·2</span><span class="cf-legend-mid">보통 3</span><span class="cf-legend-high">그런 편 4·5</span></div>
+    <div class="cf-reflection-grid">${groups.map((group,groupIndex) => {
       const low = group.distribution.low, mid = group.distribution.middle, high = group.distribution.high;
       const percent = value => (value / group.count * 100).toFixed(2);
-      return `<article class="cf-reflection-card" aria-labelledby="reflection-${group.id}">
-        <div class="cf-reflection-card-heading"><h3 id="reflection-${group.id}">${e(group.label)}</h3><span>${group.count}개 문항</span></div>
-        <p class="cf-reflection-prompt">${e(group.prompt)}</p>
-        <div class="cf-reflection-distribution" role="img" aria-label="${e(group.label)} 영역: 그렇지 않은 편 ${low}개, 보통 ${mid}개, 그런 편 ${high}개">
-          <span class="cf-response-low" style="width:${percent(low)}%"></span><span class="cf-response-mid" style="width:${percent(mid)}%"></span><span class="cf-response-high" style="width:${percent(high)}%"></span>
+      return `<article class="cf-reflection-card cf-reflection-card--${group.id}" aria-labelledby="reflection-${group.id}">
+        <div class="cf-reflection-card-heading"><div><span class="cf-reflection-domain-num">0${groupIndex+1}</span><h3 id="reflection-${group.id}">${e(group.label)}</h3><p class="cf-reflection-prompt">${e(group.prompt)}</p></div><span class="cf-reflection-total">${group.count}개 문항</span></div>
+        <div class="cf-reflection-content">
+          <div class="cf-reflection-primary">
+            <div class="cf-reflection-subheading"><h4>나의 응답 분포</h4><span>선택한 응답 수</span></div>
+            <div class="cf-reflection-distribution" role="img" aria-label="${e(group.label)} 영역: 그렇지 않은 편 ${low}개, 보통 ${mid}개, 그런 편 ${high}개">
+              <span class="cf-response-low" style="width:${percent(low)}%"></span><span class="cf-response-mid" style="width:${percent(mid)}%"></span><span class="cf-response-high" style="width:${percent(high)}%"></span>
+            </div>
+            <div class="cf-reflection-counts"><span>${low}개</span><span>${mid}개</span><span>${high}개</span></div>
+            <div class="cf-reflection-highlights"><h4>내가 '그런 편' 이상으로 선택한 항목</h4>
+              ${group.highlighted.length ? `<ul>${group.highlighted.map(item=>`<li><span>${e(item.name)}</span><strong>${item.value} / 5</strong></li>`).join('')}</ul>` : '<p class="cf-reflection-empty">높게 선택한 항목이 없어도 괜찮아요. 다른 응답도 나를 이해하는 단서가 돼요.</p>'}
+            </div>
+          </div>
+          <aside class="cf-reflection-next" aria-label="${e(group.label)} 다음 탐색 안내"><div class="cf-reflection-next-label"><span class="cf-reflection-next-mark" aria-hidden="true">✦</span> 다음에 해볼 일</div><p>${e(group.activity)}</p><div class="cf-reflection-next-question"><span>생각해 볼 질문</span><strong>${e(group.question)}</strong></div></aside>
         </div>
-        <div class="cf-reflection-counts"><span>${low}개</span><span>${mid}개</span><span>${high}개</span></div>
-        <div class="cf-reflection-highlights"><h4>내가 '그런 편' 이상으로 선택한 항목</h4>
-          ${group.highlighted.length ? `<ul>${group.highlighted.map(item=>`<li><span>${e(item.name)}</span><strong>${item.value} / 5</strong></li>`).join('')}</ul>` : '<p class="cf-reflection-empty">해당하는 항목이 없어요. 다른 응답도 나를 알아가는 단서가 될 수 있어요.</p>'}
-        </div>
-        <div class="cf-reflection-next"><span>다음 탐색</span><p>${e(group.activity)}</p><strong>${e(group.question)}</strong></div>
       </article>`;
     }).join('')}</div>
     <p class="cf-reflection-disclaimer">이 그래프는 응답 개수만 표시합니다. 영역 간 우열이나 재능, 직업 적합도, 공식 RIASEC 유형을 뜻하지 않습니다.</p>
@@ -246,10 +250,10 @@ function result({ assessment, attempt }) {
   const reflection = factorMode ? getReflectionSummary(attempt, assessment) : null;
   return `<div class="flow-container">${stepper('result')}
     <section class="panel completion-panel"><div class="cf-completion-celebration" aria-hidden="true"><span class="cf-completion-spark cf-completion-spark-one"></span><span class="cf-completion-spark cf-completion-spark-two"></span><span class="cf-completion-spark cf-completion-spark-three"></span>${letterArt('C', 'complete', true)}</div><div class="completion-check" aria-hidden="true">✓</div><span class="pill">${e(assessment.label)}</span>
-      <h1 id="page-heading" tabindex="-1">${factorMode ? '자기탐색 완료' : '체험 완료'}</h1>
-      <p class="page-description">${result.answeredCount}개 항목의 응답을 완료했습니다.</p>
-      ${factorMode ? `<p class="cf-reflection-intro">이제 나의 자기탐색 기록을 살펴보세요. 개인의 자기평가이며, 공식 점수 분석이나 진로 적합도 판정이 아닙니다.</p>${reflectionPanel(reflection)}` : `<div class="completed-summary">${Object.entries(DOMAINS).map(([id,d]) => `<div><span class="domain-icon">${domainIcon(id)}</span><strong>${d.label}</strong></div>`).join('')}</div><p class="cf-reflection-intro">3문항 화면 체험을 마쳤어요. 이 체험에서는 개인 분석 결과를 제공하지 않아요.</p>`}
-      <p class="notice">지금 확인한 내용은 나의 직접 응답을 정리한 자기탐색 기록입니다. 공식 점수나 진로 유형은 산출되지 않으며, 아래 결과지는 개인 응답과 무관한 별도 디자인 예시입니다.</p>
+      <h1 id="page-heading" tabindex="-1">${factorMode ? '나를 알아가는 첫 탐색을 마쳤어요!' : '화면 체험을 마쳤어요!'}</h1>
+      <p class="page-description">${result.answeredCount}개 항목의 응답을 모두 마쳤어요. 이제 나의 선택을 천천히 돌아볼까요?</p>
+      ${factorMode ? `<div class="cf-completion-overview"><span><strong>49</strong>개 문항 응답</span><span>흥미 · 적성 · 가치관</span><span>나의 응답 기록</span></div>${reflectionPanel(reflection)}` : `<div class="completed-summary">${Object.entries(DOMAINS).map(([id,d]) => `<div><span class="domain-icon">${domainIcon(id)}</span><strong>${d.label}</strong></div>`).join('')}</div><p class="cf-reflection-intro">3문항 화면 체험을 마쳤어요. 이 체험에서는 개인 분석 결과를 제공하지 않아요.</p>`}
+      <p class="notice cf-result-separation">위 내용은 내가 직접 선택한 답변의 기록이에요. 공식 점수나 진로 유형은 산출되지 않아요. 아래 결과지는 개인 응답과 무관한 별도 디자인 예시입니다.</p>
       <div class="actions"><a class="btn btn-outline" href="#home">처음 화면으로</a><a class="btn btn-primary" href="#report">결과지 구성 예시 보기</a></div>
       <details class="answer-receipt"><summary>내가 응답한 내용 보기</summary><ul>${assessment.questions.map(q => `<li><strong>${e(q.text)}</strong><span>${e(assessment.options.find(o => o.value === attempt.answers[q.id]).label)}</span></li>`).join('')}</ul></details>
       <button type="button" class="text-button restart-button" data-action="request-restart">새로 탐색하기</button>
