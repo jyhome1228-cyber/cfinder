@@ -24,7 +24,7 @@ test('C is the only hero letter; catalog and sample results use contextually acc
   assert.ok(hero.includes('cf-hero-letter'));
   assert.ok(hero.includes(LETTER_IMAGES.C));
   assert.ok(!hero.includes(LETTER_IMAGES.R));
-  assert.equal((home.match(/class="lab-type"/g)||[]).length,6);
+  assert.equal((home.match(/class="lab-type cf-type-trigger"/g)||[]).length,6);
   for(const code of ['R','I','A','S','E','C'])assert.ok(home.includes('data-letter-code="'+code+'"'));
   assert.ok(home.includes('cf-result-letters'));
   assert.ok(home.includes('data-letter-code="E"'));
