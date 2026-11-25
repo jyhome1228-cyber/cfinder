@@ -194,23 +194,40 @@ function review({ assessment, attempt, storageAvailable }) {
   const complete = isComplete(attempt, assessment);
   const domains = assessment.kind === 'factor_exploration' ? ['interest','aptitude','values'] : [...new Set(assessment.questions.map(q => q.domain))];
   return `<div class="flow-container">${stepper('review')}
-    <section class="panel review-panel"><div class="panel-heading"><span class="pill">${e(assessment.label)}</span></div>
-      <h1 id="page-heading" tabindex="-1">응답 검토</h1>
-      <p class="page-description">${total}항목 중 ${count}항목에 응답했어요. 아래 영역을 펼쳐 답변을 확인하거나 수정해 주세요. 응답은 현재 브라우저 탭에 임시 보관되며 다른 기기에는 연동되지 않습니다.</p>
-      <div class="cf-review-summary"><strong>${count} / ${total} 응답 완료</strong><span>${complete ? '모든 문항에 답했어요. 최종 완료 전에 답변을 확인해 주세요.' : `미응답 ${total - count}개가 남아 있어요.`}</span></div>
-      ${!complete ? `<p class="notice" role="status">아직 답하지 않은 문항이 있어요. 아래 버튼을 눌러 바로 이동할 수 있어요.</p><button type="button" class="btn btn-outline cf-missing-cta" data-action="first-missing">첫 미응답 문항으로 이동</button>` : ''}
-      <div class="cf-review-groups">${domains.map(domain => {
+    <section class="panel review-panel cf-review-refined" aria-labelledby="page-heading">
+      <div class="cf-review-intro">
+        <div class="cf-review-intro-copy"><span class="cf-review-kicker">${e(assessment.label)} · 마지막 확인</span>
+          <h1 id="page-heading" tabindex="-1">응답 검토</h1>
+          <p>${complete ? '여기까지 잘 왔어요! 선택한 답변을 한 번 더 확인해 볼까요?' : '거의 다 왔어요! 아직 답하지 않은 문항부터 확인해 볼까요?'}</p>
+        </div>
+        <div class="cf-review-guide" role="note">
+          <span class="cf-review-guide-avatar" aria-hidden="true">${letterArt('C','review',true)}</span>
+          <div><strong>${complete ? '모든 문항에 답했어요!' : '조금만 더 해볼까요?'}</strong><span>${complete ? '세 영역을 눌러 답변을 살펴보고 완료해 주세요.' : `미응답 ${total-count}개를 확인하면 완료할 수 있어요.`}</span></div>
+        </div>
+      </div>
+      <div class="cf-review-status ${complete ? 'is-complete' : 'is-incomplete'}" role="status">
+        <div class="cf-review-status-copy"><span>전체 응답 현황</span><strong>${count} <small>/ ${total}</small></strong><p>${complete ? '모든 응답이 준비됐어요.' : `남은 문항 ${total - count}개`}</p></div>
+        <div class="cf-review-status-progress" aria-label="전체 응답 진행률 ${count}/${total}"><span style="width:${Math.round(count/total*100)}%"></span></div>
+      </div>
+      ${!complete ? `<div class="cf-review-missing-note"><p>아직 선택하지 않은 문항이 있어요. 먼저 답하고 돌아올 수 있어요.</p><button type="button" class="btn btn-outline cf-missing-cta" data-action="first-missing">미응답 문항으로 이동</button></div>` : ''}
+      <div class="cf-review-section-heading"><div><h2>영역별 응답 확인</h2><p>영역을 누르면 내가 선택한 답변이 펼쳐져요.</p></div><span>${domains.length}개 영역</span></div>
+      <div class="cf-review-groups">${domains.map((domain,groupIndex) => {
         const items = assessment.questions.map((q,i) => ({q,i})).filter(x=>x.q.domain===domain);
         const done = items.filter(x=>Object.hasOwn(attempt.answers,x.q.id)).length;
-        return `<details class="cf-review-domain" ${done < items.length ? 'open' : ''}>
-          <summary><strong>${e(DOMAINS[domain].label)}</strong><span>${done === items.length ? '응답 완료' : `미응답 ${items.length-done}개`} · ${done}/${items.length}</span></summary>
+        const fullyDone = done === items.length;
+        const ratio = Math.round(done/items.length*100);
+        return `<details class="cf-review-domain" ${!fullyDone ? 'open' : ''}>
+          <summary><span class="cf-review-domain-main"><span class="cf-review-domain-index">0${groupIndex+1}</span><span class="cf-review-domain-label"><strong>${e(DOMAINS[domain].label)}</strong><small>${e(DOMAINS[domain].description)}</small></span></span><span class="cf-review-domain-meta"><span class="cf-review-domain-status ${fullyDone ? 'is-done' : 'is-pending'}">${fullyDone ? '응답 완료' : `미응답 ${items.length-done}개`}</span><span class="cf-review-domain-count">${done} / ${items.length}</span><span class="cf-review-chevron" aria-hidden="true"></span></span></summary>
+          <div class="cf-review-domain-progress" aria-hidden="true"><span style="width:${ratio}%"></span></div>
           <ol class="review-list">${items.map(({q,i})=>{
             const answer = assessment.options.find(option => option.value === attempt.answers[q.id]);
-            return `<li class="review-item ${!answer ? 'is-unanswered' : ''}"><div class="review-meta"><span>${i + 1}번</span></div><div class="review-copy"><h2>${e(q.text)}</h2><p>${answer ? e(answer.label) : '<span class="unanswered">아직 응답하지 않았어요</span>'}</p></div><button class="text-button" type="button" data-action="edit" data-index="${i}" aria-label="${i + 1}번 항목 ${answer ? '수정하기' : '응답하기'}">${answer ? '수정하기' : '응답하기'}</button></li>`;
+            return `<li class="review-item ${!answer ? 'is-unanswered' : ''}"><div class="review-meta"><span>${i + 1}번</span></div><div class="review-copy"><h3>${e(q.text)}</h3><p>${answer ? e(answer.label) : '<span class="unanswered">아직 응답하지 않았어요</span>'}</p></div><button class="text-button" type="button" data-action="edit" data-index="${i}" aria-label="${i + 1}번 항목 ${answer ? '수정하기' : '응답하기'}">${answer ? '수정' : '응답'}</button></li>`;
           }).join('')}</ol>
         </details>`;
       }).join('')}</div>
-      <div class="actions"><button class="btn btn-outline" type="button" data-action="last-question">마지막 문항 수정</button><button class="btn btn-primary" type="button" data-action="complete" ${!complete ? 'disabled' : ''}>${assessment.kind === 'factor_exploration' ? '자기탐색 완료하기' : '체험 완료하기'}</button></div>
+      <div class="cf-review-bottom"><p>응답은 이 브라우저 탭에 임시 저장돼요. 다른 기기와 자동으로 연동되지는 않아요.</p>
+        <div class="actions"><button class="btn btn-outline" type="button" data-action="last-question">마지막 문항 수정</button><button class="btn btn-primary" type="button" data-action="complete" ${!complete ? 'disabled' : ''}>${assessment.kind === 'factor_exploration' ? '자기탐색 완료하기' : '체험 완료하기'}</button></div>
+      </div>
       ${!storageAvailable ? storageNotice(false) : ''}
     </section>
   </div>`;
