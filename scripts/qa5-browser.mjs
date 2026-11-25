@@ -41,6 +41,19 @@ try {
  assert.match(await page.locator('[data-tutorial-feedback]').innerText(),/선택했어요/);
  await page.locator('[data-action="begin"]').click();
  await page.waitForURL(/#test\/0/);
+ // On long question screens, only the progress box stays pinned on scroll.
+ await page.evaluate(()=>window.scrollTo(0,780));
+ await page.waitForTimeout(150);
+ const sticky=await page.evaluate(()=>({
+   progressTop:document.querySelector('.cf-assessment-progress').getBoundingClientRect().top,
+   headerBottom:document.querySelector('.site-header').getBoundingClientRect().bottom,
+   position:getComputedStyle(document.querySelector('.cf-assessment-progress')).position
+ }));
+ assert.equal(sticky.position,'sticky','Question progress must use sticky positioning');
+ assert.ok(sticky.progressTop>=0 && sticky.progressTop<22,'Progress must remain pinned near viewport top');
+ assert.ok(sticky.headerBottom<0,'The main header must scroll away during the questionnaire');
+ console.log('ASSESSMENT_STICKY',JSON.stringify(sticky));
+ await page.evaluate(()=>window.scrollTo(0,0));
  // First page: incomplete answers cannot advance.
  await page.locator('[data-action="next"]').click();
  assert.equal(await page.locator('.cf-batch-question.is-missing').count(),5);
