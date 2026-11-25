@@ -107,6 +107,26 @@ try {
   }
   await ctx.close();
  }
+ // About is a separate HTML page: its font, header and navigation must match the main service.
+ for (const width of [375,768,1440]) {
+  const {context:ctx,page:p}=await openPage(width,900);
+  await p.goto(base+'about/',{waitUntil:'domcontentloaded'});
+  await p.evaluate(()=>document.fonts.ready);
+  const info=await p.evaluate(()=>({
+   bodyFont:getComputedStyle(document.body).fontFamily,
+   headingFont:getComputedStyle(document.querySelector('.hero h1')).fontFamily,
+   navLabels:[...document.querySelectorAll('.promo-nav a')].map(a=>a.textContent.trim()),
+   overflow:document.documentElement.scrollWidth-innerWidth,
+   headerHeight:Math.round(document.querySelector('.promo-header').getBoundingClientRect().height)
+  }));
+  assert.match(info.bodyFont,/Pretendard/,'About typography diverged from main brand');
+  assert.match(info.headingFont,/Pretendard/,'About heading font must match main brand');
+  assert.deepEqual(info.navLabels,['홈','결과 예시','검사 소개','진단 시작하기']);
+  assert.equal(info.overflow,0,'About page overflows viewport');
+  console.log('ABOUT_VIEWPORT',width,JSON.stringify(info));
+  await p.screenshot({path:`qa-artifacts/about-${width}.png`,fullPage:true});
+  await ctx.close();
+ }
  const {context:aboutCtx,page:about}=await openPage(375);
  await about.goto(base+'about/',{waitUntil:'domcontentloaded'});
  await about.locator('.menu-toggle').click();
@@ -123,6 +143,14 @@ try {
  assert.match(await about.locator('#draft-mailto').getAttribute('href'),/^mailto:/);
  await about.screenshot({path:'qa-artifacts/inquiry-mobile.png'});
  await aboutCtx.close();
+ // Navigation from the About page must not trigger the blocking blue splash.
+ const {context:navCtx,page:navigation}=await openPage(1440);
+ await navigation.goto(base+'about/',{waitUntil:'domcontentloaded'});
+ await navigation.locator('.brand').first().click();
+ await navigation.waitForURL(url=>new URL(url).pathname==='/' && new URL(url).hash==='#home');
+ await navigation.locator('#app').waitFor();
+ assert.equal(await navigation.locator('#brand-loader').count(),0,'Normal return to home should not show blue intro');
+ await navCtx.close();
  assert.deepEqual(errors,[],'Browser script errors');
  console.log('QA5_BROWSER_SMOKE_PASS');
 }finally{
