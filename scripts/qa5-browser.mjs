@@ -30,6 +30,27 @@ try {
   await introPage.locator('.cfinder-intro-skip').click();
   await introContext.close();
  }
+ // RIASEC character cards: open six type guides, dismiss and restore focus.
+ {
+  const {context:typesCtx,page:typesPage}=await openPage(1440);
+  await typesPage.goto(base+'#home',{waitUntil:'domcontentloaded'});
+  await typesPage.locator('[data-action="open-riasec"]').first().waitFor();
+  assert.equal(await typesPage.locator('[data-action="open-riasec"]').count(),6);
+  for(const code of ['R','I','A','S','E','C']){
+    await typesPage.locator('[data-action="open-riasec"][data-type="'+code+'"]').click();
+    const modal=typesPage.locator('#cf-riasec-dialog');
+    await modal.waitFor({state:'visible'});
+    assert.equal(await modal.locator('[data-riasec-art] .cf-letter--modal').count(),1);
+    assert.equal(await modal.locator('[data-riasec-traits] li').count(),3);
+    await modal.locator('[data-action="close-riasec"]').first().click();
+    await modal.waitFor({state:'hidden'});
+  }
+  await typesPage.locator('[data-action="open-riasec"][data-type="R"]').click();
+  await typesPage.keyboard.press('Escape');
+  await typesPage.locator('#cf-riasec-dialog').waitFor({state:'hidden'});
+  await typesPage.screenshot({path:'qa-artifacts/riasec-home.png',fullPage:true});
+  await typesCtx.close();
+ }
  const {context,page}=await openPage(1440);
  await page.goto(base+'#start',{waitUntil:'domcontentloaded'});
  await page.locator('[data-action="show-grade-choices"]').click();
