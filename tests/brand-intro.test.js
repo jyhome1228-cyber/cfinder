@@ -34,12 +34,14 @@ test('supplied blue and white eater loader has seven sequential vanishing dots',
 });
 test('intro is dismissible, honors reduced motion and does not repeat on navigation',()=>{
   const app=read('../assets/app.js');
-  assert.ok(app.includes('cfinder:brand-intro:v1'));
-  assert.ok(app.includes("sessionStorage.setItem('cfinder:brand-intro:v1', 'seen')"));
+  assert.ok(app.includes('cfinder:brand-intro:v2'));
+  assert.ok(app.includes("sessionStorage.setItem('cfinder:brand-intro:v2', 'seen')"));
   assert.ok(app.includes('isHomeEntry'));
   assert.ok(app.includes("get('intro') === 'replay'"));
   assert.ok(app.includes('3580'));
   assert.ok(app.includes('forceReplay'));
+  assert.ok(app.includes('fromAbout'));
+  assert.ok(app.includes('!alreadyShown && !fromAbout'));
 
   assert.ok(app.includes('prefers-reduced-motion: reduce'));
   assert.ok(app.includes('cfinder-intro-skip'));
