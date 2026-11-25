@@ -160,6 +160,19 @@ function render() {
   app.querySelector('#page-heading')?.focus({ preventScroll: true });
 }
 
+function updatePageSpeechBubble(missingCount, needsAttention = false) {
+  const feedback = app.querySelector('[data-page-feedback]');
+  if (!feedback) return;
+  const done = missingCount === 0;
+  feedback.classList.toggle('is-complete', done);
+  feedback.classList.toggle('is-pending', !done);
+  feedback.classList.toggle('is-attention', needsAttention && !done);
+  const title = feedback.querySelector('[data-feedback-title]');
+  const copy = feedback.querySelector('[data-feedback-copy]');
+  if (title) title.textContent = done ? '좋아요! 다 답했어요.' : needsAttention ? '앗, 아직 답하지 않은 문항이 있어요.' : '조금만 더 해볼까요?';
+  if (copy) copy.textContent = done ? '다음 페이지로 넘어가 볼까요?' : needsAttention ? `표시된 ${missingCount}개 문항도 선택해 주세요.` : `아직 ${missingCount}개 문항이 남았어요.`;
+}
+
 function refreshAnswerUI(questionId, value) {
   const current = assessment();
   const attempt = currentAttempt();
@@ -172,8 +185,7 @@ function refreshAnswerUI(questionId, value) {
     label.classList.toggle('is-selected', label.querySelector('input').checked);
   });
   const missing = pageMissingQuestions(current, attempt.answers, page);
-  const feedback = app.querySelector('[data-page-feedback]');
-  if (feedback) feedback.textContent = missing.length ? `남은 ${missing.length}개 문항에 응답해 주세요.` : '이번 페이지의 응답을 마쳤어요. 다음 단계로 진행할 수 있어요.';
+  updatePageSpeechBubble(missing.length);
   row?.classList.remove('is-missing');
   app.querySelector('[data-progress-text]').textContent = `${count}/${total} 응답 · ${Math.round(count / total * 100)}%`;
   const pageStatus = app.querySelector('[data-page-status]');
@@ -296,8 +308,7 @@ app.addEventListener('click', event => {
     if (missing.length) {
       const rows = [...app.querySelectorAll('[data-question-row]')];
       rows.forEach(row => row.classList.toggle('is-missing', missing.some(q => q.id === row.dataset.questionRow)));
-      const feedback = app.querySelector('[data-page-feedback]');
-      if (feedback) feedback.textContent = `아직 ${missing.length}개 문항이 남아 있어요. 표시된 문항에 답해 주세요.`;
+      updatePageSpeechBubble(missing.length, true);
       const first = rows.find(row => row.dataset.questionRow === missing[0].id);
       first?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       first?.querySelector('input[type="radio"]')?.focus({ preventScroll: true });
