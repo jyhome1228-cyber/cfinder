@@ -1,0 +1,41 @@
+/* Keep just the assessment progress in view as students scroll through questions. */
+body:has(.shell-test) .site-header{
+  position:relative;
+  top:auto;
+}
+.shell-test .cf-batch-panel .cf-assessment-progress{
+  position:sticky;
+  top:10px;
+  z-index:30;
+  isolation:isolate;
+  background:rgba(249,251,255,.98);
+  box-shadow:0 8px 26px rgba(30,62,120,.10);
+  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(12px);
+}
+.shell-test .cf-batch-panel .cf-batch-question{
+  scroll-margin-top:155px;
+}
+@media(max-width:700px){
+  .shell-test .cf-batch-panel .cf-assessment-progress{
+    top:6px;
+    padding:12px 13px;
+    box-shadow:0 5px 18px rgba(30,62,120,.10);
+  }
+  .shell-test .cf-batch-panel .cf-batch-question{
+    scroll-margin-top:144px;
+  }
+}
+@media(prefers-reduced-transparency:reduce){
+  .shell-test .cf-batch-panel .cf-assessment-progress{
+    background:#f9fbff;
+    -webkit-backdrop-filter:none;
+    backdrop-filter:none;
+  }
+}
+@media print{
+  .shell-test .cf-batch-panel .cf-assessment-progress{
+    position:static;
+    box-shadow:none;
+  }
+}
