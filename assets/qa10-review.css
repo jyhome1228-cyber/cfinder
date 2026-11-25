@@ -1,0 +1,93 @@
+/* C-Finder review: focused final-check layout */
+.shell-flow .review-panel.cf-review-refined{
+  padding:clamp(24px,3vw,44px);
+  border:1px solid #e3eaf3;
+  border-radius:16px;
+  box-shadow:0 14px 40px rgba(21,48,96,.025);
+  background:#fff;
+}
+.shell-flow .cf-review-intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(285px, .6fr);gap:24px;align-items:center;margin-bottom:25px}
+.shell-flow .cf-review-kicker{display:inline-block;font-size:.79rem;font-weight:650;color:#3862b4;margin-bottom:12px}
+.shell-flow .cf-review-intro h1{font-size:clamp(1.48rem,2.3vw,1.88rem);line-height:1.35;font-weight:760;color:#23314a;margin:0 0 11px;letter-spacing:-.045em}
+.shell-flow .cf-review-intro-copy p{margin:0;color:#5f708a;font-size:.93rem;line-height:1.72;word-break:keep-all}
+.shell-flow .cf-review-guide{display:flex;align-items:center;gap:11px;padding:12px 14px;border:1px solid #e3ecfb;border-radius:13px;background:#f7faff}
+.shell-flow .cf-review-guide-avatar{display:flex;align-items:center;justify-content:center;flex:0 0 64px;width:64px;height:66px}
+.shell-flow .cf-review-guide .cf-letter--review,.shell-flow .cf-review-guide .cf-letter--review .cf-letter-img{width:60px;height:60px;display:block;object-fit:contain}
+.shell-flow .cf-review-guide>div{min-width:0}
+.shell-flow .cf-review-guide strong{display:block;font-size:.88rem;color:#284b8f;font-weight:750;line-height:1.5;margin-bottom:4px}
+.shell-flow .cf-review-guide>div>span{display:block;font-size:.79rem;color:#607795;line-height:1.5;word-break:keep-all}
+.shell-flow .cf-review-status{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:20px 24px;margin:0 0 29px;border:1px solid #dfe9f8;border-radius:12px;background:#f7faff}
+.shell-flow .cf-review-status-copy{min-width:0}
+.shell-flow .cf-review-status-copy>span{display:block;font-size:.76rem;color:#5e78a2;font-weight:650;margin-bottom:5px}
+.shell-flow .cf-review-status-copy strong{font-size:1.65rem;line-height:1.2;color:#2456d7;font-weight:770;letter-spacing:-.035em;font-variant-numeric:tabular-nums}
+.shell-flow .cf-review-status-copy strong small{font-size:1rem;color:#8a9bbb;font-weight:550}
+.shell-flow .cf-review-status-copy p{font-size:.81rem;color:#637590;margin:7px 0 0}
+.shell-flow .cf-review-status-progress{width:min(38%,330px);height:8px;background:#dfe7f5;border-radius:50px;overflow:hidden}
+.shell-flow .cf-review-status-progress span{display:block;height:100%;border-radius:50px;background:#2458ec;transition:width .3s ease}
+.shell-flow .cf-review-section-heading{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:0 0 12px}
+.shell-flow .cf-review-section-heading h2{font-size:1.08rem;font-weight:730;color:#293b56;letter-spacing:-.025em;line-height:1.5;margin:0}
+.shell-flow .cf-review-section-heading p{margin:5px 0 0;font-size:.84rem;color:#7b899d;line-height:1.65}
+.shell-flow .cf-review-section-heading>span{font-size:.78rem;color:#8b98aa;white-space:nowrap}
+.shell-flow .cf-review-groups{border-top:1px solid #e4ebf4;border-bottom:1px solid #e4ebf4}
+.shell-flow .cf-review-groups .cf-review-domain{border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;margin:0!important;padding:0!important}
+.shell-flow .cf-review-groups .cf-review-domain+.cf-review-domain{border-top:1px solid #e9eef6!important}
+.shell-flow .cf-review-groups .cf-review-domain>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 4px;cursor:pointer;min-height:82px;background:transparent!important}
+.shell-flow .cf-review-domain summary::-webkit-details-marker{display:none}
+.shell-flow .cf-review-domain-main{display:flex;align-items:center;gap:20px;min-width:0}
+.shell-flow .cf-review-domain-index{font-size:.78rem;font-weight:700;color:#8ba6df;min-width:21px}
+.shell-flow .cf-review-domain-label strong{display:block;color:#233751;font-size:1.02rem;font-weight:730;line-height:1.48}
+.shell-flow .cf-review-domain-label small{display:block;color:#8996a8;font-size:.79rem;font-weight:440;line-height:1.5;margin-top:3px;word-break:keep-all}
+.shell-flow .cf-review-domain-meta{display:flex;align-items:center;gap:18px;white-space:nowrap}
+.shell-flow .cf-review-domain-status{font-size:.79rem;color:#4e7b64;font-weight:620}
+.shell-flow .cf-review-domain-status.is-pending{color:#b36b33}
+.shell-flow .cf-review-domain-count{font-size:.84rem;font-variant-numeric:tabular-nums;color:#697c96;font-weight:600;min-width:70px;text-align:right}
+.shell-flow .cf-review-chevron{display:block;width:9px;height:9px;transform:rotate(45deg);border-right:2px solid #8c9cb4;border-bottom:2px solid #8c9cb4;transition:transform .2s ease;margin-right:9px}
+.shell-flow .cf-review-domain[open] .cf-review-chevron{transform:rotate(225deg)}
+.shell-flow .cf-review-domain>summary:focus-visible{outline:3px solid #1957ef;outline-offset:-3px;border-radius:5px}
+.shell-flow .cf-review-domain-progress{height:3px;background:#edf1f8;margin:0 4px;border-radius:6px;overflow:hidden}
+.shell-flow .cf-review-domain-progress span{display:block;height:100%;background:#80a0ed}
+.shell-flow .cf-review-domain .review-list{margin:0!important;padding:10px 5px 16px!important;list-style:none!important}
+.shell-flow .cf-review-domain .review-item{display:grid;grid-template-columns:54px minmax(0,1fr) 64px;align-items:center;gap:16px;border-bottom:1px solid #eef2f8;margin:0;padding:13px 4px!important;background:#fff;min-width:0}
+.shell-flow .cf-review-domain .review-item:last-child{border-bottom:0}
+.shell-flow .cf-review-domain .review-meta{font-size:.76rem;color:#8a98aa;white-space:nowrap}
+.shell-flow .cf-review-domain .review-copy{min-width:0}
+.shell-flow .cf-review-domain .review-copy h3{font-size:.86rem;line-height:1.52;color:#334964;font-weight:610;margin:0;word-break:keep-all}
+.shell-flow .cf-review-domain .review-copy p{font-size:.79rem;color:#436eda;margin:5px 0 0;line-height:1.5}
+.shell-flow .cf-review-domain .review-item .text-button{border:1px solid #dce6f5;border-radius:7px;padding:7px 9px;font-size:.78rem;min-height:34px;color:#3e64a6;background:#fff;cursor:pointer;text-align:center}
+.shell-flow .cf-review-domain .review-item .text-button:hover{border-color:#a8c0ec;background:#f6f9ff}
+.shell-flow .cf-review-bottom{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:27px}
+.shell-flow .cf-review-bottom>p{color:#8090a4;font-size:.78rem;line-height:1.65;max-width:480px;margin:0;word-break:keep-all}
+.shell-flow .cf-review-bottom>.actions{display:flex;align-items:center;gap:10px;margin:0!important;padding:0!important;flex:none}
+.shell-flow .cf-review-bottom .btn{min-height:46px;border-radius:9px;padding:10px 17px;font-size:.88rem;font-weight:670;white-space:nowrap}
+.shell-flow .cf-review-bottom .btn-primary{background:#1957ef;border-color:#1957ef}
+.shell-flow .cf-review-missing-note{display:flex;justify-content:space-between;align-items:center;gap:14px;background:#fff9f1;border:1px solid #f0dfc8;border-radius:10px;padding:14px 17px;margin:-9px 0 25px}
+.shell-flow .cf-review-missing-note p{margin:0;font-size:.85rem;color:#8b623b;line-height:1.6}
+.shell-flow .cf-review-missing-note .btn{flex:none;margin:0}
+@media(max-width:950px){.shell-flow .cf-review-intro{grid-template-columns:1fr;gap:17px}.shell-flow .cf-review-guide{max-width:500px}.shell-flow .cf-review-bottom{flex-direction:column;align-items:stretch}.shell-flow .cf-review-bottom>.actions{justify-content:space-between}}
+@media(max-width:650px){
+ .shell-flow .review-panel.cf-review-refined{padding:23px 17px;border-radius:12px}
+ .shell-flow .cf-review-intro{margin-bottom:18px}
+ .shell-flow .cf-review-guide{padding:10px;gap:6px}
+ .shell-flow .cf-review-guide-avatar{flex-basis:49px;width:49px;height:52px}
+ .shell-flow .cf-review-guide .cf-letter--review,.shell-flow .cf-review-guide .cf-letter--review .cf-letter-img{width:49px;height:49px}
+ .shell-flow .cf-review-status{padding:17px 16px;gap:10px;margin-bottom:23px}
+ .shell-flow .cf-review-status-copy strong{font-size:1.36rem}
+ .shell-flow .cf-review-status-progress{width:34%}
+ .shell-flow .cf-review-groups .cf-review-domain>summary{min-height:80px;padding:14px 0;gap:10px}
+ .shell-flow .cf-review-domain-main{gap:9px}
+ .shell-flow .cf-review-domain-index{min-width:18px}
+ .shell-flow .cf-review-domain-meta{gap:8px}
+ .shell-flow .cf-review-domain-status{font-size:.71rem}
+ .shell-flow .cf-review-domain-count{min-width:48px;font-size:.74rem}
+ .shell-flow .cf-review-domain-label small{font-size:.72rem;max-width:200px}
+ .shell-flow .cf-review-chevron{width:7px;height:7px;margin:0 5px 0 0}
+ .shell-flow .cf-review-domain .review-item{grid-template-columns:34px minmax(0,1fr) 48px;gap:8px;padding:12px 0!important}
+ .shell-flow .cf-review-domain .review-copy h3{font-size:.81rem}
+ .shell-flow .cf-review-domain .review-item .text-button{font-size:.75rem;padding:6px 5px}
+ .shell-flow .cf-review-bottom>.actions{flex-wrap:wrap;gap:9px}
+ .shell-flow .cf-review-bottom .btn{flex:1;padding:11px 9px;font-size:.81rem}
+ .shell-flow .cf-review-missing-note{flex-direction:column;align-items:stretch}
+}
+@media(max-width:390px){.shell-flow .cf-review-domain-status{display:none}.shell-flow .cf-review-domain-label small{max-width:165px}.shell-flow .cf-review-intro h1{font-size:1.45rem}}
+@media(prefers-reduced-motion:reduce){.shell-flow .cf-review-chevron,.shell-flow .cf-review-status-progress span{transition:none}}
+@media print{.cf-review-refined{display:none!important}}
