@@ -89,6 +89,6 @@ test('review is split into three expandable domain summaries with individual edi
  assert.equal((html.match(/class="cf-review-domain"/g)||[]).length,3);
  assert.equal((html.match(/class="review-item/g)||[]).length,49);
  assert.equal((html.match(/data-action="edit"/g)||[]).length,49);
- assert.ok(html.includes('미응답 49개를 확인하면 완료할 수 있어요.'));
+ assert.ok(html.includes('미응답 49개를 채우면 나의 탐색 결과를 볼 수 있어요.'));
  assert.ok(html.includes('data-action="complete" disabled'));
 });
