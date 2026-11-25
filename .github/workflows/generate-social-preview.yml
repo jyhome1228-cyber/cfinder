@@ -1,0 +1,37 @@
+name: Generate C-Finder social preview
+on:
+  push:
+    branches: [main]
+    paths:
+      - share-card/index.html
+      - scripts/render-share-og.mjs
+      - .github/workflows/generate-social-preview.yml
+  workflow_dispatch:
+jobs:
+  image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install screenshot runner
+        run: npm install --no-save playwright
+      - name: Render preview PNG
+        run: |
+          npm run start -- --port 8000 >/tmp/cfinder-preview.log 2>&1 &
+          sleep 3
+          node scripts/render-share-og.mjs
+      - name: Commit generated image
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/share/cfinder-social-20261125.png
+          if ! git diff --cached --quiet; then
+            git commit -m "Generate C-Finder branded Kakao share preview"
+            git push origin HEAD:main
+          fi
