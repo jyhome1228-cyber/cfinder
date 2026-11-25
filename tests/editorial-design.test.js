@@ -20,7 +20,7 @@ test('assessment-first homepage retains diagnosis and deeper report navigation',
   assert.match(home,/lab-result-card/);
 });
 test('RIASEC catalog contains all six basic categories, no avatar illustration',()=>{
-  assert.equal((home.match(/<article class="lab-type cf-type-trigger">/g)||[]).length,6);
+  assert.equal((home.match(/<button class="lab-type cf-type-trigger"/g)||[]).length,6);
   for(const type of ['현실형','탐구형','예술형','사회형','진취형','관습형'])assert.ok(home.includes(type));
   assert.equal(home.includes('lab-avatar'),false);
   assert.equal(home.includes('lab-side-figure'),false);
