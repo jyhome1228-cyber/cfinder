@@ -12,11 +12,13 @@ test('RIASEC cards are buttons opening a shared accessible modal',()=>{
  assert.ok(page.includes('aria-describedby="cf-riasec-description"'));
  assert.ok(!page.includes('유형 설명은 일반적인 탐색 정보입니다.'));
 });
-test('each type has specific explanation, activities, and a reflection question',()=>{
+test('only source-verified RIASEC labels are published; unsupported activities removed',()=>{
+ assert.deepEqual(TYPES.map(type=>type.name),['현실형','탐구형','예술형','사회형','진취형','관습형']);
  for(const type of TYPES) {
-  assert.ok(type.intro.length>=35,type.code);
-  assert.equal(type.traits.length,3,type.code);
-  assert.ok(type.example.length>=20,type.code);
-  assert.ok(type.question.endsWith('?'),type.code);
+  assert.deepEqual(Object.keys(type).sort(),['code','name']);
  }
+ assert.equal((page.match(/data-action="switch-riasec"/g)||[]).length,6);
+ assert.ok(page.includes('원본 기획서에서 확인된 유형명'));
+ for(const forbidden of ['간단한 조립 키트','직접 해볼 수 있는 탐색','생각해 볼 질문','평소 궁금했던 현상','아이디어 제안하기'])
+   assert.ok(!page.includes(forbidden),forbidden);
 });
