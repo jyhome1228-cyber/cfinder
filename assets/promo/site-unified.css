@@ -1,0 +1,70 @@
+/* Shared typography and navigation for the C-Finder About page. */
+@font-face{font-family:Pretendard;src:url("../fonts/PretendardVariable.woff2") format("woff2");font-style:normal;font-weight:100 900;font-display:swap}
+:root{--body:Pretendard,"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;--heading:var(--body);--blue:#1957ef;--blue-dark:#1546c9;--ink:#192840;--line:#e1e8f2;--sky:#f6f9ff;--lime:#e9f2ff}
+html{scroll-padding-top:86px}
+body,button,input,select,textarea{font-family:var(--body)!important;letter-spacing:-.022em}
+h1,h2,h3,h4,.brand,.promo-nav,.button{font-family:var(--body)!important;letter-spacing:-.035em}
+body{color:#27364c;font-size:16px;line-height:1.7}
+.container{width:min(100%,1440px);max-width:1440px;padding-left:48px;padding-right:48px;margin-left:auto;margin-right:auto}
+.promo-header.site-header{background:#fff;box-shadow:none;min-height:76px}
+.promo-header .header-inner.container{display:flex;gap:32px;min-height:76px;align-items:center}
+.promo-header .brand{flex:none;margin:0}
+.promo-header .brand .brand-wordmark{width:152px;max-height:38px;height:auto}
+.promo-header .promo-nav{margin-left:auto;gap:32px;font-size:.91rem;font-weight:580;align-items:center}
+.promo-header .promo-nav>a{display:inline-flex;align-items:center;justify-content:center;min-height:76px;padding:16px 0;color:#64748b;line-height:1.4;position:relative;white-space:nowrap}
+.promo-header .promo-nav>a:hover{color:#1957ef}
+.promo-header .promo-nav>a[aria-current="page"]{color:#1957ef;font-weight:720}
+.promo-header .promo-nav>a[aria-current="page"]::after{content:"";position:absolute;bottom:-1px;left:0;right:0;height:2px;background:#1957ef}
+.promo-header .promo-nav .service-link{margin-left:0;min-height:44px;padding:10px 19px;border:1px solid #1957ef;border-radius:9px;background:#1957ef;color:#fff;font-size:.88rem;font-weight:680}
+.promo-header .promo-nav .service-link:hover{background:#1249dc;color:#fff}
+.hero{gap:clamp(34px,5vw,84px);grid-template-columns:minmax(0,1fr) minmax(0,1fr);padding-block:80px 66px}
+.hero h1{font-size:clamp(28px,2.5vw,37px);line-height:1.42;font-weight:780;color:#1e2d46;letter-spacing:-.05em}
+.hero h1 mark{color:#1957ef;background:transparent;box-shadow:none}
+.hero .eyebrow{font-size:13px;font-weight:750;color:#1957ef;letter-spacing:.01em}
+.hero-description{margin-top:24px;line-height:1.8;color:#33445e;font-size:17px}
+.hero-sub{margin-top:11px;line-height:1.8;color:#6c7b92;font-size:14px}
+.hero-actions{margin-top:27px;gap:10px}
+.button{border-radius:9px;min-height:48px;font-size:.92rem;font-weight:680;padding:10px 19px}
+.hero-actions .button{padding-inline:19px}
+.hero-report{padding:18px;background:#fff;border:1px solid #e3eaf4;border-radius:13px;box-shadow:none}
+.hero-report .report-window{border-color:#e0e7f2}
+.hero-report .report-window-body h2{font-family:var(--body);font-weight:740;letter-spacing:-.04em}
+.hero-report .report-window-body .cf-public-report-preview{background:#f7faff}
+.hero-report figcaption{color:#728198}
+.facts{margin-top:0;gap:24px}
+.facts strong,.facts span{font-family:var(--body)}
+.section-heading h2,.feature-copy h3{font-weight:740;letter-spacing:-.04em}
+.sample-section{background:#f8faff}
+.contact{background:#f4f8ff}
+.promo-footer{border-top:1px solid #e3e9f2}
+.promo-footer .brand{font-family:var(--body)}
+@media(max-width:1150px){
+ .container{padding-inline:32px;width:100%}
+ .promo-header .promo-nav{gap:22px}
+ .hero{gap:32px}
+}
+@media(max-width:950px){
+ .promo-header .header-inner.container{min-height:74px}
+ .promo-header .menu-toggle{display:flex;margin-left:auto}
+ .promo-header .promo-nav{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;box-shadow:0 12px 24px #21345212;padding:14px 32px 20px;flex-direction:column;align-items:stretch;gap:0}
+ .promo-header .promo-nav.is-open{display:flex}
+ .promo-header .promo-nav>a{min-height:46px;justify-content:flex-start;padding:12px 0}
+ .promo-header .promo-nav>a[aria-current="page"]::after{display:none}
+ .promo-header .promo-nav .service-link{justify-content:center;margin-top:9px;min-height:46px}
+ .hero{padding-block:59px 47px}
+}
+@media(max-width:650px){
+ .container{padding-inline:20px;width:100%}
+ .promo-header .header-inner.container{min-height:68px;gap:14px}
+ .promo-header .brand .brand-wordmark{width:132px}
+ .promo-header .promo-nav{padding-inline:20px}
+ .hero{grid-template-columns:1fr;padding-block:44px 34px;gap:26px}
+ .hero h1{font-size:clamp(27px,7vw,34px)}
+ .hero-description{font-size:15px;margin-top:17px}
+ .hero-sub{font-size:13px}
+ .hero-actions{display:grid;grid-template-columns:1fr 1fr}
+ .hero-actions .button{font-size:13px;padding-inline:8px}
+ .hero-report{max-width:none;padding:13px}
+ .facts{gap:12px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.button{transition:none}}
