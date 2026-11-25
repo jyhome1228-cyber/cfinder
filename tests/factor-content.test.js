@@ -52,8 +52,8 @@ test('a complete 49-item exploration only reflects user ratings; it never diagno
   assert.ok(html.includes('자기탐색 완료'));
   assert.ok(html.includes('49개 항목의 응답'));
   assert.ok(html.includes('AI·컴퓨터·정보보안'));
-  assert.ok(html.includes('자기평가이며'));
-  assert.ok(html.includes('공식 점수나 진로 유형은 산출되지 않으며'));
+  assert.ok(html.includes('내가 직접 선택한 답변'));
+  assert.ok(html.includes('공식 점수나 진로 유형은 산출되지 않아요'));
 });
 
 test('question UI shows source-backed factor context and accurate progress',()=>{
