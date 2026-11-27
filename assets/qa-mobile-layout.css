@@ -1,0 +1,64 @@
+/* Mobile QA: process CTA, about problem rows, completion label spacing. */
+.cf-editorial .lab-process-heading > a {
+  flex: 0 0 auto;
+  max-width: none;
+  width: max-content;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: keep-all;
+}
+.shell-flow .completion-panel > .pill,
+.shell-flow .completion-panel > .cf-completion-status {
+  display: inline-block;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.shell-flow .completion-panel > .cf-completion-status {
+  margin-inline-start: 8px;
+}
+@media (max-width: 760px) {
+  .cf-editorial .lab-process-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) max-content;
+    align-items: center;
+    gap: 8px 12px;
+  }
+  .cf-editorial .lab-process-heading > div { display: contents; }
+  .cf-editorial .lab-process-heading .lab-section-heading {
+    grid-column: 1;
+    grid-row: 1;
+    word-break: keep-all;
+  }
+  .cf-editorial .lab-process-heading > a {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+  }
+  .cf-editorial .lab-process-heading p {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin-top: 0;
+  }
+  .problem .question-columns {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    min-width: 0;
+  }
+  .problem .question-columns article {
+    display: block;
+    min-width: 0;
+    padding: 22px 0;
+  }
+  .problem .question-columns article h3 {
+    margin: 0 0 8px;
+    word-break: keep-all;
+    overflow-wrap: normal;
+  }
+  .problem .question-columns article p {
+    min-width: 0;
+    margin: 0;
+    max-width: 100%;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+}
